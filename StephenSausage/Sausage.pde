@@ -9,7 +9,7 @@ public class Sausage{
  boolean s22cooked;
  boolean side;
  
- public Sausage(int x1, int x2, int y1, int y2){
+ public Sausage(int x1, int y1, int x2, int y2){ //must be next to each other
   this.x1 = x1;
   this.x2 = x2;
   this.y1 = y1;
