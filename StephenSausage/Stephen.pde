@@ -21,10 +21,10 @@ public class Stephen{
   }
   
   public void move(char c){
-     if(c=='w') y--;
-     else if(c=='a' && x>0) x--;
-     else if(c=='s' && y<rows-1) y++;
-     else if(c=='d' && x<cols-1) x++;
+     if(c=='w' && (orientation%2==1)) y--;
+     else if(c=='a' && orientation%2==0) x--;
+     else if(c=='s' && (orientation%2==1)) y++;
+     else if(c=='d' && orientation%2==0) x++;
      else if(c=='e') orientation = (orientation+1)%4;
      else if(c=='q') orientation = orientation == 0 ? 3 : orientation-1;
      forky = y+orientations[orientation][0];
