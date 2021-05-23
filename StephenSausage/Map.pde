@@ -20,6 +20,8 @@ public class Map{
       stroke(0);
       if(i==stephen.x && j==stephen.y)
         fill(color(255,165,0));
+      if(i==stephen.forkx && j==stephen.forky)
+        fill(100);
       rect(x,y,tile_side, tile_side);
      }
     }
