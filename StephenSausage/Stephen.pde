@@ -17,11 +17,11 @@ public class Stephen{
     this.rows = rows;
     this.cols = cols;
     forky = this.y+orientations[orientation][0];
-     forkx = this.x+orientations[orientation][1];
+    forkx = this.x+orientations[orientation][1];
   }
   
   public void move(char c){
-     if(c=='w' && y>0) y--;
+     if(c=='w') y--;
      else if(c=='a' && x>0) x--;
      else if(c=='s' && y<rows-1) y++;
      else if(c=='d' && x<cols-1) x++;
