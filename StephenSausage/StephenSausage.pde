@@ -14,10 +14,8 @@ void setup(){
       if(i==0 || j==0 || i==arr1.length-1 || j==arr1[0].length-1) arr1[i][j] = -1;
   arr1[4][4] = 2;
   
+  stephen = new Stephen(2, 2, 0);
   sausages = new ArrayList<Sausage>();
-  sausages.add(new Sausage(1,1,1,2));
-  sausages.add(new Sausage(3,3,3,4));
-  stephen = new Stephen(2, 2, 0, sausages);
   mp1 = new Map(arr1, stephen, sausages);
 }
 
@@ -26,8 +24,6 @@ void draw(){
 }
 
 void keyPressed(){
-  if(mp1.noBarriers(stephen, key)){
+  if(mp1.noBarriers(stephen, key))
     stephen.move(key);
-    stephen.rotate(key);
-  }
 }
