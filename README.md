@@ -1,5 +1,5 @@
 # APCSFinalProject
-##Stephen's Sausage Squad
+## Stephen's Sausage Squad
 
 Alvin Li and Andrew Juang
 
