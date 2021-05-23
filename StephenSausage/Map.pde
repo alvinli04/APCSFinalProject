@@ -53,7 +53,6 @@ public class Map{
    }
    return true;
   }
-   
     
   public void show(){
     for(int i=0; i<board.length; i++){
@@ -70,6 +69,16 @@ public class Map{
         fill(color(255,165,0));
       if(i==stephen.forkx && j==stephen.forky)
         fill(100);
+      //show sausages
+      
+      if((i==sausages.get(0).x1 && j==sausages.get(0).y1))
+        fill(color(150,75,0));
+      if((i==sausages.get(0).x2 && j==sausages.get(0).y2))
+        fill(color(150,75,0));
+      if((i==sausages.get(1).x1 && j==sausages.get(1).y1))
+        fill(color(150,75,0));
+      if((i==sausages.get(1).x2 && j==sausages.get(1).y2))
+        fill(color(150,75,0));
       rect(x,y,tile_side, tile_side);
      }
     }

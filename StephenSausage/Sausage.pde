@@ -20,4 +20,24 @@ public class Sausage{
   s22cooked = false;
   side = true;
  }
+ 
+ public void moveUp() {
+   y1--;
+   y2--;
+ }
+ 
+ public void moveDown() {
+   y1++;
+   y2++;
+ }
+ 
+ public void moveLeft() {
+   x1--;
+   x2--;
+ }
+ 
+ public void moveRight() {
+   x1++;
+   x2++;
+ }
 }
