@@ -11,11 +11,23 @@ public class Map{
   }
   
   public boolean noBarriers(Stephen stephen, char c){
-   if(c=='w') return stephen.y > 0 && board[stephen.y-1][stephen.x] != -1 && board[stephen.y-1][stephen.x] != 2;
-   else if(c=='a') return stephen.x > 0 && board[stephen.y][stephen.x-1]!=-1 && board[stephen.y][stephen.x-1]!= 2;
-   else if(c=='s') return stephen.y<board.length-1 && board[stephen.y+1][stephen.x] !=-1 && board[stephen.y+1][stephen.x] != 2;
-   else if(c=='d') return stephen.x<board[0].length-1 && board[stephen.y][stephen.x+1]!=-1 && board[stephen.y][stephen.x+1]!= 2;
-   else if(c=='q') {
+   if(c=='w'){
+     if(stephen.y > 1) return board[stephen.y-2][stephen.x] != 2;
+     return stephen.y > 0 && 
+     board[stephen.y-1][stephen.x] != -1;
+   } else if(c=='a'){
+     if(stephen.x > 1) return board[stephen.y][stephen.x-1] != 2;
+     return stephen.x > 0 && 
+     board[stephen.y][stephen.x-1] != -1;
+   } else if(c=='s'){
+     if(stephen.y < board.length - 2) return board[stephen.y+2][stephen.x] != 2;
+     return stephen.y<board.length-1 && 
+     board[stephen.y+1][stephen.x] != -1;
+   } else if(c=='d'){
+     if(stephen.x < board[0].length - 2) return board[stephen.y][stephen.x+2] != 2;
+     return stephen.x<board[0].length-1 && 
+     board[stephen.y][stephen.x+1] != -1;
+   } else if(c=='q') {
      switch(stephen.orientation){
       case 0:
         return board[stephen.y-1][stephen.x+1] != 2 && board[stephen.y-1][stephen.x] != 2;
