@@ -1,6 +1,5 @@
 public class Stephen{
   public int x, y, orientation, forkx, forky;
-  private int rows, cols;
 
   private final int[][] orientations = {
    {0,1},
@@ -10,12 +9,10 @@ public class Stephen{
   };
   
   
-  public Stephen(int x, int y, int orientation, int rows, int cols){
+  public Stephen(int x, int y, int orientation){
     this.x = x;
     this.y = y;
     this.orientation = orientation;
-    this.rows = rows;
-    this.cols = cols;
     forky = this.y+orientations[orientation][0];
     forkx = this.x+orientations[orientation][1];
   }

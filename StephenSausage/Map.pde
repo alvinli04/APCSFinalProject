@@ -11,12 +11,34 @@ public class Map{
   }
   
   public boolean noBarriers(Stephen stephen, char c){
-   if(c=='w') return stephen.y > 0 && board[stephen.y-1][stephen.x] != -1;
-   else if(c=='a') return stephen.x > 0 && board[stephen.y][stephen.x-1]!=-1;
-   else if(c=='s') return stephen.y<board.length-1 && board[stephen.y+1][stephen.x] !=-1;
-   else if(c=='d') return stephen.x<board[0].length-1 && board[stephen.y][stephen.x+1]!=-1;
-   else if(c=='e') return true;
-   else if(c=='q') return true;
+   if(c=='w') return stephen.y > 0 && board[stephen.y-1][stephen.x] != -1 && board[stephen.y-1][stephen.x] != 2;
+   else if(c=='a') return stephen.x > 0 && board[stephen.y][stephen.x-1]!=-1 && board[stephen.y][stephen.x-1]!= 2;
+   else if(c=='s') return stephen.y<board.length-1 && board[stephen.y+1][stephen.x] !=-1 && board[stephen.y+1][stephen.x] != 2;
+   else if(c=='d') return stephen.x<board[0].length-1 && board[stephen.y][stephen.x+1]!=-1 && board[stephen.y][stephen.x+1]!= 2;
+   else if(c=='q') {
+     switch(stephen.orientation){
+      case 0:
+        return board[stephen.y-1][stephen.x+1] != 2 && board[stephen.y-1][stephen.x] != 2;
+      case 1:
+        return board[stephen.y][stephen.x+1] != 2 && board[stephen.y+1][stephen.x+1] != 2;
+      case 2:
+        return board[stephen.y+1][stephen.x] != 2 && board[stephen.y+1][stephen.x-1] != 2;
+      case 3:
+        return board[stephen.y-1][stephen.x-1] != 2 && board[stephen.y][stephen.x-1] != 2;
+     }
+   }
+   else if(c=='e'){
+    switch(stephen.orientation){
+      case 0:
+        return board[stephen.y+1][stephen.x+1] != 2 && board[stephen.y+1][stephen.x] != 2;
+      case 1:
+        return board[stephen.y+1][stephen.x-1] != 2 && board[stephen.y][stephen.x-1] != 2;
+      case 2:
+        return board[stephen.y-1][stephen.x-1] != 2 && board[stephen.y-1][stephen.x] != 2;
+      case 3:
+        return board[stephen.y-1][stephen.x+1] != 2 && board[stephen.y][stephen.x+1] != 2;
+     } 
+   }
    return true;
 }
   
@@ -29,6 +51,8 @@ public class Map{
       stroke(0);
       if(board[i][j]==-1)
         fill(color(50,150,200));
+      if(board[i][j]==2)
+        fill(color(124,252,0));
       if(i==stephen.x && j==stephen.y)
         fill(color(255,165,0));
       if(i==stephen.forkx && j==stephen.forky)
