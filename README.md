@@ -1,5 +1,5 @@
 # APCSFinalProject
-Floofers
+##Stephen's Sausage Squad
 
 Alvin Li and Andrew Juang
 
