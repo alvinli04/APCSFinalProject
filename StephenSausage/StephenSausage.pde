@@ -24,6 +24,6 @@ void draw(){
 }
 
 void keyPressed(){
-  if(mp1.noBarriers(stephen, key))
+  if(mp1.noBarriers(stephen, key) && mp1.touchSausage(stephen,key))
     stephen.move(key);
 }

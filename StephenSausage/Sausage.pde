@@ -1,8 +1,8 @@
 public class Sausage{
- private int x1;
- private int y1; 
- private int x2;
- private int y2;
+ public int x1;
+ public int y1; 
+ public int x2;
+ public int y2;
  boolean s11cooked;
  boolean s12cooked;
  boolean s21cooked;
