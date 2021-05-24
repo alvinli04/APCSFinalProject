@@ -10,3 +10,7 @@ We will be implementing a 2D version of the tile-based puzzle game Stephen’s S
 
 Expanded Proposal:
 https://docs.google.com/document/d/11rjUp0ROTnMHaH1btTx4NzmoW22lxmyqH-2S1eCXvDc/edit?usp=sharing
+
+## Devlog
+
+5/23 - wrote the skeleton for classes and their methods, implemented the basic tile structure of the game, as well as WASD movement and rotations. Put in some obstacles which restrict movement and rotations.
