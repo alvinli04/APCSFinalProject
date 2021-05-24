@@ -14,6 +14,7 @@ https://docs.google.com/document/d/11rjUp0ROTnMHaH1btTx4NzmoW22lxmyqH-2S1eCXvDc/
 ## Devlog
 
 5/23 (Alvin) - wrote the skeleton for classes and their methods, implemented the basic tile structure of the game, as well as WASD movement and rotations. Put in some obstacles which restrict movement and rotations.
+
 5/23 (Andrew) - worked on prototype diagram, the UML diagram, began brainstorming ideas on the implementation of sausage movement. 
 
 5/24 (Alvin/Andrew) - shared screens in zoom meeting, created branch sausagemovement, and began implementing the touchSausage method. updated the sausage class to work with the touchSausage method. 
