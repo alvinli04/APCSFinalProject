@@ -16,6 +16,8 @@ void setup(){
   
   stephen = new Stephen(2, 2, 0);
   sausages = new ArrayList<Sausage>();
+  sausages.add(new Sausage(1,1,1,2));
+  sausages.add(new Sausage(3,3,3,4));
   mp1 = new Map(arr1, stephen, sausages);
 }
 

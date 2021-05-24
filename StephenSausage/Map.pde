@@ -3,6 +3,7 @@ public class Map {
   public int[][] board; //-1 is water, 0 is walkable, 1 is grill, 2 is rock
   private Stephen stephen;
   public ArrayList<Sausage> sausages;
+  private int newstephenx, newstepheny, newforkx, newforky;
 
   public Map(int[][] board, Stephen stephen, ArrayList<Sausage> sausages) {
     this.board = board;
@@ -54,7 +55,6 @@ public class Map {
   }
 
   public boolean touchSausage(Stephen stephen, char c) {
-    int newstephenx, newstepheny, newforkx, newforky;
     if (c=='w') {
       newstephenx = stephen.x;
       newstepheny = stephen.y-1;
@@ -110,10 +110,27 @@ public class Map {
         newforky = stephen.forky;
       }
     }
-    for(Sausage s : sausages) {
-      if((newforkx==x1&&newforky==y1)||
-         (newforkx==x2&&newforky==y2))
+    for (Sausage s : sausages) {
+      boolean firstchunk = (newforkx==s.x1&&newforky==s.y1);
+      boolean secondchunk = (newforkx==s.x2&&newforky==s.y2);
+      if ((firstchunk&&newstephenx==stephen.x+1) ||
+        (secondchunk&&newstephenx==stephen.x+1)) {
+        s.moveRight();
+      }
+      if ((firstchunk&&newstephenx==stephen.x-1)||
+        (secondchunk&&newstephenx==stephen.x-1)) {
+        s.moveLeft();
+      }
+      if ((firstchunk&&newstepheny==stephen.y+1)||
+        (secondchunk&&newstepheny==stephen.y+1)) {
+        s.moveDown();
+      }
+      if ((firstchunk&&newstepheny==stephen.y-1)||
+        (secondchunk&&newstepheny==stephen.y-1)) {
+        s.moveUp();
+      }
     }
+    return true;
   }
 
 
@@ -132,6 +149,15 @@ public class Map {
           fill(color(255, 165, 0));
         if (i==stephen.forkx && j==stephen.forky)
           fill(100);
+        //show sausages
+        if ((i==sausages.get(0).x1 && j==sausages.get(0).y1))
+          fill(color(150, 75, 0));
+        if ((i==sausages.get(0).x2 && j==sausages.get(0).y2))
+          fill(color(150, 75, 0));
+        if ((i==sausages.get(1).x1 && j==sausages.get(1).y1))
+          fill(color(150, 75, 0));
+        if ((i==sausages.get(1).x2 && j==sausages.get(1).y2))
+          fill(color(150, 75, 0));
         rect(x, y, tile_side, tile_side);
       }
     }
