@@ -54,7 +54,7 @@ public class Map {
     return true;
   }
 
-  public boolean touchSausage(Stephen stephen, char c) {
+  public boolean forkTouchSausage(Stephen stephen, char c) {
     if (c=='w') {
       newstephenx = stephen.x;
       newstepheny = stephen.y-1;
@@ -133,6 +133,21 @@ public class Map {
     return true;
   }
 
+  public boolean stephenTouchSausage(Stephen stephen, char c) {
+    for (Sausage s : sausages) {
+      if (c=='w'&&((s.x1==stephen.x&&s.y1==stephen.y-1)||(s.x2==stephen.x&&s.y2==stephen.y-1))) {
+        s.moveUp();
+      } else if (c=='a'&&((s.x1==stephen.x-1&&s.y1==stephen.y)||(s.x2==stephen.x-1&&s.y2==stephen.y))) {
+        s.moveLeft();
+      } else if (c=='s'&&((s.x1==stephen.x&&s.y1==stephen.y+1)||(s.x2==stephen.x&&s.y2==stephen.y+1))) {
+        s.moveDown();
+      } else if (c=='d'&&((s.x1==stephen.x+1&&s.y1==stephen.y)||(s.x2==stephen.x+1&&s.y2==stephen.y))) {
+        s.moveRight();
+      }
+    }
+    return true;
+  }
+
 
   public void show() {
     for (int i=0; i<board.length; i++) {
@@ -142,22 +157,22 @@ public class Map {
         fill(255);
         stroke(0);
         if (board[i][j]==-1)
-          fill(color(50, 150, 200));
+        fill(color(50, 150, 200));
         if (board[i][j]==2)
-          fill(color(124, 252, 0));
+        fill(color(124, 252, 0));
         if (i==stephen.x && j==stephen.y)
-          fill(color(255, 165, 0));
+        fill(color(255, 165, 0));
         if (i==stephen.forkx && j==stephen.forky)
-          fill(100);
+        fill(100);
         //show sausages
         if ((i==sausages.get(0).x1 && j==sausages.get(0).y1))
-          fill(color(150, 75, 0));
+        fill(color(150, 75, 0));
         if ((i==sausages.get(0).x2 && j==sausages.get(0).y2))
-          fill(color(150, 75, 0));
+        fill(color(150, 75, 0));
         if ((i==sausages.get(1).x1 && j==sausages.get(1).y1))
-          fill(color(150, 75, 0));
+        fill(color(150, 75, 0));
         if ((i==sausages.get(1).x2 && j==sausages.get(1).y2))
-          fill(color(150, 75, 0));
+        fill(color(150, 75, 0));
         rect(x, y, tile_side, tile_side);
       }
     }
