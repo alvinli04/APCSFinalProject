@@ -20,7 +20,7 @@ void setup(){
   stephen = new Stephen(2, 2, 0);
   sausages = new ArrayList<Sausage>();
   //sausages.add(new Sausage(8,8,8,7));
-  sausages.add(new Sausage(2,3,3,3));
+  sausages.add(new Sausage(3,2,3,3));
   mp1 = new Map(arr1, stephen, sausages);
 }
 

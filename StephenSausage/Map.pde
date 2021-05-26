@@ -111,9 +111,12 @@ public class Map {
         newforky = stephen.y;
       }
     }
+    println("fork: " + newforkx + " " + newforky);
     for (Sausage s : sausages) { //<>//
-      boolean firstchunk = (newforkx==s.x1&&newforky==s.y1);
-      boolean secondchunk = (newforkx==s.x2&&newforky==s.y2);
+      boolean firstchunk = newforkx==s.x1 && newforky==s.y1;
+      boolean secondchunk = newforkx==s.x2 && newforky==s.y2;
+      println(s.x1 + " " + s.y1 + " " + s.x2 + " " + s.y2);
+      println(firstchunk + " " + secondchunk);
       if ((firstchunk&&newstephenx==stephen.x+1) ||
         (secondchunk&&newstephenx==stephen.x+1)) {
         if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
@@ -136,10 +139,9 @@ public class Map {
         s.moveUp();
       } 
       //fork intersects sausage
-      if (firstchunk || secondchunk){
+      else if (firstchunk || secondchunk){
         println("bop");  
         //fork is left
-        
         if (stephen.forkx < s.x1 && stephen.forkx < s.x2){
           if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
             return false;
@@ -150,6 +152,7 @@ public class Map {
           if (board[s.y1][s.x1-1] == 2 || board[s.y2][s.x2-1] == 2)
             return false;
           s.moveLeft();
+          println("bob");
         }
         //fork is down
         else if (stephen.forky > s.y1 && stephen.forky > s.y2) {
@@ -162,13 +165,12 @@ public class Map {
          if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
             return false;
           s.moveDown();
-          System.out.println("work");
         }
         
       }
-    }
+    } //<>//
     return true;
-  } //<>//
+  }
   
   public boolean stephenTouchSausage (Stephen stephen, char c) {
     for (Sausage s : sausages) {
@@ -212,8 +214,8 @@ public class Map {
         //show sausages
         
         for(Sausage s : sausages) {
-         if ((i==s.x1 && j==s.y1) ||
-             (i==s.x2 && j==s.y2))
+         if ((i==s.y1 && j==s.x1) ||
+             (i==s.y2 && j==s.x2))
           fill(color(150, 75, 0)); 
         }
         rect(x, y, tile_side, tile_side);
