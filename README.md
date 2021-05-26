@@ -10,3 +10,13 @@ We will be implementing a 2D version of the tile-based puzzle game Stephen’s S
 
 Expanded Proposal:
 https://docs.google.com/document/d/11rjUp0ROTnMHaH1btTx4NzmoW22lxmyqH-2S1eCXvDc/edit?usp=sharing
+
+## Devlog
+
+5/23 (Alvin) - wrote the skeleton for classes and their methods, implemented the basic tile structure of the game, as well as WASD movement and rotations. Put in some obstacles which restrict movement and rotations.
+
+5/23 (Andrew) - worked on prototype diagram, the UML diagram, began brainstorming ideas on the implementation of sausage movement. 
+
+5/24 (Alvin/Andrew) - shared screens in zoom meeting, created branch sausagemovement, and began implementing the touchSausage method. updated the sausage class to work with the touchSausage method. 
+
+5/25 (Andrew) - Fixed bug in forkTouchSausage method where sausage would move even though stephen was not oriented correctly. Also fixed rotations in the stephenTouchSausage method and began brainstorming with Alvin on ways to implement the movement of sausage caused by the rotation of stephen. 
