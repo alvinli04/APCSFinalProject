@@ -139,7 +139,7 @@ public class Map {
       if (firstchunk || secondchunk){
         println("bop");  
         //fork is left
-        /*
+        
         if (stephen.forkx < s.x1 && stephen.forkx < s.x2){
           if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
             return false;
@@ -164,7 +164,7 @@ public class Map {
           s.moveDown();
           System.out.println("work");
         }
-        */
+        
       }
     }
     return true;
@@ -173,13 +173,21 @@ public class Map {
   public boolean stephenTouchSausage (Stephen stephen, char c) {
     for (Sausage s : sausages) {
       if (c=='w' && ((s.x1==stephen.x&&s.y1==stephen.y-1)||(s.x2==stephen.x&&s.y2==stephen.y-1)) && stephen.orientation%2==1) {
-        s.moveUp();
+        if (board[s.y1-1][s.x1] == 2 || board[s.y2-1][s.x2] == 2)
+            return false;
+          s.moveUp();
       } else if (c=='a'&&((s.x1==stephen.x-1&&s.y1==stephen.y)||(s.x2==stephen.x-1&&s.y2==stephen.y)) && stephen.orientation%2==0) {
-        s.moveLeft();
+        if (board[s.y1][s.x1-1] == 2 || board[s.y2][s.x2-1] == 2)
+            return false;
+          s.moveLeft();
       } else if (c=='s'&&((s.x1==stephen.x&&s.y1==stephen.y+1)||(s.x2==stephen.x&&s.y2==stephen.y+1)) && stephen.orientation%2==1) {
-        s.moveDown();
+        if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
+            return false;
+          s.moveDown();
       } else if (c=='d'&&((s.x1==stephen.x+1&&s.y1==stephen.y)||(s.x2==stephen.x+1&&s.y2==stephen.y)) && stephen.orientation%2==0) {
-        s.moveRight();
+        if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
+            return false;
+          s.moveRight();
       }
     }
     return true;
