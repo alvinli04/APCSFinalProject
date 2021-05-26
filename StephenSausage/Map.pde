@@ -3,7 +3,7 @@ public class Map {
   public int[][] board; //-1 is water, 0 is walkable, 1 is grill, 2 is rock
   private Stephen stephen;
   public ArrayList<Sausage> sausages;
-  private int newstephenx, newstepheny, newforkx, newforky;
+  private int newstephenx=-1, newstepheny=-1, newforkx=-1, newforky=-1;
 
   public Map(int[][] board, Stephen stephen, ArrayList<Sausage> sausages) {
     this.board = board;
@@ -55,22 +55,22 @@ public class Map {
   }
 
   public boolean forkTouchSausage(Stephen stephen, char c) {
-    if (c=='w') {
+    if (c=='w' && stephen.orientation%2==1) {
       newstephenx = stephen.x;
       newstepheny = stephen.y-1;
       newforkx = stephen.forkx;
       newforky = stephen.forky-1;
-    } else if (c=='a') {
+    } else if (c=='a' && stephen.orientation%2==0) {
       newstephenx = stephen.x-1;
       newstepheny = stephen.y;
       newforkx = stephen.forkx-1;
       newforky = stephen.forky;
-    } else if (c=='s') {
+    } else if (c=='s' && stephen.orientation%2==1) {
       newstephenx = stephen.x;
       newstepheny = stephen.y+1;
       newforkx = stephen.forkx;
       newforky = stephen.forky+1;
-    } else if (c=='d') {
+    } else if (c=='d' && stephen.orientation%2==0) {
       newstephenx = stephen.x+1;
       newstepheny = stephen.y;
       newforkx = stephen.forkx+1;
@@ -135,13 +135,13 @@ public class Map {
 
   public boolean stephenTouchSausage(Stephen stephen, char c) {
     for (Sausage s : sausages) {
-      if (c=='w'&&((s.x1==stephen.x&&s.y1==stephen.y-1)||(s.x2==stephen.x&&s.y2==stephen.y-1))) {
+      if (c=='w' && ((s.x1==stephen.x&&s.y1==stephen.y-1)||(s.x2==stephen.x&&s.y2==stephen.y-1)) && stephen.orientation%2==1) {
         s.moveUp();
-      } else if (c=='a'&&((s.x1==stephen.x-1&&s.y1==stephen.y)||(s.x2==stephen.x-1&&s.y2==stephen.y))) {
+      } else if (c=='a'&&((s.x1==stephen.x-1&&s.y1==stephen.y)||(s.x2==stephen.x-1&&s.y2==stephen.y)) && stephen.orientation%2==0) {
         s.moveLeft();
-      } else if (c=='s'&&((s.x1==stephen.x&&s.y1==stephen.y+1)||(s.x2==stephen.x&&s.y2==stephen.y+1))) {
+      } else if (c=='s'&&((s.x1==stephen.x&&s.y1==stephen.y+1)||(s.x2==stephen.x&&s.y2==stephen.y+1)) && stephen.orientation%2==1) {
         s.moveDown();
-      } else if (c=='d'&&((s.x1==stephen.x+1&&s.y1==stephen.y)||(s.x2==stephen.x+1&&s.y2==stephen.y))) {
+      } else if (c=='d'&&((s.x1==stephen.x+1&&s.y1==stephen.y)||(s.x2==stephen.x+1&&s.y2==stephen.y)) && stephen.orientation%2==0) {
         s.moveRight();
       }
     }
