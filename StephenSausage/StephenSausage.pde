@@ -19,7 +19,7 @@ void setup(){
   /* Creation of stephen, sausages, and map objects */
   stephen = new Stephen(2, 2, 0);
   sausages = new ArrayList<Sausage>();
-  sausages.add(new Sausage(1,1,1,2));
+  sausages.add(new Sausage(8,8,8,9));
   sausages.add(new Sausage(3,3,4,3));
   mp1 = new Map(arr1, stephen, sausages);
 }
@@ -29,6 +29,8 @@ void draw(){
 }
 
 void keyPressed(){
-  if(mp1.noBarriers(stephen, key) && mp1.forkTouchSausage(stephen,key) && mp1.stephenTouchSausage(stephen,key))
+  if(mp1.noBarriers(stephen, key) && 
+     mp1.forkTouchSausage(stephen,key) && 
+     mp1.stephenTouchSausage(stephen,key))
     stephen.move(key);
 }

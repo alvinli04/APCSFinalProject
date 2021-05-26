@@ -3,7 +3,7 @@ public class Map {
   public int[][] board; //-1 is water, 0 is walkable, 1 is grill, 2 is rock
   private Stephen stephen;
   public ArrayList<Sausage> sausages;
-  private int newstephenx=-1, newstepheny=-1, newforkx=-1, newforky=-1;
+  //private int newstephenx=-1, newstepheny=-1, newforkx=-1, newforky=-1;
 
   public Map(int[][] board, Stephen stephen, ArrayList<Sausage> sausages) {
     this.board = board;
@@ -55,6 +55,7 @@ public class Map {
   }
 
   public boolean forkTouchSausage(Stephen stephen, char c) {
+    int newstephenx=-1, newstepheny=-1, newforkx=-1, newforky=-1;
     if (c=='w' && stephen.orientation%2==1) {
       newstephenx = stephen.x;
       newstepheny = stephen.y-1;
@@ -80,34 +81,34 @@ public class Map {
       newstepheny = stephen.y;
       switch(stephen.orientation) {
       case 0: 
-        newforkx = stephen.forkx;
-        newforky = stephen.forky-1;
-      case 1:
-        newforkx = stephen.forkx+1;
-        newforky = stephen.forky;
-      case 2:
-        newforkx = stephen.forkx;
-        newforky = stephen.forky+1;
-      case 3:
         newforkx = stephen.forkx-1;
-        newforky = stephen.forky;
+        newforky = stephen.forky+1;
+      case 1:
+        newforkx = stephen.forkx-1;
+        newforky = stephen.forky-1;
+      case 2:
+        newforkx = stephen.forkx+1;
+        newforky = stephen.forky-1;
+      case 3:
+        newforkx = stephen.forkx+1;
+        newforky = stephen.forky+1;
       }
     } else if (c=='e') {
       newstephenx = stephen.x;
       newstepheny = stephen.y;
       switch(stephen.orientation) {
       case 0: 
-        newforkx = stephen.forkx;
-        newforky = stephen.forky+1;
+        newforkx = stephen.forkx-1;
+        newforky = stephen.forky-1;
       case 1:
         newforkx = stephen.forkx-1;
-        newforky = stephen.forky;
+        newforky = stephen.forky+1;
       case 2:
-        newforkx = stephen.forkx;
-        newforky = stephen.forky-1;
+        newforkx = stephen.forkx+1;
+        newforky = stephen.forky+1;
       case 3:
         newforkx = stephen.forkx+1;
-        newforky = stephen.forky;
+        newforky = stephen.forky-1;
       }
     }
     for (Sausage s : sausages) {
@@ -116,24 +117,22 @@ public class Map {
       if ((firstchunk&&newstephenx==stephen.x+1) ||
         (secondchunk&&newstephenx==stephen.x+1)) {
         s.moveRight();
-      }
-      if ((firstchunk&&newstephenx==stephen.x-1)||
+      } else if ((firstchunk&&newstephenx==stephen.x-1)||
         (secondchunk&&newstephenx==stephen.x-1)) {
         s.moveLeft();
-      }
-      if ((firstchunk&&newstepheny==stephen.y+1)||
+      } else if ((firstchunk&&newstepheny==stephen.y+1)||
         (secondchunk&&newstepheny==stephen.y+1)) {
         s.moveDown();
-      }
-      if ((firstchunk&&newstepheny==stephen.y-1)||
+      } else if ((firstchunk&&newstepheny==stephen.y-1)||
         (secondchunk&&newstepheny==stephen.y-1)) {
         s.moveUp();
-      }
+      } 
+      /* implement cases for when stephen rotates */
     }
     return true;
   }
-
-  public boolean stephenTouchSausage(Stephen stephen, char c) {
+  
+  public boolean stephenTouchSausage (Stephen stephen, char c) {
     for (Sausage s : sausages) {
       if (c=='w' && ((s.x1==stephen.x&&s.y1==stephen.y-1)||(s.x2==stephen.x&&s.y2==stephen.y-1)) && stephen.orientation%2==1) {
         s.moveUp();
