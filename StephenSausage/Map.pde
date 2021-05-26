@@ -82,16 +82,16 @@ public class Map {
       switch(stephen.orientation) {
       case 0: 
         newforkx = stephen.forkx-1;
-        newforky = stephen.forky+1;
+        newforky = stephen.forky-1;
       case 1:
         newforkx = stephen.forkx-1;
-        newforky = stephen.forky-1;
+        newforky = stephen.forky+1;
       case 2:
         newforkx = stephen.forkx+1;
-        newforky = stephen.forky-1;
+        newforky = stephen.forky+1;
       case 3:
         newforkx = stephen.forkx+1;
-        newforky = stephen.forky+1;
+        newforky = stephen.forky-1;
       }
     } else if (c=='e') {
       newstephenx = stephen.x;
@@ -99,35 +99,32 @@ public class Map {
       switch(stephen.orientation) {
       case 0: 
         newforkx = stephen.forkx-1;
-        newforky = stephen.forky-1;
+        newforky = stephen.forky+1;
       case 1:
         newforkx = stephen.forkx-1;
-        newforky = stephen.forky+1;
+        newforky = stephen.forky-1;
       case 2:
         newforkx = stephen.forkx+1;
-        newforky = stephen.forky+1;
+        newforky = stephen.forky-1;
       case 3:
         newforkx = stephen.forkx+1;
-        newforky = stephen.forky-1;
+        newforky = stephen.forky+1;
       }
     }
     for (Sausage s : sausages) {
       boolean firstchunk = (newforkx==s.x1&&newforky==s.y1);
       boolean secondchunk = (newforkx==s.x2&&newforky==s.y2);
-      if ((firstchunk&&newstephenx==stephen.x+1) ||
-        (secondchunk&&newstephenx==stephen.x+1)) {
+      if ((firstchunk&&newstephenx==stephen.x+1)||(secondchunk&&newstephenx==stephen.x+1)) {
         s.moveRight();
-      } else if ((firstchunk&&newstephenx==stephen.x-1)||
-        (secondchunk&&newstephenx==stephen.x-1)) {
+      } else if ((firstchunk&&newstephenx==stephen.x-1)||(secondchunk&&newstephenx==stephen.x-1)) {
         s.moveLeft();
-      } else if ((firstchunk&&newstepheny==stephen.y+1)||
-        (secondchunk&&newstepheny==stephen.y+1)) {
+      } else if ((firstchunk&&newstepheny==stephen.y+1)||(secondchunk&&newstepheny==stephen.y+1)) {
         s.moveDown();
-      } else if ((firstchunk&&newstepheny==stephen.y-1)||
-        (secondchunk&&newstepheny==stephen.y-1)) {
+      } else if ((firstchunk&&newstepheny==stephen.y-1)||(secondchunk&&newstepheny==stephen.y-1)) {
         s.moveUp();
-      } 
-      /* implement cases for when stephen rotates */
+      } else if (stephen.forkx==s.x1 && stephen.forky==s.y1-1 && newforkx==s.x1+1 && newforky==s.y1) {
+        s.moveDown();
+      }
     }
     return true;
   }
