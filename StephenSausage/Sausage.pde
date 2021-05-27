@@ -41,7 +41,10 @@ public class Sausage{
    x2++;
  }
  
- public boolean cooked(){
-  return s11cooked && s12cooked && s21cooked && s22cooked;  
+ /**
+  * Return if sausage is fully cooked 
+  */
+ public boolean cooked() {
+   return s11cooked && s12cooked && s21cooked && s22cooked;  
  }
 }
