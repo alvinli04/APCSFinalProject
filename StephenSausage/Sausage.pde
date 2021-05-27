@@ -3,11 +3,13 @@ public class Sausage{
  public int y1; 
  public int x2;
  public int y2;
- boolean s11cooked;
- boolean s12cooked;
- boolean s21cooked;
- boolean s22cooked;
- boolean side;
+ //corresponding to the piece at x1, y1
+ public boolean s11cooked;
+ public boolean s12cooked;
+ //corresponding to the piece at x2, y2
+ public boolean s21cooked;
+ public boolean s22cooked;
+ public boolean side; //true for side 1, false for side 2
  
  public Sausage(int x1, int y1, int x2, int y2){ //must be next to each other
   this.x1 = x1;

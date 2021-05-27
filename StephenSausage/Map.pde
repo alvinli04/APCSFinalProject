@@ -114,6 +114,7 @@ public class Map { //<>// //<>//
       boolean secondchunk = newforkx==s.x2 && newforky==s.y2;
       //println(s.x1 + " " + s.y1 + " " + s.x2 + " " + s.y2);
       //println(firstchunk + " " + secondchunk);
+      if(firstchunk || secondchunk) s.side = !s.side;
       if ((firstchunk&&newstephenx==stephen.x+1) ||
         (secondchunk&&newstephenx==stephen.x+1)) {
         if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
@@ -246,8 +247,19 @@ public class Map { //<>// //<>//
     }
     return true;
   }
-
+  
+  //returns -1 if lose, 1 if won, 0 if continue
   public int updateSausages(){
+    boolean allcooked = true;
+    for(Sausage s : sausages){
+      //check if in the water
+      if (board[s.y1][s.x1] == -1 && board[s.y2][s.x2] == -1)
+        return -1;
+      //check if burnt, then grill
+      
+      if(!s.cooked()) allcooked = false;
+    }
+    if (allcooked) return 1;
     return 0;
   }
   
