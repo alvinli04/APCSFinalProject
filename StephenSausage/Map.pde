@@ -13,7 +13,7 @@ public class Map { //<>// //<>//
 
   public boolean noBarriers(Stephen stephen, char c) {
     if (c=='w') {
-      if (stephen.y > 1) return board[stephen.y-2][stephen.x] != 2;
+      if (stephen.y > 1) return board[stephen.y-1][stephen.x] != 2;
       return stephen.y > 0 && 
         board[stephen.y-1][stephen.x] != -1;
     } else if (c=='a') {
@@ -164,6 +164,36 @@ public class Map { //<>// //<>//
         }
         
       }
+      //corner swings
+      else if ((s.x1 == stephen.forkx && s.y1 == newforky)||
+               (s.x1 == newforkx && s.y1 == stephen.forky)||
+               (s.x2 == stephen.forkx && s.y2 == newforky)||
+               (s.x2 == newforkx && s.y2 == stephen.forky)){
+        if (stephen.forkx < s.x1 && stephen.forkx < s.x2){
+          if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
+            return false;
+          s.moveRight();
+        }
+        //fork is right
+        else if (stephen.forkx > s.x1 && stephen.forkx > s.x2){
+          if (board[s.y1][s.x1-1] == 2 || board[s.y2][s.x2-1] == 2)
+            return false;
+          s.moveLeft();
+          println("bob");
+        }
+        //fork is down
+        else if (stephen.forky > s.y1 && stephen.forky > s.y2) {
+         if (board[s.y1-1][s.x1] == 2 || board[s.y2-1][s.x2] == 2)
+            return false;
+          s.moveUp();
+        }
+        //fork is up
+        else if (stephen.forky < s.y1 && stephen.forky < s.y2) {
+         if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
+            return false;
+          s.moveDown();
+        }
+      }
     } //<>//
     return true;
   }
@@ -191,7 +221,10 @@ public class Map { //<>// //<>//
     return true;
   }
 
-
+  public int updateSausages(){
+    return 0;
+  }
+  
   public void show() {
     for (int i=0; i<board.length; i++) {
       for (int j=0; j<board[0].length; j++) {
