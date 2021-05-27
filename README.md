@@ -20,3 +20,6 @@ https://docs.google.com/document/d/11rjUp0ROTnMHaH1btTx4NzmoW22lxmyqH-2S1eCXvDc/
 5/24 (Alvin/Andrew) - shared screens in zoom meeting, created branch sausagemovement, and began implementing the touchSausage method. updated the sausage class to work with the touchSausage method. 
 
 5/25 (Andrew) - Fixed bug in forkTouchSausage method where sausage would move even though stephen was not oriented correctly. Also fixed rotations in the stephenTouchSausage method and began brainstorming with Alvin on ways to implement the movement of sausage caused by the rotation of stephen. 
+
+5/26 (Andrew) - Fixed some discrepancies in the way coordinates were being represented.
+(Alvin) - Implemented moving sausages when Stephen rotates.
