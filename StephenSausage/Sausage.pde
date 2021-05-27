@@ -1,8 +1,8 @@
 public class Sausage{
- private int x1;
- private int y1; 
- private int x2;
- private int y2;
+ public int x1;
+ public int y1; 
+ public int x2;
+ public int y2;
  boolean s11cooked;
  boolean s12cooked;
  boolean s21cooked;
@@ -19,5 +19,29 @@ public class Sausage{
   s21cooked = false;
   s22cooked = false;
   side = true;
+ }
+ 
+ public void moveUp() {
+   y1--;
+   y2--;
+ }
+ 
+ public void moveDown() {
+   y1++;
+   y2++;
+ }
+ 
+ public void moveLeft() {
+   x1--;
+   x2--;
+ }
+ 
+ public void moveRight() {
+   x1++;
+   x2++;
+ }
+ 
+ public boolean cooked(){
+  return s11cooked && s12cooked && s21cooked && s22cooked;  
  }
 }
