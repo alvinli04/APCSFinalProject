@@ -40,4 +40,8 @@ public class Sausage{
    x1++;
    x2++;
  }
+ 
+ public boolean cooked(){
+  return s11cooked && s12cooked && s21cooked && s22cooked;  
+ }
 }

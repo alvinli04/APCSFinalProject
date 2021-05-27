@@ -12,20 +12,20 @@ void setup(){
   /* Initialization of Board */
   for(int i=0; i<arr1.length; i++)
     for(int j=0; j<arr1[0].length; j++)
-      if(i==0 || j==0 || i==arr1.length-1 || j==arr1[0].length-1) arr1[i][j] = -1;
+      if(i==0 || j==0 || i==arr1.length-1 || j==arr1[0].length-1) arr1[i][j] = 2;
   /* optional rock */
   //arr1[4][4] = 2;
   
   /* Creation of stephen, sausages, and map objects */
   stephen = new Stephen(2, 2, 0);
   sausages = new ArrayList<Sausage>();
-  sausages.add(new Sausage(5,5,5,6));
-  sausages.add(new Sausage(3,3,4,3));
+  //sausages.add(new Sausage(8,8,8,7));
+  sausages.add(new Sausage(5,4,4,4));
   mp1 = new Map(arr1, stephen, sausages);
 }
 
 void draw(){
- mp1.show(); 
+  mp1.show();
 }
 
 void keyPressed(){

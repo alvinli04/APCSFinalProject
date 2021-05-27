@@ -1,4 +1,4 @@
-public class Map {
+public class Map { //<>// //<>//
 
   public int[][] board; //-1 is water, 0 is walkable, 1 is grill, 2 is rock
   private Stephen stephen;
@@ -76,69 +76,116 @@ public class Map {
       newstepheny = stephen.y;
       newforkx = stephen.forkx+1;
       newforky = stephen.forky;
-    } else if (c=='q') {
-      newstephenx = stephen.x;
-      newstepheny = stephen.y;
-      switch(stephen.orientation) {
-      case 0: 
-        newforkx = stephen.forkx-1;
-        newforky = stephen.forky-1;
-      case 1:
-        newforkx = stephen.forkx-1;
-        newforky = stephen.forky+1;
-      case 2:
-        newforkx = stephen.forkx+1;
-        newforky = stephen.forky+1;
-      case 3:
-        newforkx = stephen.forkx+1;
-        newforky = stephen.forky-1;
-      }
     } else if (c=='e') {
       newstephenx = stephen.x;
       newstepheny = stephen.y;
-      switch(stephen.orientation) {
-      case 0: 
-        newforkx = stephen.forkx-1;
-        newforky = stephen.forky+1;
-      case 1:
-        newforkx = stephen.forkx-1;
-        newforky = stephen.forky-1;
-      case 2:
-        newforkx = stephen.forkx+1;
-        newforky = stephen.forky-1;
-      case 3:
-        newforkx = stephen.forkx+1;
-        newforky = stephen.forky+1;
+      if(stephen.orientation==0) {
+        newforkx = stephen.x;
+        newforky = stephen.y+1;
+      } else if (stephen.orientation==1) {
+        newforkx = stephen.x-1;
+        newforky = stephen.y;
+      } else if (stephen.orientation==2) {
+        newforkx = stephen.x;
+        newforky = stephen.y-1;
+      } else if (stephen.orientation==3) {
+        newforkx = stephen.x+1;
+        newforky = stephen.y;
+      }
+    } else if (c=='q') {
+      newstephenx = stephen.x;
+      newstepheny = stephen.y;
+      if(stephen.orientation==0) {
+        newforkx = stephen.x;
+        newforky = stephen.y-1;
+      } else if (stephen.orientation==1) {
+        newforkx = stephen.x+1;
+        newforky = stephen.y;
+      } else if (stephen.orientation==2) {
+        newforkx = stephen.x;
+        newforky = stephen.y+1;
+      } else if (stephen.orientation==3) {
+        newforkx = stephen.x-1;
+        newforky = stephen.y;
       }
     }
     for (Sausage s : sausages) {
-      boolean firstchunk = (newforkx==s.x1&&newforky==s.y1);
-      boolean secondchunk = (newforkx==s.x2&&newforky==s.y2);
-      if ((firstchunk&&newstephenx==stephen.x+1)||(secondchunk&&newstephenx==stephen.x+1)) {
+      boolean firstchunk = newforkx==s.x1 && newforky==s.y1;
+      boolean secondchunk = newforkx==s.x2 && newforky==s.y2;
+      //println(s.x1 + " " + s.y1 + " " + s.x2 + " " + s.y2);
+      //println(firstchunk + " " + secondchunk);
+      if ((firstchunk&&newstephenx==stephen.x+1) ||
+        (secondchunk&&newstephenx==stephen.x+1)) {
+        if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
+          return false;
         s.moveRight();
-      } else if ((firstchunk&&newstephenx==stephen.x-1)||(secondchunk&&newstephenx==stephen.x-1)) {
+      } else if ((firstchunk&&newstephenx==stephen.x-1)||
+        (secondchunk&&newstephenx==stephen.x-1)) {
+        if (board[s.y1][s.x1-1] == 2 || board[s.y2][s.x2-1] == 2)
+          return false;
         s.moveLeft();
-      } else if ((firstchunk&&newstepheny==stephen.y+1)||(secondchunk&&newstepheny==stephen.y+1)) {
+      } else if ((firstchunk&&newstepheny==stephen.y+1)||
+        (secondchunk&&newstepheny==stephen.y+1)) {
+        if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
+          return false;
         s.moveDown();
-      } else if ((firstchunk&&newstepheny==stephen.y-1)||(secondchunk&&newstepheny==stephen.y-1)) {
+      } else if ((firstchunk&&newstepheny==stephen.y-1)||
+        (secondchunk&&newstepheny==stephen.y-1)) {
+        if (board[s.y1-1][s.x1] == 2 || board[s.y2-1][s.x2] == 2)
+          return false;
         s.moveUp();
-      } else if (stephen.forkx==s.x1 && stephen.forky==s.y1-1 && newforkx==s.x1+1 && newforky==s.y1) {
-        s.moveDown();
+      } 
+      //fork intersects sausage
+      else if (firstchunk || secondchunk){
+        //fork is left
+        if (stephen.forkx < s.x1 && stephen.forkx < s.x2){
+          if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
+            return false;
+          s.moveRight();
+        }
+        //fork is right
+        else if (stephen.forkx > s.x1 && stephen.forkx > s.x2){
+          if (board[s.y1][s.x1-1] == 2 || board[s.y2][s.x2-1] == 2)
+            return false;
+          s.moveLeft();
+          println("bob");
+        }
+        //fork is down
+        else if (stephen.forky > s.y1 && stephen.forky > s.y2) {
+         if (board[s.y1-1][s.x1] == 2 || board[s.y2-1][s.x2] == 2)
+            return false;
+          s.moveUp();
+        }
+        //fork is up
+        else if (stephen.forky < s.y1 && stephen.forky < s.y2) {
+         if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
+            return false;
+          s.moveDown();
+        }
+        
       }
-    }
+    } //<>//
     return true;
   }
   
   public boolean stephenTouchSausage (Stephen stephen, char c) {
     for (Sausage s : sausages) {
       if (c=='w' && ((s.x1==stephen.x&&s.y1==stephen.y-1)||(s.x2==stephen.x&&s.y2==stephen.y-1)) && stephen.orientation%2==1) {
-        s.moveUp();
+        if (board[s.y1-1][s.x1] == 2 || board[s.y2-1][s.x2] == 2)
+            return false;
+          s.moveUp();
       } else if (c=='a'&&((s.x1==stephen.x-1&&s.y1==stephen.y)||(s.x2==stephen.x-1&&s.y2==stephen.y)) && stephen.orientation%2==0) {
-        s.moveLeft();
+        if (board[s.y1][s.x1-1] == 2 || board[s.y2][s.x2-1] == 2)
+            return false;
+          s.moveLeft();
       } else if (c=='s'&&((s.x1==stephen.x&&s.y1==stephen.y+1)||(s.x2==stephen.x&&s.y2==stephen.y+1)) && stephen.orientation%2==1) {
-        s.moveDown();
+        if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
+            return false;
+          s.moveDown();
       } else if (c=='d'&&((s.x1==stephen.x+1&&s.y1==stephen.y)||(s.x2==stephen.x+1&&s.y2==stephen.y)) && stephen.orientation%2==0) {
-        s.moveRight();
+        if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
+            return false;
+          s.moveRight();
       }
     }
     return true;
@@ -148,27 +195,25 @@ public class Map {
   public void show() {
     for (int i=0; i<board.length; i++) {
       for (int j=0; j<board[0].length; j++) {
-        float x = tile_side*(i+0.5);
-        float y = tile_side*(j+0.5);
+        float y = tile_side*(i+0.5);
+        float x = tile_side*(j+0.5);
         fill(255);
         stroke(0);
         if (board[i][j]==-1)
-        fill(color(50, 150, 200));
+          fill(color(50, 150, 200));
         if (board[i][j]==2)
-        fill(color(124, 252, 0));
-        if (i==stephen.x && j==stephen.y)
-        fill(color(255, 165, 0));
-        if (i==stephen.forkx && j==stephen.forky)
-        fill(100);
+          fill(color(124, 252, 0));
+        if (i==stephen.y && j==stephen.x)
+          fill(color(255, 165, 0));
+        if (i==stephen.forky && j==stephen.forkx)
+          fill(100);
+          
         //show sausages
-        if ((i==sausages.get(0).x1 && j==sausages.get(0).y1))
-        fill(color(150, 75, 0));
-        if ((i==sausages.get(0).x2 && j==sausages.get(0).y2))
-        fill(color(150, 75, 0));
-        if ((i==sausages.get(1).x1 && j==sausages.get(1).y1))
-        fill(color(150, 75, 0));
-        if ((i==sausages.get(1).x2 && j==sausages.get(1).y2))
-        fill(color(150, 75, 0));
+        for(Sausage s : sausages) {
+         if ((i==s.y1 && j==s.x1) ||
+             (i==s.y2 && j==s.x2))
+          fill(color(150, 75, 0)); 
+        }
         rect(x, y, tile_side, tile_side);
       }
     }
