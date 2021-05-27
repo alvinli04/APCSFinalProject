@@ -137,8 +137,35 @@ public class Map { //<>// //<>//
       } 
       //fork intersects sausage
       else if (firstchunk || secondchunk){
+        //fork is corner
+        if ((stephen.forkx > Math.max(s.x1, s.x2) || stephen.forkx < Math.min(s.x1, s.x2)) &&
+            (stephen.forky > Math.max(s.y1, s.y2) || stephen.forky < Math.min(s.y1, s.y2))){
+              if (stephen.x < s.x1 && stephen.x < s.x2){
+                if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
+                  return false;
+                s.moveRight();
+              }
+              //fork is right
+              else if (stephen.x > s.x1 && stephen.x > s.x2){
+                if (board[s.y1][s.x1-1] == 2 || board[s.y2][s.x2-1] == 2)
+                  return false;
+                s.moveLeft();
+              }
+              //fork is down
+              else if (stephen.y > s.y1 && stephen.y > s.y2) {
+               if (board[s.y1-1][s.x1] == 2 || board[s.y2-1][s.x2] == 2)
+                  return false;
+                s.moveUp();
+              }
+              //fork is up
+              else if (stephen.y < s.y1 && stephen.y < s.y2) {
+               if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
+                  return false;
+                s.moveDown();
+              }
+        }
         //fork is left
-        if (stephen.forkx < s.x1 && stephen.forkx < s.x2){
+        else if (stephen.forkx < s.x1 && stephen.forkx < s.x2){
           if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
             return false;
           s.moveRight();
@@ -148,7 +175,6 @@ public class Map { //<>// //<>//
           if (board[s.y1][s.x1-1] == 2 || board[s.y2][s.x2-1] == 2)
             return false;
           s.moveLeft();
-          println("bob");
         }
         //fork is down
         else if (stephen.forky > s.y1 && stephen.forky > s.y2) {
