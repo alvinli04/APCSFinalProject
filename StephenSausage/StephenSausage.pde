@@ -5,14 +5,15 @@ public static final int map_side = 700;
 Stephen stephen;
 ArrayList<Sausage> sausages;
 Map mp1;
+public boolean lost;
 
 void setup(){
   size(1000,1000);
-  
+  lost = false;
   // Initialization of Board
   for(int i=0; i<arr1.length; i++)
     for(int j=0; j<arr1[0].length; j++)
-      if(i==0 || j==0 || i==arr1.length-1 || j==arr1[0].length-1) arr1[i][j] = -1;
+      if(i<2 || j<2 || i>arr1.length-3 || j>arr1[0].length-3) arr1[i][j] = -1;
       
   // Barriers 
   //arr1[4][4] = 1;
@@ -38,10 +39,10 @@ void keyPressed(){
   // Stephen moves freely
   if (mp1.noBarriers(stephen, key) && 
       mp1.forkTouchSausage(stephen,key) && 
-      mp1.stephenTouchSausage(stephen,key)) {
+      mp1.stephenTouchSausage(stephen,key) && !lost) {
         stephen.move(key);
         int k = mp1.updateSausages();
-        println(k);
+        lost = (k==-1);
   }
    if (key == 'r') {
      setup();

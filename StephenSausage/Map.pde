@@ -262,8 +262,10 @@ public class Map { //<>// //<>//
     boolean allcooked = true;
     for(Sausage s : sausages){
       //check if in the water
-      if (board[s.y1][s.x1] == -1 && board[s.y2][s.x2] == -1)
+      if (board[s.y1][s.x1] == -1 && board[s.y2][s.x2] == -1){
+         s.drowned = true; 
         return -1;
+      }
       if (board[s.y1][s.x1] == 1){
        if(s.side){
          if (s.s11cooked)
@@ -316,7 +318,8 @@ public class Map { //<>// //<>//
         for(Sausage s : sausages) {
          if ((i==s.y1 && j==s.x1) ||
              (i==s.y2 && j==s.x2))
-          fill(color(150, 75, 0)); 
+          if (!s.drowned)
+            fill(color(150, 75, 0)); 
         }
         rect(x, y, tile_side, tile_side);
       }

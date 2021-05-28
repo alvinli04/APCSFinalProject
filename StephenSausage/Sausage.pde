@@ -11,6 +11,7 @@ public class Sausage{
  public boolean s22cooked;
  public boolean side; //true for side 1, false for side 2 (down)
  public boolean orientation;
+ public boolean drowned = false;
  
  public Sausage(int x1, int y1, int x2, int y2){ //must be next to each other
   this.x1 = x1;
