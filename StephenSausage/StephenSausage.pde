@@ -7,7 +7,18 @@ ArrayList<Sausage> sausages;
 Map mp1;
 public boolean lost;
 
+void loseText(){
+ 
+ textAlign(CENTER);
+ fill(255);
+ textSize(100);
+ text("LOST", 500, 450);
+ textSize(50);
+ text("Press R to restart", 500, 550);
+}
+
 void setup(){
+  clear();
   size(1000,1000);
   lost = false;
   // Initialization of Board
@@ -33,6 +44,8 @@ void setup(){
 void draw(){
   // Display Map
   mp1.show();
+  if (lost)
+    loseText();
 }
 
 void keyPressed(){
@@ -43,6 +56,7 @@ void keyPressed(){
         stephen.move(key);
         int k = mp1.updateSausages();
         lost = (k==-1);
+        println(lost);
   }
    if (key == 'r') {
      setup();
