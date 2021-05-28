@@ -15,7 +15,7 @@ void setup(){
       if(i==0 || j==0 || i==arr1.length-1 || j==arr1[0].length-1) arr1[i][j] = -1;
       
   // Barriers 
-  //arr1[4][4] = 2;
+  //arr1[4][4] = 1;
   
   // Initialization of Stephen
   stephen = new Stephen(2, 2, 0);
@@ -43,7 +43,7 @@ void keyPressed(){
         int k = mp1.updateSausages();
         println(k);
   }
-   if (key == ' ') {
+   if (key == 'r') {
      setup();
    }
 }

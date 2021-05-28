@@ -1,4 +1,4 @@
-public class Map { //<>//
+public class Map { //<>// //<>//
 
   public int[][] board; //-1 is water, 0 is walkable, 1 is grill, 2 is rock
   private Stephen stephen;
@@ -221,7 +221,7 @@ public class Map { //<>//
         else if (stephen.forky < s.y1 && stephen.forky < s.y2) {
          if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
             return false;
-          s.moveDown();
+          s.moveDown(); //<>//
         }
       }
     } //<>//
@@ -256,8 +256,39 @@ public class Map { //<>//
   
   /**
    * Update sausages
+   * Returns -1 if lose, 1 if won, 0 if continue
    */
   public int updateSausages(){
+    boolean allcooked = true;
+    for(Sausage s : sausages){
+      //check if in the water
+      if (board[s.y1][s.x1] == -1 && board[s.y2][s.x2] == -1)
+        return -1;
+      if (board[s.y1][s.x1] == 1){
+       if(s.side){
+         if (s.s11cooked)
+           return -1;
+         s.s11cooked = true;
+       } else {
+         if (s.s12cooked)
+           return -1;
+         s.s12cooked = true;
+       }
+      }
+      if(board[s.y2][s.x2] == 1){
+        if (s.side) { 
+          if (s.s21cooked)
+            return -1;
+          s.s21cooked = true;
+        } else {
+          if (s.s22cooked)
+            return -1;
+          s.s22cooked = true;
+        }
+      }
+      if(!s.cooked()) allcooked = false;
+    }
+    if (allcooked) return 1;
     return 0;
   }
   
@@ -273,13 +304,14 @@ public class Map { //<>//
         stroke(0);
         if (board[i][j]==-1)
           fill(color(50, 150, 200));
-        if (board[i][j]==2)
+        if (board[i][j]== 2)
           fill(color(124, 252, 0));
+        if (board[i][j] == 1)
+          fill(color(255, 255, 0));
         if (i==stephen.y && j==stephen.x)
           fill(color(255, 165, 0));
         if (i==stephen.forky && j==stephen.forkx)
-          fill(100);
-          
+          fill(100);  
         //show sausages
         for(Sausage s : sausages) {
          if ((i==s.y1 && j==s.x1) ||
