@@ -25,4 +25,4 @@ https://docs.google.com/document/d/11rjUp0ROTnMHaH1btTx4NzmoW22lxmyqH-2S1eCXvDc/
 (Alvin) - Implemented moving sausages when Stephen rotates.
 
 5/27 - 5/28 (Andrew) - Made some fixes on moving sausages by rotating
-(Alvin) - Started working on mechanics for grilling 
+(Alvin) - Implemented mechanics for grilling, along with win/loss condition
