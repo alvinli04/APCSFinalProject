@@ -112,8 +112,6 @@ public class Map { //<>// //<>//
     for (Sausage s : sausages) {
       boolean firstchunk = newforkx==s.x1 && newforky==s.y1;
       boolean secondchunk = newforkx==s.x2 && newforky==s.y2;
-      //println(s.x1 + " " + s.y1 + " " + s.x2 + " " + s.y2);
-      //println(firstchunk + " " + secondchunk);
       if(firstchunk || secondchunk) s.side = !s.side;
       if ((firstchunk&&newstephenx==stephen.x+1) ||
         (secondchunk&&newstephenx==stephen.x+1)) {
@@ -255,8 +253,28 @@ public class Map { //<>// //<>//
       //check if in the water
       if (board[s.y1][s.x1] == -1 && board[s.y2][s.x2] == -1)
         return -1;
-      //check if burnt, then grill
-      
+      if (board[s.y1][s.x1] == 1){
+       if(s.side){
+         if (s.s11cooked)
+           return -1;
+         s.s11cooked = true;
+       } else {
+         if (s.s12cooked)
+           return -1;
+         s.s12cooked = true;
+       }
+      }
+      if(board[s.y2][s.x2] == 1){
+        if (s.side) { 
+          if (s.s21cooked)
+            return -1;
+          s.s21cooked = true;
+        } else {
+          if (s.s22cooked)
+            return -1;
+          s.s22cooked = true;
+        }
+      }
       if(!s.cooked()) allcooked = false;
     }
     if (allcooked) return 1;
@@ -272,13 +290,14 @@ public class Map { //<>// //<>//
         stroke(0);
         if (board[i][j]==-1)
           fill(color(50, 150, 200));
-        if (board[i][j]==2)
+        if (board[i][j]== 2)
           fill(color(124, 252, 0));
+        if (board[i][j] == 1)
+          fill(color(255, 255, 0));
         if (i==stephen.y && j==stephen.x)
           fill(color(255, 165, 0));
         if (i==stephen.forky && j==stephen.forkx)
-          fill(100);
-          
+          fill(100);  
         //show sausages
         for(Sausage s : sausages) {
          if ((i==s.y1 && j==s.x1) ||

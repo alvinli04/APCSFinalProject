@@ -9,7 +9,7 @@ public class Sausage{
  //corresponding to the piece at x2, y2
  public boolean s21cooked;
  public boolean s22cooked;
- public boolean side; //true for side 1, false for side 2
+ public boolean side; //true for side 1, false for side 2 (down)
  
  public Sausage(int x1, int y1, int x2, int y2){ //must be next to each other
   this.x1 = x1;
@@ -26,21 +26,25 @@ public class Sausage{
  public void moveUp() {
    y1--;
    y2--;
+   side = !side;
  }
  
  public void moveDown() {
    y1++;
    y2++;
+   side = !side;
  }
  
  public void moveLeft() {
    x1--;
    x2--;
+   side = !side;
  }
  
  public void moveRight() {
    x1++;
    x2++;
+   side = !side;
  }
  
  public boolean cooked(){

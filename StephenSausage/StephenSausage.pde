@@ -14,7 +14,7 @@ void setup(){
     for(int j=0; j<arr1[0].length; j++)
       if(i==0 || j==0 || i==arr1.length-1 || j==arr1[0].length-1) arr1[i][j] = -1;
   /* optional rock */
-  //arr1[4][4] = 2;
+  arr1[4][4] = 1;
   
   /* Creation of stephen, sausages, and map objects */
   stephen = new Stephen(2, 2, 0);
@@ -36,5 +36,5 @@ void keyPressed(){
     int k = mp1.updateSausages();
     println(k);
    }
-   if(key == ' ') setup();
+   if(key == 'r') setup();
 }
