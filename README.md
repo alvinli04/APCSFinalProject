@@ -23,3 +23,6 @@ https://docs.google.com/document/d/11rjUp0ROTnMHaH1btTx4NzmoW22lxmyqH-2S1eCXvDc/
 
 5/26 (Andrew) - Fixed some discrepancies in the way coordinates were being represented.
 (Alvin) - Implemented moving sausages when Stephen rotates.
+
+5/27 - 5/28 (Andrew) - Made some fixes on moving sausages by rotating
+(Alvin) - Started working on mechanics for grilling 
