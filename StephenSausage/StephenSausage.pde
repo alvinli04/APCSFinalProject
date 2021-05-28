@@ -14,12 +14,13 @@ void loseText(){
  textSize(100);
  text("LOST", 500, 450);
  textSize(50);
- text("Press R to restart", 500, 550);
+ text("Press R to restart level", 500, 550);
 }
 
 void setup(){
   clear();
   size(1000,1000);
+  background(color(50, 150, 200));
   lost = false;
   // Initialization of Board
   for(int i=0; i<arr1.length; i++)
