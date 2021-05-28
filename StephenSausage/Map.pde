@@ -3,58 +3,64 @@ public class Map { //<>// //<>//
   public int[][] board; //-1 is water, 0 is walkable, 1 is grill, 2 is rock
   private Stephen stephen;
   public ArrayList<Sausage> sausages;
-  //private int newstephenx=-1, newstepheny=-1, newforkx=-1, newforky=-1;
-
+  
+  /**
+   * Constructor for the Map class 
+   * Has access to Stephen and the sausages 
+   */
   public Map(int[][] board, Stephen stephen, ArrayList<Sausage> sausages) {
     this.board = board;
     this.stephen = stephen;
     this.sausages = sausages;
   }
-
-  public boolean noBarriers(Stephen stephen, char c) {
+  
+  /**
+   * Checks if Stephen is able to move in the direction c
+   */
+  public boolean noBarriers (Stephen stephen, char c) {
     if (c=='w') {
       if (stephen.y > 1) return board[stephen.y-1][stephen.x] != 2;
-      return stephen.y > 0 && 
-        board[stephen.y-1][stephen.x] != -1;
+      return stephen.y > 0 && board[stephen.y-1][stephen.x] != -1;
     } else if (c=='a') {
       if (stephen.x > 1) return board[stephen.y][stephen.x-1] != 2;
-      return stephen.x > 0 && 
-        board[stephen.y][stephen.x-1] != -1;
+      return stephen.x > 0 && board[stephen.y][stephen.x-1] != -1;
     } else if (c=='s') {
       if (stephen.y < board.length - 2) return board[stephen.y+2][stephen.x] != 2;
-      return stephen.y<board.length-1 && 
-        board[stephen.y+1][stephen.x] != -1;
+      return stephen.y<board.length-1 && board[stephen.y+1][stephen.x] != -1;
     } else if (c=='d') {
       if (stephen.x < board[0].length - 2) return board[stephen.y][stephen.x+2] != 2;
-      return stephen.x<board[0].length-1 && 
-        board[stephen.y][stephen.x+1] != -1;
+      return stephen.x<board[0].length-1 && board[stephen.y][stephen.x+1] != -1;
     } else if (c=='q') {
       switch(stephen.orientation) {
-      case 0:
-        return board[stephen.y-1][stephen.x+1] != 2 && board[stephen.y-1][stephen.x] != 2;
-      case 1:
-        return board[stephen.y][stephen.x+1] != 2 && board[stephen.y+1][stephen.x+1] != 2;
-      case 2:
-        return board[stephen.y+1][stephen.x] != 2 && board[stephen.y+1][stephen.x-1] != 2;
-      case 3:
-        return board[stephen.y-1][stephen.x-1] != 2 && board[stephen.y][stephen.x-1] != 2;
+        case 0:
+          return board[stephen.y-1][stephen.x+1] != 2 && board[stephen.y-1][stephen.x] != 2;
+        case 1:
+          return board[stephen.y][stephen.x+1] != 2 && board[stephen.y+1][stephen.x+1] != 2;
+        case 2:
+          return board[stephen.y+1][stephen.x] != 2 && board[stephen.y+1][stephen.x-1] != 2;
+        case 3:
+          return board[stephen.y-1][stephen.x-1] != 2 && board[stephen.y][stephen.x-1] != 2;
       }
     } else if (c=='e') {
       switch(stephen.orientation) {
-      case 0:
-        return board[stephen.y+1][stephen.x+1] != 2 && board[stephen.y+1][stephen.x] != 2;
-      case 1:
-        return board[stephen.y+1][stephen.x-1] != 2 && board[stephen.y][stephen.x-1] != 2;
-      case 2:
-        return board[stephen.y-1][stephen.x-1] != 2 && board[stephen.y-1][stephen.x] != 2;
-      case 3:
-        return board[stephen.y-1][stephen.x+1] != 2 && board[stephen.y][stephen.x+1] != 2;
+        case 0:
+          return board[stephen.y+1][stephen.x+1] != 2 && board[stephen.y+1][stephen.x] != 2;
+        case 1:
+          return board[stephen.y+1][stephen.x-1] != 2 && board[stephen.y][stephen.x-1] != 2;
+        case 2:
+          return board[stephen.y-1][stephen.x-1] != 2 && board[stephen.y-1][stephen.x] != 2;
+        case 3:
+          return board[stephen.y-1][stephen.x+1] != 2 && board[stephen.y][stephen.x+1] != 2;
       }
     }
     return true;
   }
-
-  public boolean forkTouchSausage(Stephen stephen, char c) {
+  
+  /**
+   * Checks if fork pushes sausage up/down/left/right
+   * Checks if fork swing pushes sausage up/down/left/right
+   */
+  public boolean forkTouchSausage (Stephen stephen, char c) {
     int newstephenx=-1, newstepheny=-1, newforkx=-1, newforky=-1;
     if (c=='w' && stephen.orientation%2==1) {
       newstephenx = stephen.x;
@@ -109,10 +115,12 @@ public class Map { //<>// //<>//
         newforky = stephen.y;
       }
     }
+    
     for (Sausage s : sausages) {
-      boolean firstchunk = newforkx==s.x1 && newforky==s.y1;
-      boolean secondchunk = newforkx==s.x2 && newforky==s.y2;
-      if(firstchunk || secondchunk) s.side = !s.side;
+      // Check if the new fork position intersects a sausage
+      boolean firstchunk = (newforkx==s.x1 && newforky==s.y1);
+      boolean secondchunk = (newforkx==s.x2 && newforky==s.y2);
+      // Fork intersects sausage through WASD
       if ((firstchunk&&newstephenx==stephen.x+1) ||
         (secondchunk&&newstephenx==stephen.x+1)) {
         if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
@@ -134,9 +142,9 @@ public class Map { //<>// //<>//
           return false;
         s.moveUp();
       } 
-      //fork intersects sausage
+      // Fork intersects sausage through rotation QE 
       else if (firstchunk || secondchunk){
-        //fork is corner
+        // Fork is corner
         if ((stephen.forkx > Math.max(s.x1, s.x2) || stephen.forkx < Math.min(s.x1, s.x2)) &&
             (stephen.forky > Math.max(s.y1, s.y2) || stephen.forky < Math.min(s.y1, s.y2))){
               if (stephen.x < s.x1 && stephen.x < s.x2){
@@ -144,52 +152,52 @@ public class Map { //<>// //<>//
                   return false;
                 s.moveRight();
               }
-              //fork is right
-              else if (stephen.x > s.x1 && stephen.x > s.x2){
+              // Fork is right
+              else if (stephen.x > s.x1 && stephen.x > s.x2) {
                 if (board[s.y1][s.x1-1] == 2 || board[s.y2][s.x2-1] == 2)
                   return false;
                 s.moveLeft();
               }
-              //fork is down
+              // Fork is down
               else if (stephen.y > s.y1 && stephen.y > s.y2) {
                if (board[s.y1-1][s.x1] == 2 || board[s.y2-1][s.x2] == 2)
                   return false;
                 s.moveUp();
               }
-              //fork is up
+              // Fork is up
               else if (stephen.y < s.y1 && stephen.y < s.y2) {
                if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
                   return false;
                 s.moveDown();
               }
         }
-        //fork is left
-        else if (stephen.forkx < s.x1 && stephen.forkx < s.x2){
+        // Fork is left
+        else if (stephen.forkx < s.x1 && stephen.forkx < s.x2) {
           if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
             return false;
           s.moveRight();
         }
-        //fork is right
-        else if (stephen.forkx > s.x1 && stephen.forkx > s.x2){
+        // Fork is right
+        else if (stephen.forkx > s.x1 && stephen.forkx > s.x2) {
           if (board[s.y1][s.x1-1] == 2 || board[s.y2][s.x2-1] == 2)
             return false;
           s.moveLeft();
         }
-        //fork is down
+        // Fork is down
         else if (stephen.forky > s.y1 && stephen.forky > s.y2) {
          if (board[s.y1-1][s.x1] == 2 || board[s.y2-1][s.x2] == 2)
             return false;
-          s.moveUp();
+         s.moveUp();
         }
-        //fork is up
+        // Fork is up
         else if (stephen.forky < s.y1 && stephen.forky < s.y2) {
          if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
             return false;
-          s.moveDown();
+         s.moveDown();
         }
         
       }
-      //corner swings
+      // Corner swings move sausage 
       else if ((s.x1 == stephen.forkx && s.y1 == newforky)||
                (s.x1 == newforkx && s.y1 == stephen.forky)||
                (s.x2 == stephen.forkx && s.y2 == newforky)||
@@ -199,30 +207,33 @@ public class Map { //<>// //<>//
             return false;
           s.moveRight();
         }
-        //fork is right
+        // Fork is right
         else if (stephen.forkx > s.x1 && stephen.forkx > s.x2){
           if (board[s.y1][s.x1-1] == 2 || board[s.y2][s.x2-1] == 2)
             return false;
           s.moveLeft();
           println("bob");
         }
-        //fork is down
+        // Fork is down
         else if (stephen.forky > s.y1 && stephen.forky > s.y2) {
          if (board[s.y1-1][s.x1] == 2 || board[s.y2-1][s.x2] == 2)
             return false;
           s.moveUp();
         }
-        //fork is up
+        // Fork is up
         else if (stephen.forky < s.y1 && stephen.forky < s.y2) {
          if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
             return false;
-          s.moveDown();
+          s.moveDown(); //<>//
         }
       }
     } //<>//
     return true;
   }
   
+  /**
+   * Checks if Stephen moves sausage up/down/left/right
+   */
   public boolean stephenTouchSausage (Stephen stephen, char c) {
     for (Sausage s : sausages) {
       if (c=='w' && ((s.x1==stephen.x&&s.y1==stephen.y-1)||(s.x2==stephen.x&&s.y2==stephen.y-1)) && stephen.orientation%2==1) {
@@ -246,7 +257,10 @@ public class Map { //<>// //<>//
     return true;
   }
   
-  //returns -1 if lose, 1 if won, 0 if continue
+  /**
+   * Update sausages
+   * Returns -1 if lose, 1 if won, 0 if continue
+   */
   public int updateSausages(){
     boolean allcooked = true;
     for(Sausage s : sausages){
@@ -281,6 +295,9 @@ public class Map { //<>// //<>//
     return 0;
   }
   
+  /**
+   * Display the map and its elements
+   */
   public void show() {
     for (int i=0; i<board.length; i++) {
       for (int j=0; j<board[0].length; j++) {
