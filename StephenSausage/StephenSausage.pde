@@ -23,7 +23,7 @@ void setup(){
   // Initialization of Sausages
   sausages = new ArrayList<Sausage>();
   //sausages.add(new Sausage(8,8,8,7));
-  sausages.add(new Sausage(5,4,5,5));
+  sausages.add(new Sausage(5,4,4,4));
   
   // Initialization of Map
   mp1 = new Map(arr1, stephen, sausages);

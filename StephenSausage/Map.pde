@@ -147,28 +147,25 @@ public class Map { //<>//
         // Fork is corner
         if ((stephen.forkx > Math.max(s.x1, s.x2) || stephen.forkx < Math.min(s.x1, s.x2)) &&
             (stephen.forky > Math.max(s.y1, s.y2) || stephen.forky < Math.min(s.y1, s.y2))){
-              if (stephen.x < s.x1 && stephen.x < s.x2){
+              if (stephen.orientation == 2) {
                 if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
                   return false;
                 s.moveRight();
               }
-              // Fork is right
-              else if (stephen.x > s.x1 && stephen.x > s.x2) {
-                if (board[s.y1][s.x1-1] == 2 || board[s.y2][s.x2-1] == 2)
+              else if (stephen.orientation == 0) {
+                if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
                   return false;
                 s.moveLeft();
               }
-              // Fork is down
-              else if (stephen.y > s.y1 && stephen.y > s.y2) {
-               if (board[s.y1-1][s.x1] == 2 || board[s.y2-1][s.x2] == 2)
-                  return false;
-                s.moveUp();
-              }
-              // Fork is up
-              else if (stephen.y < s.y1 && stephen.y < s.y2) {
-               if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
+              else if (stephen.orientation == 3) {
+                if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
                   return false;
                 s.moveDown();
+              }
+              else if (stephen.orientation == 1) {
+                if (board[s.y1][s.x1+1] == 2 || board[s.y2][s.x2+1] == 2)
+                  return false;
+                s.moveUp();
               }
         }
         // Fork is left
