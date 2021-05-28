@@ -10,6 +10,7 @@ public class Sausage{
  public boolean s21cooked;
  public boolean s22cooked;
  public boolean side; //true for side 1, false for side 2 (down)
+ public boolean orientation;
  
  public Sausage(int x1, int y1, int x2, int y2){ //must be next to each other
   this.x1 = x1;
@@ -21,30 +22,43 @@ public class Sausage{
   s21cooked = false;
   s22cooked = false;
   side = true;
+  if (x1==x2) {
+    orientation=true;
+  } else {
+    orientation=false;
+  }
  }
  
  public void moveUp() {
    y1--;
    y2--;
-   side = !side;
+   if (orientation==true) {
+     side = !side;
+   }
  }
  
  public void moveDown() {
    y1++;
    y2++;
-   side = !side;
+   if (orientation==true) {  
+     side = !side;
+   }
  }
  
  public void moveLeft() {
    x1--;
    x2--;
-   side = !side;
+   if (orientation==false) {  
+     side = !side;
+   }
  }
  
  public void moveRight() {
    x1++;
    x2++;
-   side = !side;
+   if (orientation==false) {  
+     side = !side;
+   }
  }
  
  public boolean cooked(){
