@@ -26,3 +26,6 @@ https://docs.google.com/document/d/11rjUp0ROTnMHaH1btTx4NzmoW22lxmyqH-2S1eCXvDc/
 
 5/27 - 5/28 (Andrew) - Made some fixes on moving sausages by rotating and fixed merge conflicts
 (Alvin) - Implemented mechanics for grilling, along with win/loss condition
+
+5/29 (Alvin) - Displays text for when win/loss conditions are met, started working on a start menu
+(Andrew) - implemented mechanics for sausage movement when a sausage rolls another sausage
