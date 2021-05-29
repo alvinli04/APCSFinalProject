@@ -57,7 +57,6 @@ void keyPressed(){
         stephen.move(key);
         int k = mp1.updateSausages();
         lost = (k==-1);
-        println(lost);
   }
    if (key == 'r') {
      setup();
