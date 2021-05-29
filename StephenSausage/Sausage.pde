@@ -36,7 +36,7 @@ public class Sausage{
    y2--;
    moved = true;
    if (orientation==false) {
-     println("r");
+     //println("r");
      side = !side;
    }
  }
@@ -46,7 +46,7 @@ public class Sausage{
    y2++;
    moved = true;
    if (orientation==false) {  
-     println("r");
+     //println("r");
      side = !side;
    }
  }
@@ -56,7 +56,7 @@ public class Sausage{
    x2--;
    moved = true;
    if (orientation==true) {
-     println("r");
+     //println("r");
      side = !side;
    }
  }
@@ -66,7 +66,7 @@ public class Sausage{
    x2++;
    moved = true;
    if (orientation==true) {  
-     println("r");
+     //println("r");
      side = !side;
    }
  }
