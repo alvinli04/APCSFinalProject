@@ -273,9 +273,8 @@ public class Map { //<>// //<>//
         // Sausage moves down
         if (c=='s' && touchsausage || 
             (c=='e'||c=='q')  && touchsausage && 
-            stephen.forky < Math.min(Math.min(s1.y1,s1.y2),Math.min(s2.y1,s2.y2))) {
-
-          if (s2.moved)
+            (s2.movedDown || s1.movedDown)) {
+          if (s2.movedDown)
             s1.moveDown();
           else 
             s2.moveDown();
@@ -283,8 +282,8 @@ public class Map { //<>// //<>//
         // Sausage moves up
         else if (c=='w' && touchsausage ||
                  (c=='e'||c=='q') && touchsausage && 
-                 stephen.forky > Math.max(Math.max(s1.y1,s1.y2),Math.max(s2.y1,s2.y2))) {
-          if (s2.moved)
+                 (s1.movedUp || s2.movedUp)) {
+          if (s2.movedUp)
             s1.moveUp();
           else 
             s2.moveUp();
@@ -292,8 +291,8 @@ public class Map { //<>// //<>//
         // Sausage moves left
         else if (c=='a' && touchsausage ||
                  (c=='e'||c=='q') && touchsausage && 
-                 stephen.forkx > Math.max(Math.max(s1.x1,s1.x2),Math.max(s2.x1,s2.x2))) {
-          if (s2.moved)
+                 (s1.movedLeft || s2.movedLeft)) {
+          if (s2.movedLeft)
             s1.moveLeft();
           else 
             s2.moveLeft();
@@ -301,8 +300,8 @@ public class Map { //<>// //<>//
         // Sausage moves right
         else if (c=='d' && touchsausage ||
                  (c=='e'||c=='q') && touchsausage && 
-                 stephen.forkx < Math.min(Math.min(s1.x1,s1.x2),Math.min(s2.x1,s2.x2))) {
-          if (s2.moved)
+                 (s1.movedRight || s2.movedRight)) {
+          if (s2.movedRight)
             s1.moveRight();
           else 
             s2.moveRight();
@@ -324,7 +323,7 @@ public class Map { //<>// //<>//
          s.drowned = true; 
         return -1;
       }
-      if (board[s.y1][s.x1] == 1 && s.moved){
+      if (board[s.y1][s.x1] == 1 && (s.movedLeft||s.movedRight||s.movedUp||s.movedDown)){
        if(s.side){
          if (s.s11cooked)
            return -1;
@@ -335,7 +334,7 @@ public class Map { //<>// //<>//
          s.s12cooked = true;
        }
       }
-      if(board[s.y2][s.x2] == 1 && s.moved){
+      if(board[s.y2][s.x2] == 1 && (s.movedLeft||s.movedRight||s.movedUp||s.movedDown)){
         if (s.side) { 
           if (s.s21cooked)
             return -1;
@@ -347,7 +346,10 @@ public class Map { //<>// //<>//
         }
       }
       if(!s.cooked()) allcooked = false;
-      s.moved = false;
+      s.movedLeft = false;
+      s.movedRight = false;
+      s.movedUp = false;
+      s.movedDown = false;
     }
     if (allcooked) return 1;
     return 0;
