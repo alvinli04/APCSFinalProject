@@ -274,37 +274,57 @@ public class Map { //<>// //<>//
         if (c=='s' && touchsausage || 
             (c=='e'||c=='q')  && touchsausage && 
             (s2.movedDown || s1.movedDown)) {
-          if (s2.movedDown)
+          if (s2.movedDown) {
+            if (board[s1.y1+1][s1.x1] == 2 || board[s1.y2+1][s1.x2] == 2)
+              return false;
             s1.moveDown();
-          else 
+          } else {  
+            if (board[s2.y1+1][s2.x1] == 2 || board[s2.y2+1][s2.x2] == 2)
+              return false;
             s2.moveDown();
+          }
         }
         // Sausage moves up
         else if (c=='w' && touchsausage ||
                  (c=='e'||c=='q') && touchsausage && 
                  (s1.movedUp || s2.movedUp)) {
-          if (s2.movedUp)
+          if (s2.movedUp) {
+            if (board[s1.y1-1][s1.x1] == 2 || board[s1.y2-1][s1.x2] == 2)
+              return false;
             s1.moveUp();
-          else 
+          } else {  
+            if (board[s2.y1-1][s2.x1] == 2 || board[s2.y2-1][s2.x2] == 2)
+              return false;
             s2.moveUp();
+          }
         }
         // Sausage moves left
         else if (c=='a' && touchsausage ||
                  (c=='e'||c=='q') && touchsausage && 
                  (s1.movedLeft || s2.movedLeft)) {
-          if (s2.movedLeft)
+          if (s2.movedLeft) {
+            if (board[s1.y1][s1.x1-1] == 2 || board[s1.y2][s1.x2-1] == 2)
+              return false;
             s1.moveLeft();
-          else 
+          } else {
+            if (board[s2.y1][s2.x1-1] == 2 || board[s2.y2][s2.x2-1] == 2)
+              return false;
             s2.moveLeft();
+          }
         }
         // Sausage moves right
         else if (c=='d' && touchsausage ||
                  (c=='e'||c=='q') && touchsausage && 
                  (s1.movedRight || s2.movedRight)) {
-          if (s2.movedRight)
+          if (s2.movedRight) {
+            if (board[s1.y1][s1.x1+1] == 2 || board[s1.y2][s1.x2+1] == 2)
+              return false;
             s1.moveRight();
-          else 
+          } else { 
+            if (board[s2.y1][s2.x1+1] == 2 || board[s2.y2][s2.x2+1] == 2)
+              return false;
             s2.moveRight();
+          }
         } 
       }
     }
