@@ -259,6 +259,60 @@ public class Map { //<>// //<>//
   }
   
   /**
+   * Checks if a sausage moves another sausage up/down/left/right
+   */
+  public boolean sausageTouchSausage (Stephen stephen, char c) {
+    for (int i=0; i<sausages.size(); i++) {
+      for (int j=i+1; j<sausages.size(); j++) {
+        Sausage s1 = sausages.get(i);
+        Sausage s2 = sausages.get(j);
+        boolean touchsausage =((s1.x1==s2.x1 && s1.y1==s2.y1) || 
+                               (s1.x1==s2.x2 && s1.y1==s2.y2) ||
+                               (s1.x2==s2.x1 && s1.y2==s2.y1) || 
+                               (s1.x2==s2.x2 && s1.y2==s2.y2));
+        // Sausage moves down
+        if (c=='s' && touchsausage || 
+            (c=='e'||c=='q')  && touchsausage && 
+            stephen.forky < Math.min(Math.min(s1.y1,s1.y2),Math.min(s2.y1,s2.y2))) {
+
+          if (s2.moved)
+            s1.moveDown();
+          else 
+            s2.moveDown();
+        }
+        // Sausage moves up
+        else if (c=='w' && touchsausage ||
+                 (c=='e'||c=='q') && touchsausage && 
+                 stephen.forky > Math.max(Math.max(s1.y1,s1.y2),Math.max(s2.y1,s2.y2))) {
+          if (s2.moved)
+            s1.moveUp();
+          else 
+            s2.moveUp();
+        }
+        // Sausage moves left
+        else if (c=='a' && touchsausage ||
+                 (c=='e'||c=='q') && touchsausage && 
+                 stephen.forkx > Math.max(Math.max(s1.x1,s1.x2),Math.max(s2.x1,s2.x2))) {
+          if (s2.moved)
+            s1.moveLeft();
+          else 
+            s2.moveLeft();
+        }
+        // Sausage moves right
+        else if (c=='d' && touchsausage ||
+                 (c=='e'||c=='q') && touchsausage && 
+                 stephen.forkx < Math.min(Math.min(s1.x1,s1.x2),Math.min(s2.x1,s2.x2))) {
+          if (s2.moved)
+            s1.moveRight();
+          else 
+            s2.moveRight();
+        } 
+      }
+    }
+    return true;
+  }
+  
+  /**
    * Update sausages
    * Returns -1 if lose, 1 if won, 0 if continue
    */
