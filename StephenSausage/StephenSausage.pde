@@ -6,6 +6,7 @@ Stephen stephen;
 ArrayList<Sausage> sausages;
 Map mp1;
 public boolean lost, won;
+public boolean lock = true;
 
 void loseText(){
  textAlign(CENTER);
@@ -27,9 +28,8 @@ void winText(){
  //text("Press M to return to menu", 500, 650);
 }
 
-void setup(){
-  clear();
-  size(1000,1000);
+void setup1(){
+  
   background(color(50, 150, 200));
   lost = false;
   won = false;
@@ -54,6 +54,12 @@ void setup(){
   
   // Initialization of Map
   mp1 = new Map(arr1, stephen, sausages);
+}
+
+void setup(){
+  clear();
+  size(1000,1000);
+  setup1();
 }
 
 void draw(){
