@@ -42,9 +42,8 @@ void setup(){
   // Barriers 
   //arr1[4][4] = 1;
   arr1[6][4] = 1;
-  arr1[6][5] = 1;
+  
   arr1[5][5] = 1;
-  arr1[5][4] = 1;
   // Initialization of Stephen
   stephen = new Stephen(2, 2, 0);
   
