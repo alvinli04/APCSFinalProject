@@ -12,6 +12,7 @@ public class Sausage{
  public boolean side; //true for side 1, false for side 2 (down)
  public boolean orientation;
  public boolean drowned = false;
+ public boolean moved = false;
  
  public Sausage(int x1, int y1, int x2, int y2){ //must be next to each other
   this.x1 = x1;
@@ -33,7 +34,9 @@ public class Sausage{
  public void moveUp() {
    y1--;
    y2--;
-   if (orientation==true) {
+   moved = true;
+   if (orientation==false) {
+     //println("r");
      side = !side;
    }
  }
@@ -41,7 +44,9 @@ public class Sausage{
  public void moveDown() {
    y1++;
    y2++;
-   if (orientation==true) {  
+   moved = true;
+   if (orientation==false) {  
+     //println("r");
      side = !side;
    }
  }
@@ -49,7 +54,9 @@ public class Sausage{
  public void moveLeft() {
    x1--;
    x2--;
-   if (orientation==false) {  
+   moved = true;
+   if (orientation==true) {
+     //println("r");
      side = !side;
    }
  }
@@ -57,7 +64,9 @@ public class Sausage{
  public void moveRight() {
    x1++;
    x2++;
-   if (orientation==false) {  
+   moved = true;
+   if (orientation==true) {  
+     //println("r");
      side = !side;
    }
  }
