@@ -19,17 +19,21 @@ public class Map { //<>// //<>//
    */
   public boolean noBarriers (Stephen stephen, char c) {
     if (c=='w') {
-      if (stephen.y > 1) return board[stephen.y-1][stephen.x] != 2;
-      return stephen.y > 0 && board[stephen.y-1][stephen.x] != -1;
+      return stephen.y > 0 && 
+             board[stephen.y-1][stephen.x] != -1 && 
+             board[stephen.y-1][stephen.x] != 2;
     } else if (c=='a') {
-      if (stephen.x > 1) return board[stephen.y][stephen.x-1] != 2;
-      return stephen.x > 0 && board[stephen.y][stephen.x-1] != -1;
+      return stephen.x > 0 && 
+             board[stephen.y][stephen.x-1] != -1 &&
+             board[stephen.y][stephen.x-1] != 2;
     } else if (c=='s') {
-      if (stephen.y < board.length - 2) return board[stephen.y+2][stephen.x] != 2;
-      return stephen.y<board.length-1 && board[stephen.y+1][stephen.x] != -1;
+      return stephen.y<board.length-1 && 
+             board[stephen.y+1][stephen.x] != -1 &&
+             board[stephen.y+2][stephen.x] != 2;
     } else if (c=='d') {
-      if (stephen.x < board[0].length - 2) return board[stephen.y][stephen.x+2] != 2;
-      return stephen.x<board[0].length-1 && board[stephen.y][stephen.x+1] != -1;
+      return stephen.x<board[0].length-1 && 
+             board[stephen.y][stephen.x+1] != -1 &&
+             board[stephen.y][stephen.x+2] != 2;
     } else if (c=='q') {
       switch(stephen.orientation) {
         case 0:
@@ -255,6 +259,95 @@ public class Map { //<>// //<>//
   }
   
   /**
+   * Checks if a sausage moves another sausage up/down/left/right
+   */
+  public boolean sausageTouchSausage (Stephen stephen, char c) {
+    for (int i=0; i<sausages.size(); i++) {
+      for (int j=i+1; j<sausages.size(); j++) {
+        Sausage s1 = sausages.get(i);
+        Sausage s2 = sausages.get(j);
+        boolean touchsausage =((s1.x1==s2.x1 && s1.y1==s2.y1) || 
+                               (s1.x1==s2.x2 && s1.y1==s2.y2) ||
+                               (s1.x2==s2.x1 && s1.y2==s2.y1) || 
+                               (s1.x2==s2.x2 && s1.y2==s2.y2));
+        // Sausage moves down
+        if (c=='s' && touchsausage || 
+            (c=='e'||c=='q')  && touchsausage && 
+            (s2.movedDown || s1.movedDown)) {
+          if (s2.movedDown) {
+            if (board[s1.y1+1][s1.x1] == 2 || board[s1.y2+1][s1.x2] == 2){
+              s2.moveUp();
+              return false;
+            }
+            s1.moveDown();
+          } else {  
+            if (board[s2.y1+1][s2.x1] == 2 || board[s2.y2+1][s2.x2] == 2) {
+              s1.moveUp();
+              return false;  
+            }
+            s2.moveDown();
+          }
+        }
+        // Sausage moves up
+        else if (c=='w' && touchsausage ||
+                 (c=='e'||c=='q') && touchsausage && 
+                 (s1.movedUp || s2.movedUp)) {
+          if (s2.movedUp) {
+            if (board[s1.y1-1][s1.x1] == 2 || board[s1.y2-1][s1.x2] == 2) {
+              s2.moveDown();
+              return false;
+            }
+            s1.moveUp();
+          } else {  
+            if (board[s2.y1-1][s2.x1] == 2 || board[s2.y2-1][s2.x2] == 2) {
+              s1.moveDown();
+              return false;
+            }
+            s2.moveUp();
+          }
+        }
+        // Sausage moves left
+        else if (c=='a' && touchsausage ||
+                 (c=='e'||c=='q') && touchsausage && 
+                 (s1.movedLeft || s2.movedLeft)) {
+          if (s2.movedLeft) {
+            if (board[s1.y1][s1.x1-1] == 2 || board[s1.y2][s1.x2-1] == 2) {
+              s2.moveRight();
+              return false;
+            }
+            s1.moveLeft();
+          } else {
+            if (board[s2.y1][s2.x1-1] == 2 || board[s2.y2][s2.x2-1] == 2) {
+              s1.moveRight();
+              return false;
+            }
+            s2.moveLeft();
+          }
+        }
+        // Sausage moves right
+        else if (c=='d' && touchsausage ||
+                 (c=='e'||c=='q') && touchsausage && 
+                 (s1.movedRight || s2.movedRight)) {
+          if (s2.movedRight) {
+            if (board[s1.y1][s1.x1+1] == 2 || board[s1.y2][s1.x2+1] == 2) {
+              s2.moveLeft();
+              return false;
+            }
+            s1.moveRight();
+          } else { 
+            if (board[s2.y1][s2.x1+1] == 2 || board[s2.y2][s2.x2+1] == 2) {
+              s1.moveLeft();
+              return false;
+            }
+            s2.moveRight();
+          }
+        } 
+      }
+    }
+    return true;
+  }
+  
+  /**
    * Update sausages
    * Returns -1 if lose, 1 if won, 0 if continue
    */
@@ -266,7 +359,7 @@ public class Map { //<>// //<>//
          s.drowned = true; 
         return -1;
       }
-      if (board[s.y1][s.x1] == 1){
+      if (board[s.y1][s.x1] == 1 && (s.movedLeft||s.movedRight||s.movedUp||s.movedDown)){
        if(s.side){
          if (s.s11cooked)
            return -1;
@@ -277,7 +370,7 @@ public class Map { //<>// //<>//
          s.s12cooked = true;
        }
       }
-      if(board[s.y2][s.x2] == 1){
+      if(board[s.y2][s.x2] == 1 && (s.movedLeft||s.movedRight||s.movedUp||s.movedDown)){
         if (s.side) { 
           if (s.s21cooked)
             return -1;
@@ -289,6 +382,10 @@ public class Map { //<>// //<>//
         }
       }
       if(!s.cooked()) allcooked = false;
+      s.movedLeft = false;
+      s.movedRight = false;
+      s.movedUp = false;
+      s.movedDown = false;
     }
     if (allcooked) return 1;
     return 0;
@@ -302,12 +399,12 @@ public class Map { //<>// //<>//
       for (int j=0; j<board[0].length; j++) {
         float y = tile_side*(i+0.5);
         float x = tile_side*(j+0.5);
-        fill(255);
+        fill(color(124, 252, 0));
         stroke(0);
         if (board[i][j]==-1)
           fill(color(50, 150, 200));
         if (board[i][j]== 2)
-          fill(color(124, 252, 0));
+          fill(color(168, 46, 63));
         if (board[i][j] == 1)
           fill(color(255, 255, 0));
         if (i==stephen.y && j==stephen.x)
@@ -315,11 +412,14 @@ public class Map { //<>// //<>//
         if (i==stephen.forky && j==stephen.forkx)
           fill(100);  
         //show sausages
+        color sausage_red = color(150, 75, 0);
         for(Sausage s : sausages) {
-         if ((i==s.y1 && j==s.x1) ||
-             (i==s.y2 && j==s.x2))
-          if (!s.drowned)
-            fill(color(150, 75, 0)); 
+         if (i==s.y1 && j==s.x1 && !s.drowned)
+           if (s.side) fill(s.s12cooked ? 0 : sausage_red);
+           else fill(s.s11cooked ? 0 : sausage_red);
+         if (i==s.y2 && j==s.x2 && !s.drowned)
+           if (s.side) fill(s.s22cooked ? 0 : sausage_red);
+           else fill(s.s21cooked ? 0 : sausage_red);
         }
         rect(x, y, tile_side, tile_side);
       }
