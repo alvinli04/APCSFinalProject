@@ -1,4 +1,4 @@
-public class Map { //<>// //<>//
+public class Map { //<>// //<>// //<>//
 
   public int[][] board; //-1 is water, 0 is walkable, 1 is grill, 2 is rock
   private Stephen stephen;
@@ -225,10 +225,10 @@ public class Map { //<>// //<>//
         else if (stephen.forky < s.y1 && stephen.forky < s.y2) {
          if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
             return false;
-          s.moveDown(); //<>//
+          s.moveDown(); //<>// //<>//
         }
       }
-    } //<>//
+    } //<>// //<>//
     return true;
   }
   
