@@ -41,7 +41,7 @@ void setup(){
   
   
   // Barriers 
-  arr1[6][4] = 2;
+  arr1[4][6] = 2;
   /*arr1[6][4] = 1;
   arr1[6][5] = 1;
   arr1[5][5] = 1;
@@ -52,8 +52,8 @@ void setup(){
   
   // Initialization of Sausages
   sausages = new ArrayList<Sausage>();
-  sausages.add(new Sausage(4,4,5,4));
-  sausages.add(new Sausage(3,5,4,5));
+  sausages.add(new Sausage(5,3,5,4));
+  sausages.add(new Sausage(4,4,4,5));
   //sausages.add(new Sausage(4,4,4,5));
   //sausages.add(new Sausage(3,5,3,6));
   

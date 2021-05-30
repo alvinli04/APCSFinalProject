@@ -275,12 +275,16 @@ public class Map { //<>// //<>//
             (c=='e'||c=='q')  && touchsausage && 
             (s2.movedDown || s1.movedDown)) {
           if (s2.movedDown) {
-            if (board[s1.y1+1][s1.x1] == 2 || board[s1.y2+1][s1.x2] == 2)
+            if (board[s1.y1+1][s1.x1] == 2 || board[s1.y2+1][s1.x2] == 2){
+              s2.moveUp();
               return false;
+            }
             s1.moveDown();
           } else {  
-            if (board[s2.y1+1][s2.x1] == 2 || board[s2.y2+1][s2.x2] == 2)
-              return false;
+            if (board[s2.y1+1][s2.x1] == 2 || board[s2.y2+1][s2.x2] == 2) {
+              s1.moveUp();
+              return false;  
+            }
             s2.moveDown();
           }
         }
@@ -289,12 +293,16 @@ public class Map { //<>// //<>//
                  (c=='e'||c=='q') && touchsausage && 
                  (s1.movedUp || s2.movedUp)) {
           if (s2.movedUp) {
-            if (board[s1.y1-1][s1.x1] == 2 || board[s1.y2-1][s1.x2] == 2)
+            if (board[s1.y1-1][s1.x1] == 2 || board[s1.y2-1][s1.x2] == 2) {
+              s2.moveDown();
               return false;
+            }
             s1.moveUp();
           } else {  
-            if (board[s2.y1-1][s2.x1] == 2 || board[s2.y2-1][s2.x2] == 2)
+            if (board[s2.y1-1][s2.x1] == 2 || board[s2.y2-1][s2.x2] == 2) {
+              s1.moveDown();
               return false;
+            }
             s2.moveUp();
           }
         }
@@ -303,12 +311,16 @@ public class Map { //<>// //<>//
                  (c=='e'||c=='q') && touchsausage && 
                  (s1.movedLeft || s2.movedLeft)) {
           if (s2.movedLeft) {
-            if (board[s1.y1][s1.x1-1] == 2 || board[s1.y2][s1.x2-1] == 2)
+            if (board[s1.y1][s1.x1-1] == 2 || board[s1.y2][s1.x2-1] == 2) {
+              s2.moveRight();
               return false;
+            }
             s1.moveLeft();
           } else {
-            if (board[s2.y1][s2.x1-1] == 2 || board[s2.y2][s2.x2-1] == 2)
+            if (board[s2.y1][s2.x1-1] == 2 || board[s2.y2][s2.x2-1] == 2) {
+              s1.moveRight();
               return false;
+            }
             s2.moveLeft();
           }
         }
@@ -317,12 +329,16 @@ public class Map { //<>// //<>//
                  (c=='e'||c=='q') && touchsausage && 
                  (s1.movedRight || s2.movedRight)) {
           if (s2.movedRight) {
-            if (board[s1.y1][s1.x1+1] == 2 || board[s1.y2][s1.x2+1] == 2)
+            if (board[s1.y1][s1.x1+1] == 2 || board[s1.y2][s1.x2+1] == 2) {
+              s2.moveLeft();
               return false;
+            }
             s1.moveRight();
           } else { 
-            if (board[s2.y1][s2.x1+1] == 2 || board[s2.y2][s2.x2+1] == 2)
+            if (board[s2.y1][s2.x1+1] == 2 || board[s2.y2][s2.x2+1] == 2) {
+              s1.moveLeft();
               return false;
+            }
             s2.moveRight();
           }
         } 
