@@ -14,9 +14,9 @@ https://docs.google.com/document/d/11rjUp0ROTnMHaH1btTx4NzmoW22lxmyqH-2S1eCXvDc/
 ## Devlog
 
 ### 5/23/2021
-Alvin - wrote the skeleton for classes and their methods, implemented the basic tile structure of the game, as well as WASD movement and rotations. Put in some obstacles which restrict movement and rotations.
-
 Andrew - worked on prototype diagram, the UML diagram, began brainstorming ideas on the implementation of sausage movement. 
+
+Alvin - wrote the skeleton for classes and their methods, implemented the basic tile structure of the game, as well as WASD movement and rotations. Put in some obstacles which restrict movement and rotations.
 
 ### 5/24/2021
 Alvin/Andrew - shared screens in zoom meeting, created branch sausagemovement, and began implementing the touchSausage method. updated the sausage class to work with the touchSausage method. 
@@ -35,11 +35,15 @@ Andrew - Made some fixes on moving sausages by rotating and fixed merge conflict
 Alvin - Implemented mechanics for grilling, along with win/loss condition
 
 ### 5/29/2021
-Alvin - Displays text for when win/loss conditions are met, started working on a start menu
-
 Andrew - implemented mechanics for sausage movement when a sausage rolls another sausage
+
+Alvin - Displays text for when win/loss conditions are met, started working on a start menu
 
 ### 5/30/2021
 Andrew - Updated UML diagram 
 
-Andrew - Looked into movement animations 
+Alvin - Looked into movement animations 
+
+### 6/2/2021
+Andrew - Implemented the basic start page functionality, began brainstorming ways to implement sprites 
+
