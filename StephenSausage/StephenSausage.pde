@@ -5,7 +5,7 @@ public static final int map_side = 700;
 Stephen stephen;
 ArrayList<Sausage> sausages;
 Map mp1;
-public boolean lost, won;
+public boolean lost, won, gameStart=false;
 
 void loseText(){
  textAlign(CENTER);
@@ -25,6 +25,13 @@ void winText(){
  textSize(50);
  text("Press R to restart level", 500, 550);
  //text("Press M to return to menu", 500, 650);
+}
+
+void startScreen() {
+  if (!gameStart) {
+   PImage startScreen = loadImage("startScreen.jpeg");
+   image(startScreen, 0, 0, 1000, 1000);
+  }
 }
 
 void setup(){
@@ -64,27 +71,42 @@ void setup(){
 }
 
 void draw(){
-  // Display Map
-  mp1.show();
-  if (lost)
-    loseText();
-  if (won)
-    winText();
+  if (!gameStart) {
+    startScreen();
+  } else {
+    // Display Map
+    mp1.show();
+    if (lost)
+      loseText();
+    if (won)
+      winText();
+  }
 }
 
 void keyPressed(){
-  // Stephen moves freely
-  if (mp1.noBarriers(stephen, key) && 
-      mp1.forkTouchSausage(stephen,key) && 
-      mp1.stephenTouchSausage(stephen,key) && 
-      mp1.sausageTouchSausage(stephen,key) &&
-      !lost && !won) {
+  if (gameStart) {
+    // Stephen moves freely
+    if (mp1.noBarriers(stephen, key) && 
+        mp1.forkTouchSausage(stephen,key) && 
+        mp1.stephenTouchSausage(stephen,key) && 
+        mp1.sausageTouchSausage(stephen,key) &&
+        !lost && !won) {
         stephen.move(key);
         int k = mp1.updateSausages();
         lost = (k==-1);
         won = (k==1);
+    }
+    if (key == 'r') {
+      setup();
+    }
   }
-   if (key == 'r') {
-     setup();
+}
+
+void mousePressed() {
+  if(mouseButton == LEFT) {
+     if(!gameStart) {
+       gameStart = true;
+       background(color(50, 150, 200));
+     }
    }
 }
