@@ -37,24 +37,26 @@ void setup(){
   // Initialization of Board
   for(int i=0; i<arr1.length; i++)
     for(int j=0; j<arr1[0].length; j++)
-      if(i<1 || j<1 || i>arr1.length-2 || j>arr1[0].length-2) arr1[i][j] = -1;
-  
+      if(i<3 || j<3 || i>arr1.length-4 || j>arr1[0].length-4) arr1[i][j] = -1;
+  arr1[2][4]=0;
+  arr1[2][5]=0;
   
   // Barriers 
-  arr1[4][6] = 2;
-  /*arr1[6][4] = 1;
-  arr1[6][5] = 1;
+  //arr1[4][6] = 2;
+  // Grills
+  arr1[4][4] = 1;
+  arr1[4][5] = 1;
+  arr1[5][4] = 1;
   arr1[5][5] = 1;
-  arr1[5][4] = 1;*/
   
   // Initialization of Stephen
-  stephen = new Stephen(2, 2, 0);
+  stephen = new Stephen(4, 2, 0);
   
   // Initialization of Sausages
   sausages = new ArrayList<Sausage>();
-  sausages.add(new Sausage(5,3,5,4));
-  sausages.add(new Sausage(4,4,4,5));
-  //sausages.add(new Sausage(4,4,4,5));
+  //sausages.add(new Sausage(5,3,5,4));
+  sausages.add(new Sausage(3,4,3,5));
+  sausages.add(new Sausage(6,4,6,5));
   //sausages.add(new Sausage(3,5,3,6));
   
   // Initialization of Map
