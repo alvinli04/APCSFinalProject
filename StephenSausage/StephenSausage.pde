@@ -15,7 +15,7 @@ void setup(){
   won = false;
   
   // Images
-  sprites = new PImage[8];
+  sprites = new PImage[15];
   sprites[0] = loadImage("Water.png");
   sprites[1] = loadImage("Sausage1.png");
   sprites[2] = loadImage("BurntSausage1.png");
@@ -23,7 +23,15 @@ void setup(){
   sprites[4] = loadImage("Grill.png");
   sprites[5] = loadImage("Sausage2.png");
   sprites[6] = loadImage("BurntSausage2.png");
-  sprites[7] = loadImage("Stephen.png");
+  sprites[7] = loadImage("Stephen1.png");
+  sprites[8] = loadImage("Stephen2.png");
+  sprites[9] = loadImage("Stephen3.png");
+  sprites[10] = loadImage("Stephen4.png");
+  sprites[11] = loadImage("StephenFork1.png");
+  sprites[12] = loadImage("StephenFork2.png");
+  sprites[13] = loadImage("StephenFork3.png");
+  sprites[14] = loadImage("StephenFork4.png");
+  
   
   
   image(sprites[0],0,0,1000,1000);

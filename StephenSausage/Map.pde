@@ -415,22 +415,38 @@ public class Map { //<>// //<>// //<>//
           rect(x, y, tile_side, tile_side);
         }
         if (i==stephen.y && j==stephen.x) {
-          image(sprites[7],x,y,tile_side,tile_side);
+          switch(stephen.orientation) {
+            case 0:
+              image(sprites[10],x,y,tile_side,tile_side);
+              break;
+            case 1:
+              image(sprites[9],x,y,tile_side,tile_side);
+               break;
+            case 2:
+              image(sprites[8],x,y,tile_side,tile_side);
+              break;
+            case 3:
+              image(sprites[7],x,y,tile_side,tile_side);
+              break;
+          }
         } else if (i==stephen.forky && j==stephen.forkx) {
-          if (stephen.orientation%2==1) {
-            fill(color(128, 128, 128)); 
-            rect(x+(tile_side/2)-(tile_side/8), y, tile_side/4, tile_side);
-            rect(x, y, tile_side/4, tile_side);
-            rect(x+(tile_side)-(tile_side/4), y, tile_side/4, tile_side);
-          } else {
-            fill(color(128, 128, 128)); 
-            rect(x, y+(tile_side/2)-(tile_side/8), tile_side, tile_side/4);
-            rect(x, y, tile_side, tile_side/4);
-            rect(x, y+tile_side-(tile_side/4), tile_side, tile_side/4);
+          switch(stephen.orientation) {
+            case 0:
+              image(sprites[14],x,y,tile_side,tile_side);
+              break;
+            case 1:
+              image(sprites[13],x,y,tile_side,tile_side);
+               break;
+            case 2:
+              image(sprites[12],x,y,tile_side,tile_side);
+              break;
+            case 3:
+              image(sprites[11],x,y,tile_side,tile_side);
+              break;
           }
         } 
         //show sausages
-        color sausage_red = color(150, 75, 0);
+        //color sausage_red = color(150, 75, 0);
         for(Sausage s : sausages) {
          if (i==s.y1 && j==s.x1 && !s.drowned){
            if (s.side) {
