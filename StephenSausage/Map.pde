@@ -397,6 +397,10 @@ public class Map { //<>// //<>// //<>//
    */
   public void show() {
     image(sprites[0],0,0,1000,1000);
+    
+    if (stephen.burning) stephen.goback();
+    if (board[stephen.y][stephen.x] == 1) stephen.burning = true;
+    
     for (int i=0; i<board.length; i++) {
       for (int j=0; j<board[0].length; j++) {
         float y = tile_side*(i+0.5) + 225;
