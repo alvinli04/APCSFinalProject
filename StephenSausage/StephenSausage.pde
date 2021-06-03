@@ -2,6 +2,7 @@ int[][] arr1 = new int[10][10];
 
 public static final int tile_side = 50;
 public static final int map_side = 1000;
+public int last_pressed = 0;
 Stephen stephen;
 ArrayList<Sausage> sausages;
 Map mp1;
@@ -86,16 +87,22 @@ void keyPressed(){
         mp1.forkTouchSausage(stephen,key) && 
         mp1.stephenTouchSausage(stephen,key) && 
         mp1.sausageTouchSausage(stephen,key) &&
+        millis() - last_pressed > 200 &&
         !lost && !won) {
         stephen.move(key);
         int k = mp1.updateSausages();
         lost = (k==-1);
         won = (k==1);
+        last_pressed = millis();
     }
     if (key == 'r') {
       setup();
     }
   }
+}
+
+void keyHeld(){
+  
 }
 
 void mousePressed() {
