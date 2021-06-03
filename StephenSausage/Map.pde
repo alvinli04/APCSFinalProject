@@ -406,7 +406,8 @@ public class Map { //<>// //<>// //<>//
         if (board[i][j]==0) {
           image(sprites[3],x,y,tile_side,tile_side);
           rect(x, y, tile_side, tile_side);
-        } else if (board[i][j]==2){
+        } 
+        if (board[i][j]==2){
           fill(color(168, 46, 63));
           rect(x, y, tile_side, tile_side);
         } else if (board[i][j] == 1) {
@@ -414,8 +415,7 @@ public class Map { //<>// //<>// //<>//
           rect(x, y, tile_side, tile_side);
         }
         if (i==stephen.y && j==stephen.x) {
-          fill(color(255, 128, 0));
-          circle(x+tile_side/2,y+tile_side/2,tile_side);
+          image(sprites[7],x,y,tile_side,tile_side);
         } else if (i==stephen.forky && j==stephen.forkx) {
           if (stephen.orientation%2==1) {
             fill(color(128, 128, 128)); 
@@ -448,14 +448,14 @@ public class Map { //<>// //<>// //<>//
          if (i==s.y2 && j==s.x2 && !s.drowned) {
            if (s.side) {
              if(s.s22cooked)
-               image(sprites[2],x,y,tile_side,tile_side);
+               image(sprites[6],x,y,tile_side,tile_side);
              else 
-               image(sprites[1],x,y,tile_side,tile_side);
+               image(sprites[5],x,y,tile_side,tile_side);
            } else { 
              if(s.s21cooked)
-               image(sprites[2],x,y,tile_side,tile_side);
+               image(sprites[6],x,y,tile_side,tile_side);
              else 
-               image(sprites[1],x,y,tile_side,tile_side);
+               image(sprites[5],x,y,tile_side,tile_side);
            }
          } 
         }
