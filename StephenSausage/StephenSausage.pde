@@ -1,45 +1,24 @@
 int[][] arr1 = new int[10][10];
 
 public static final int tile_side = 50;
-public static final int map_side = 700;
+public static final int map_side = 1000;
 Stephen stephen;
 ArrayList<Sausage> sausages;
 Map mp1;
 public boolean lost, won, gameStart=false;
-
-void loseText(){
- textAlign(CENTER);
- fill(255);
- textSize(100);
- text("LOST", 500, 450);
- textSize(50);
- text("Press R to restart level", 500, 550);
- //text("Press M to return to menu", 500, 650);
-}
-
-void winText(){
- textAlign(CENTER);
- fill(255);
- textSize(100);
- text("WON", 500, 450);
- textSize(50);
- text("Press R to restart level", 500, 550);
- //text("Press M to return to menu", 500, 650);
-}
-
-void startScreen() {
-  if (!gameStart) {
-   PImage startScreen = loadImage("startScreen.jpeg");
-   image(startScreen, 0, 0, 1000, 1000);
-  }
-}
+PImage sprites[];
 
 void setup(){
   clear();
   size(1000,1000);
-  background(color(50, 150, 200));
   lost = false;
   won = false;
+  
+  // Images
+  sprites = new PImage[1];
+  sprites[0] = loadImage("Water.png");
+  
+  image(sprites[0],0,0,1000,1000);
   
   // Initialization of Board
   for(int i=0; i<arr1.length; i++)
@@ -76,6 +55,7 @@ void draw(){
   } else {
     // Display Map
     mp1.show();
+
     if (lost)
       loseText();
     if (won)
@@ -106,7 +86,35 @@ void mousePressed() {
   if(mouseButton == LEFT) {
      if(!gameStart) {
        gameStart = true;
-       background(color(50, 150, 200));
+       image(sprites[0],0,0,1000,1000);
+       //background(color(50, 150, 200));
      }
    }
+}
+
+void loseText(){
+ textAlign(CENTER);
+ fill(255);
+ textSize(100);
+ text("LOST", 500, 450);
+ textSize(50);
+ text("Press R to restart level", 500, 550);
+ //text("Press M to return to menu", 500, 650);
+}
+
+void winText(){
+ textAlign(CENTER);
+ fill(255);
+ textSize(100);
+ text("WON", 500, 450);
+ textSize(50);
+ text("Press R to restart level", 500, 550);
+ //text("Press M to return to menu", 500, 650);
+}
+
+void startScreen() {
+  if (!gameStart) {
+   PImage startScreen = loadImage("startScreen.jpeg");
+   image(startScreen, 0, 0, 1000, 1000);
+  }
 }

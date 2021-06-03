@@ -3,6 +3,7 @@ public class Map { //<>// //<>// //<>//
   public int[][] board; //-1 is water, 0 is walkable, 1 is grill, 2 is rock
   private Stephen stephen;
   public ArrayList<Sausage> sausages;
+  private PImage img;
   
   /**
    * Constructor for the Map class 
@@ -395,22 +396,23 @@ public class Map { //<>// //<>// //<>//
    * Display the map and its elements
    */
   public void show() {
+    image(sprites[0],0,0,1000,1000);
     for (int i=0; i<board.length; i++) {
       for (int j=0; j<board[0].length; j++) {
         float y = tile_side*(i+0.5) + 225;
         float x = tile_side*(j+0.5) + 225;
-        fill(color(124, 252, 0));
-        stroke(0);
-        if (board[i][j]==-1)
-          fill(color(50, 150, 200));
-        if (board[i][j]== 2)
-          fill(color(168, 46, 63));
-        if (board[i][j] == 1)
-          fill(color(255, 255, 102));
-        if (i==stephen.y && j==stephen.x)
+        noFill();
+        if (i==stephen.y && j==stephen.x) {
           fill(color(255, 165, 0));
-        if (i==stephen.forky && j==stephen.forkx)
+        } else if (i==stephen.forky && j==stephen.forkx) {
           fill(color(128, 128, 128));  
+        } else if (board[i][j]==0) {
+          fill(color(124, 252, 0));
+        } else if (board[i][j]== 2){
+          fill(color(168, 46, 63));
+        } else if (board[i][j] == 1) {
+          fill(color(255, 255, 102));
+        }
         //show sausages
         color sausage_red = color(150, 75, 0);
         for(Sausage s : sausages) {
@@ -421,12 +423,12 @@ public class Map { //<>// //<>// //<>//
          if (i==s.y2 && j==s.x2 && !s.drowned) {
            if (s.side) fill(s.s22cooked ? 0 : sausage_red);
            else fill(s.s21cooked ? 0 : sausage_red);
-         }
-         
+         } 
         }
-        stroke(color(50,150,200));
+        noStroke();
         rect(x, y, tile_side, tile_side);
       }
     }
   }
+  
 }
