@@ -47,3 +47,4 @@ Alvin - Looked into movement animations
 ### 6/2/2021
 Andrew - Implemented the basic start page functionality, began brainstorming ways to implement sprites 
 
+Alvin - Drew sprites, worked on displaying and orienting them
