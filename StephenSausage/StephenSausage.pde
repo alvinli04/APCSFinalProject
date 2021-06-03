@@ -1,45 +1,41 @@
 int[][] arr1 = new int[10][10];
 
 public static final int tile_side = 50;
-public static final int map_side = 700;
+public static final int map_side = 1000;
+public int last_pressed = 0;
 Stephen stephen;
 ArrayList<Sausage> sausages;
 Map mp1;
 public boolean lost, won, gameStart=false;
-
-void loseText(){
- textAlign(CENTER);
- fill(255);
- textSize(100);
- text("LOST", 500, 450);
- textSize(50);
- text("Press R to restart level", 500, 550);
- //text("Press M to return to menu", 500, 650);
-}
-
-void winText(){
- textAlign(CENTER);
- fill(255);
- textSize(100);
- text("WON", 500, 450);
- textSize(50);
- text("Press R to restart level", 500, 550);
- //text("Press M to return to menu", 500, 650);
-}
-
-void startScreen() {
-  if (!gameStart) {
-   PImage startScreen = loadImage("startScreen.jpeg");
-   image(startScreen, 0, 0, 1000, 1000);
-  }
-}
+PImage sprites[];
 
 void setup(){
   clear();
   size(1000,1000);
-  background(color(50, 150, 200));
   lost = false;
   won = false;
+  
+  // Images
+  sprites = new PImage[15];
+  sprites[0] = loadImage("Water.png");
+  sprites[1] = loadImage("Sausage1.png");
+  sprites[2] = loadImage("BurntSausage1.png");
+  sprites[3] = loadImage("Grass.png");
+  sprites[4] = loadImage("Grill.png");
+  sprites[5] = loadImage("Sausage2.png");
+  sprites[6] = loadImage("BurntSausage2.png");
+  sprites[7] = loadImage("Stephen1.png");
+  sprites[8] = loadImage("Stephen2.png");
+  sprites[9] = loadImage("Stephen3.png");
+  sprites[10] = loadImage("Stephen4.png");
+  sprites[11] = loadImage("StephenFork1.png");
+  sprites[12] = loadImage("StephenFork2.png");
+  sprites[13] = loadImage("StephenFork3.png");
+  sprites[14] = loadImage("StephenFork4.png");
+  
+  
+  
+  image(sprites[0],0,0,1000,1000);
   
   // Initialization of Board
   for(int i=0; i<arr1.length; i++)
@@ -76,6 +72,7 @@ void draw(){
   } else {
     // Display Map
     mp1.show();
+
     if (lost)
       loseText();
     if (won)
@@ -90,11 +87,13 @@ void keyPressed(){
         mp1.forkTouchSausage(stephen,key) && 
         mp1.stephenTouchSausage(stephen,key) && 
         mp1.sausageTouchSausage(stephen,key) &&
+        millis() - last_pressed > 200 &&
         !lost && !won) {
         stephen.move(key);
         int k = mp1.updateSausages();
         lost = (k==-1);
         won = (k==1);
+        last_pressed = millis();
     }
     if (key == 'r') {
       setup();
@@ -102,11 +101,43 @@ void keyPressed(){
   }
 }
 
+void keyHeld(){
+  
+}
+
 void mousePressed() {
   if(mouseButton == LEFT) {
      if(!gameStart) {
        gameStart = true;
-       background(color(50, 150, 200));
+       image(sprites[0],0,0,1000,1000);
+       //background(color(50, 150, 200));
      }
    }
+}
+
+void loseText(){
+ textAlign(CENTER);
+ fill(255);
+ textSize(100);
+ text("LOST", 500, 450);
+ textSize(50);
+ text("Press R to restart level", 500, 550);
+ //text("Press M to return to menu", 500, 650);
+}
+
+void winText(){
+ textAlign(CENTER);
+ fill(255);
+ textSize(100);
+ text("WON", 500, 450);
+ textSize(50);
+ text("Press R to restart level", 500, 550);
+ //text("Press M to return to menu", 500, 650);
+}
+
+void startScreen() {
+  if (!gameStart) {
+   PImage startScreen = loadImage("startScreen.jpeg");
+   image(startScreen, 0, 0, 1000, 1000);
+  }
 }

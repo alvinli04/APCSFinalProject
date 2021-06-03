@@ -3,6 +3,7 @@ public class Map { //<>// //<>// //<>//
   public int[][] board; //-1 is water, 0 is walkable, 1 is grill, 2 is rock
   private Stephen stephen;
   public ArrayList<Sausage> sausages;
+  private PImage img;
   
   /**
    * Constructor for the Map class 
@@ -395,38 +396,91 @@ public class Map { //<>// //<>// //<>//
    * Display the map and its elements
    */
   public void show() {
+    image(sprites[0],0,0,1000,1000);
+    
+    if (stephen.burning) stephen.goback();
+    if (board[stephen.y][stephen.x] == 1) stephen.burning = true;
+    
     for (int i=0; i<board.length; i++) {
       for (int j=0; j<board[0].length; j++) {
         float y = tile_side*(i+0.5) + 225;
         float x = tile_side*(j+0.5) + 225;
-        fill(color(124, 252, 0));
-        stroke(0);
-        if (board[i][j]==-1)
-          fill(color(50, 150, 200));
-        if (board[i][j]== 2)
+        noFill();
+        noStroke();
+        if (board[i][j]==0) {
+          image(sprites[3],x,y,tile_side,tile_side);
+          rect(x, y, tile_side, tile_side);
+        } 
+        if (board[i][j]==2){
           fill(color(168, 46, 63));
-        if (board[i][j] == 1)
-          fill(color(255, 255, 102));
-        if (i==stephen.y && j==stephen.x)
-          fill(color(255, 165, 0));
-        if (i==stephen.forky && j==stephen.forkx)
-          fill(color(128, 128, 128));  
+          rect(x, y, tile_side, tile_side);
+        } else if (board[i][j] == 1) {
+          image(sprites[4],x,y,tile_side,tile_side);
+          rect(x, y, tile_side, tile_side);
+        }
+        if (i==stephen.y && j==stephen.x) {
+          switch(stephen.orientation) {
+            case 0:
+              image(sprites[10],x,y,tile_side,tile_side);
+              break;
+            case 1:
+              image(sprites[9],x,y,tile_side,tile_side);
+               break;
+            case 2:
+              image(sprites[8],x,y,tile_side,tile_side);
+              break;
+            case 3:
+              image(sprites[7],x,y,tile_side,tile_side);
+              break;
+          }
+        } else if (i==stephen.forky && j==stephen.forkx) {
+          switch(stephen.orientation) {
+            case 0:
+              image(sprites[14],x,y,tile_side,tile_side);
+              break;
+            case 1:
+              image(sprites[13],x,y,tile_side,tile_side);
+               break;
+            case 2:
+              image(sprites[12],x,y,tile_side,tile_side);
+              break;
+            case 3:
+              image(sprites[11],x,y,tile_side,tile_side);
+              break;
+          }
+        } 
         //show sausages
-        color sausage_red = color(150, 75, 0);
+        //color sausage_red = color(150, 75, 0);
         for(Sausage s : sausages) {
          if (i==s.y1 && j==s.x1 && !s.drowned){
-           if (s.side) fill(s.s12cooked ? 0 : sausage_red);
-           else fill(s.s11cooked ? 0 : sausage_red);
+           if (s.side) {
+             if(s.s12cooked)
+               image(sprites[2],x,y,tile_side,tile_side);
+             else 
+               image(sprites[1],x,y,tile_side,tile_side);
+           } else { 
+             if(s.s11cooked)
+               image(sprites[2],x,y,tile_side,tile_side);
+             else 
+               image(sprites[1],x,y,tile_side,tile_side);
+           }
          }
          if (i==s.y2 && j==s.x2 && !s.drowned) {
-           if (s.side) fill(s.s22cooked ? 0 : sausage_red);
-           else fill(s.s21cooked ? 0 : sausage_red);
-         }
-         
+           if (s.side) {
+             if(s.s22cooked)
+               image(sprites[6],x,y,tile_side,tile_side);
+             else 
+               image(sprites[5],x,y,tile_side,tile_side);
+           } else { 
+             if(s.s21cooked)
+               image(sprites[6],x,y,tile_side,tile_side);
+             else 
+               image(sprites[5],x,y,tile_side,tile_side);
+           }
+         } 
         }
-        stroke(color(50,150,200));
-        rect(x, y, tile_side, tile_side);
       }
     }
   }
+  
 }
