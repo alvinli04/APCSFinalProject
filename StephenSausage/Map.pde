@@ -397,8 +397,8 @@ public class Map { //<>// //<>// //<>//
   public void show() {
     for (int i=0; i<board.length; i++) {
       for (int j=0; j<board[0].length; j++) {
-        float y = tile_side*(i+0.5);
-        float x = tile_side*(j+0.5);
+        float y = tile_side*(i+0.5) + 225;
+        float x = tile_side*(j+0.5) + 225;
         fill(color(124, 252, 0));
         stroke(0);
         if (board[i][j]==-1)
@@ -406,21 +406,25 @@ public class Map { //<>// //<>// //<>//
         if (board[i][j]== 2)
           fill(color(168, 46, 63));
         if (board[i][j] == 1)
-          fill(color(255, 255, 0));
+          fill(color(255, 255, 102));
         if (i==stephen.y && j==stephen.x)
           fill(color(255, 165, 0));
         if (i==stephen.forky && j==stephen.forkx)
-          fill(100);  
+          fill(color(128, 128, 128));  
         //show sausages
         color sausage_red = color(150, 75, 0);
         for(Sausage s : sausages) {
-         if (i==s.y1 && j==s.x1 && !s.drowned)
+         if (i==s.y1 && j==s.x1 && !s.drowned){
            if (s.side) fill(s.s12cooked ? 0 : sausage_red);
            else fill(s.s11cooked ? 0 : sausage_red);
-         if (i==s.y2 && j==s.x2 && !s.drowned)
+         }
+         if (i==s.y2 && j==s.x2 && !s.drowned) {
            if (s.side) fill(s.s22cooked ? 0 : sausage_red);
            else fill(s.s21cooked ? 0 : sausage_red);
+         }
+         
         }
+        stroke(color(50,150,200));
         rect(x, y, tile_side, tile_side);
       }
     }
