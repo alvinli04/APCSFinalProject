@@ -402,31 +402,63 @@ public class Map { //<>// //<>// //<>//
         float y = tile_side*(i+0.5) + 225;
         float x = tile_side*(j+0.5) + 225;
         noFill();
-        if (i==stephen.y && j==stephen.x) {
-          fill(color(255, 165, 0));
-        } else if (i==stephen.forky && j==stephen.forkx) {
-          fill(color(128, 128, 128));  
-        } else if (board[i][j]==0) {
-          fill(color(124, 252, 0));
-        } else if (board[i][j]== 2){
+        noStroke();
+        if (board[i][j]==0) {
+          image(sprites[3],x,y,tile_side,tile_side);
+          rect(x, y, tile_side, tile_side);
+        } else if (board[i][j]==2){
           fill(color(168, 46, 63));
+          rect(x, y, tile_side, tile_side);
         } else if (board[i][j] == 1) {
-          fill(color(255, 255, 102));
+          image(sprites[4],x,y,tile_side,tile_side);
+          rect(x, y, tile_side, tile_side);
         }
+        if (i==stephen.y && j==stephen.x) {
+          fill(color(255, 128, 0));
+          circle(x+tile_side/2,y+tile_side/2,tile_side);
+        } else if (i==stephen.forky && j==stephen.forkx) {
+          if (stephen.orientation%2==1) {
+            fill(color(128, 128, 128)); 
+            rect(x+(tile_side/2)-(tile_side/8), y, tile_side/4, tile_side);
+            rect(x, y, tile_side/4, tile_side);
+            rect(x+(tile_side)-(tile_side/4), y, tile_side/4, tile_side);
+          } else {
+            fill(color(128, 128, 128)); 
+            rect(x, y+(tile_side/2)-(tile_side/8), tile_side, tile_side/4);
+            rect(x, y, tile_side, tile_side/4);
+            rect(x, y+tile_side-(tile_side/4), tile_side, tile_side/4);
+          }
+        } 
         //show sausages
         color sausage_red = color(150, 75, 0);
         for(Sausage s : sausages) {
          if (i==s.y1 && j==s.x1 && !s.drowned){
-           if (s.side) fill(s.s12cooked ? 0 : sausage_red);
-           else fill(s.s11cooked ? 0 : sausage_red);
+           if (s.side) {
+             if(s.s12cooked)
+               image(sprites[2],x,y,tile_side,tile_side);
+             else 
+               image(sprites[1],x,y,tile_side,tile_side);
+           } else { 
+             if(s.s11cooked)
+               image(sprites[2],x,y,tile_side,tile_side);
+             else 
+               image(sprites[1],x,y,tile_side,tile_side);
+           }
          }
          if (i==s.y2 && j==s.x2 && !s.drowned) {
-           if (s.side) fill(s.s22cooked ? 0 : sausage_red);
-           else fill(s.s21cooked ? 0 : sausage_red);
+           if (s.side) {
+             if(s.s22cooked)
+               image(sprites[2],x,y,tile_side,tile_side);
+             else 
+               image(sprites[1],x,y,tile_side,tile_side);
+           } else { 
+             if(s.s21cooked)
+               image(sprites[2],x,y,tile_side,tile_side);
+             else 
+               image(sprites[1],x,y,tile_side,tile_side);
+           }
          } 
         }
-        noStroke();
-        rect(x, y, tile_side, tile_side);
       }
     }
   }

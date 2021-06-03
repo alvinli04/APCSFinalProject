@@ -15,8 +15,12 @@ void setup(){
   won = false;
   
   // Images
-  sprites = new PImage[1];
+  sprites = new PImage[5];
   sprites[0] = loadImage("Water.png");
+  sprites[1] = loadImage("Sausage.png");
+  sprites[2] = loadImage("BurntSausage.png");
+  sprites[3] = loadImage("Grass.png");
+  sprites[4] = loadImage("Grill.png");
   
   image(sprites[0],0,0,1000,1000);
   
