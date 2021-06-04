@@ -11,7 +11,7 @@ PImage sprites[];
 
 void setup(){
   clear();
-  size(1000,1000);
+  size(1000,800);
   lost = false;
   won = false;
   
@@ -35,7 +35,7 @@ void setup(){
   
   
   
-  image(sprites[0],0,0,1000,1000);
+  //image(sprites[0],0,0,1000,1000);
   
   // Initialization of Board
   for(int i=0; i<arr1.length; i++)
@@ -106,10 +106,12 @@ void keyHeld(){
 }
 
 void mousePressed() {
-  if(mouseButton == LEFT) {
+  if(mouseButton == LEFT && 
+     mouseX>440 && mouseY>390 && 
+     mouseX<565 && mouseY<475) {
      if(!gameStart) {
        gameStart = true;
-       image(sprites[0],0,0,1000,1000);
+       image(sprites[0],0,0,1000,800);
        //background(color(50, 150, 200));
      }
    }
@@ -121,7 +123,7 @@ void loseText(){
  textSize(100);
  text("LOST", 500, 450);
  textSize(50);
- text("Press R to restart level", 500, 550);
+ text("Press R to restart level", 500, 400);
  //text("Press M to return to menu", 500, 650);
 }
 
@@ -131,13 +133,29 @@ void winText(){
  textSize(100);
  text("WON", 500, 450);
  textSize(50);
- text("Press R to restart level", 500, 550);
+ text("Press R to restart level", 500, 400);
  //text("Press M to return to menu", 500, 650);
 }
 
 void startScreen() {
   if (!gameStart) {
    PImage startScreen = loadImage("startScreen.jpeg");
-   image(startScreen, 0, 0, 1000, 1000);
+   image(startScreen, 0, 0, 1000, 800);
+   
+   noStroke();
+   fill(color(185,0,0));
+   rect(420, 350, 160, 238);
+   
+   stroke(0);
+   //fill(color(132,68,32));
+   fill(color(200,0,0));
+   rect(440, 390, 125, 80, 25);
+   
+   textAlign(CENTER);
+   fill(color(0));
+   PFont font = loadFont("Serif-48.vlw");
+   textFont(font,32);
+   textSize(50);
+   text("Play", 500, 445);
   }
 }
