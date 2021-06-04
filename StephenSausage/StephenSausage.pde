@@ -98,6 +98,10 @@ void keyPressed(){
     if (key == 'r') {
       setup();
     }
+    if (key == ESC) {
+      key=0;
+      gameStart = false;
+    }
   }
 }
 
@@ -119,22 +123,22 @@ void mousePressed() {
 
 void loseText(){
  textAlign(CENTER);
- fill(255);
+ fill(color(255,0,0));
  textSize(100);
- text("LOST", 500, 450);
+ text("LOST", 500, 325);
  textSize(50);
- text("Press R to restart level", 500, 400);
- //text("Press M to return to menu", 500, 650);
+ text("Press R to restart level", 500, 425);
+ text("Press Escape to return to menu", 500, 525);
 }
 
 void winText(){
  textAlign(CENTER);
- fill(255);
+ fill(color(255,215,0));
  textSize(100);
- text("WON", 500, 450);
+ text("WON", 500, 325);
  textSize(50);
- text("Press R to restart level", 500, 400);
- //text("Press M to return to menu", 500, 650);
+ text("Press R to restart level", 500, 425);
+ text("Press Escape to return to menu", 500, 525);
 }
 
 void startScreen() {
@@ -151,6 +155,7 @@ void startScreen() {
    fill(color(200,0,0));
    rect(440, 390, 125, 80, 25);
    
+   // Play button, to be replaced with level 1, level 2, level 3 etc.
    textAlign(CENTER);
    fill(color(0));
    PFont font = loadFont("Serif-48.vlw");
