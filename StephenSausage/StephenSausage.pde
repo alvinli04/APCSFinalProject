@@ -16,7 +16,7 @@ void setup(){
   won = false;
   
   // Images
-  sprites = new PImage[15];
+  sprites = new PImage[17];
   sprites[0] = loadImage("Water.png");
   sprites[1] = loadImage("Sausage1.png");
   sprites[2] = loadImage("BurntSausage1.png");
@@ -32,6 +32,8 @@ void setup(){
   sprites[12] = loadImage("StephenFork2.png");
   sprites[13] = loadImage("StephenFork3.png");
   sprites[14] = loadImage("StephenFork4.png");
+  sprites[15] = loadImage("CookedSausage1.png");
+  sprites[16] = loadImage("CookedSausage2.png");
   
   
   

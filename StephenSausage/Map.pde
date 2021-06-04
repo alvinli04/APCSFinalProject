@@ -453,30 +453,20 @@ public class Map { //<>// //<>// //<>//
         //color sausage_red = color(150, 75, 0);
         for(Sausage s : sausages) {
          if (i==s.y1 && j==s.x1 && !s.drowned){
-           if (s.side) {
-             if(s.s12cooked)
-               image(sprites[2],x,y,tile_side,tile_side);
-             else 
+           if(s.s12cooked && !s.s11cooked)
+               image(sprites[15],x,y,tile_side,tile_side);
+             else if (!s.s12cooked && !s.s11cooked)
                image(sprites[1],x,y,tile_side,tile_side);
-           } else { 
-             if(s.s11cooked)
-               image(sprites[2],x,y,tile_side,tile_side);
              else 
-               image(sprites[1],x,y,tile_side,tile_side);
-           }
+               image(sprites[2],x,y,tile_side,tile_side);
          }
          if (i==s.y2 && j==s.x2 && !s.drowned) {
-           if (s.side) {
-             if(s.s22cooked)
-               image(sprites[6],x,y,tile_side,tile_side);
-             else 
+           if(s.s22cooked && !s.s21cooked)
+               image(sprites[16],x,y,tile_side,tile_side);
+             else if (!s.s22cooked && !s.s21cooked)
                image(sprites[5],x,y,tile_side,tile_side);
-           } else { 
-             if(s.s21cooked)
-               image(sprites[6],x,y,tile_side,tile_side);
              else 
-               image(sprites[5],x,y,tile_side,tile_side);
-           }
+               image(sprites[6],x,y,tile_side,tile_side);
          } 
         }
       }
