@@ -214,7 +214,6 @@ public class Map { //<>// //<>// //<>//
           if (board[s.y1][s.x1-1] == 2 || board[s.y2][s.x2-1] == 2)
             return false;
           s.moveLeft();
-          println("bob");
         }
         // Fork is down
         else if (stephen.forky > s.y1 && stephen.forky > s.y2) {
@@ -396,15 +395,15 @@ public class Map { //<>// //<>// //<>//
    * Display the map and its elements
    */
   public void show() {
-    image(sprites[0],0,0,1000,1000);
+    image(sprites[0],0,0,1000,800);
     
     if (stephen.burning) stephen.goback();
     if (board[stephen.y][stephen.x] == 1) stephen.burning = true;
     
     for (int i=0; i<board.length; i++) {
       for (int j=0; j<board[0].length; j++) {
-        float y = tile_side*(i+0.5) + 225;
-        float x = tile_side*(j+0.5) + 225;
+        float y = tile_side*(i+0.5) + 120;
+        float x = tile_side*(j+0.5) + 250;
         noFill();
         noStroke();
         if (board[i][j]==0) {
@@ -450,33 +449,26 @@ public class Map { //<>// //<>// //<>//
           }
         } 
         //show sausages
-        //color sausage_red = color(150, 75, 0);
         for(Sausage s : sausages) {
          if (i==s.y1 && j==s.x1 && !s.drowned){
-           if (s.side) {
-             if(s.s12cooked)
-               image(sprites[2],x,y,tile_side,tile_side);
-             else 
+           if(s.s12cooked && !s.s11cooked)
+               image(sprites[15],x,y,tile_side,tile_side);
+             else if (!s.s12cooked && !s.s11cooked)
                image(sprites[1],x,y,tile_side,tile_side);
-           } else { 
-             if(s.s11cooked)
-               image(sprites[2],x,y,tile_side,tile_side);
+             else if (!s.s12cooked && s.s11cooked) 
+               image(sprites[15],x,y,tile_side,tile_side);
              else 
-               image(sprites[1],x,y,tile_side,tile_side);
-           }
+               image(sprites[2],x,y,tile_side,tile_side);
          }
          if (i==s.y2 && j==s.x2 && !s.drowned) {
-           if (s.side) {
-             if(s.s22cooked)
-               image(sprites[6],x,y,tile_side,tile_side);
-             else 
+           if(s.s22cooked && !s.s21cooked)
+               image(sprites[16],x,y,tile_side,tile_side);
+             else if (!s.s22cooked && !s.s21cooked)
                image(sprites[5],x,y,tile_side,tile_side);
-           } else { 
-             if(s.s21cooked)
-               image(sprites[6],x,y,tile_side,tile_side);
+             else if (!s.s22cooked && s.s21cooked)
+               image(sprites[16],x,y,tile_side,tile_side);
              else 
-               image(sprites[5],x,y,tile_side,tile_side);
-           }
+               image(sprites[6],x,y,tile_side,tile_side);
          } 
         }
       }
