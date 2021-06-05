@@ -402,8 +402,8 @@ public class Map { //<>// //<>// //<>//
     
     for (int i=0; i<board.length; i++) {
       for (int j=0; j<board[0].length; j++) {
-        float y = tile_side*(i+0.5) + 180;
-        float x = tile_side*(j+0.5) + 225;
+        float y = tile_side*(i+0.5) + 120;
+        float x = tile_side*(j+0.5) + 250;
         noFill();
         noStroke();
         if (board[i][j]==0) {
