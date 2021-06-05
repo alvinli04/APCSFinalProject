@@ -256,7 +256,8 @@ void startScreen() {
    
    // Level 1
    stroke(0);
-   fill(color(200,0,0));
+   //fill(color(200,0,0));
+   fill(color(165, 42, 42));
    rect(430, 350, 140, 60, 25);
   
    // Level 2
