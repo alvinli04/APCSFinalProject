@@ -214,7 +214,6 @@ public class Map { //<>// //<>// //<>//
           if (board[s.y1][s.x1-1] == 2 || board[s.y2][s.x2-1] == 2)
             return false;
           s.moveLeft();
-          println("bob");
         }
         // Fork is down
         else if (stephen.forky > s.y1 && stephen.forky > s.y2) {
