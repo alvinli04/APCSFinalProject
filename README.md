@@ -48,3 +48,12 @@ Alvin - Looked into movement animations
 Andrew - Implemented the basic start page functionality, began brainstorming ways to implement sprites 
 
 Alvin - Drew sprites, worked on displaying and orienting them
+
+### 6/3/2021
+Andrew - Implemented most of the sprites, fixed the layers of what is being displayed in the show method
+
+Alvin - Finished implementing the fork and stephen sprites
+
+### 6/4/2021
+Andrew - Added different start page with a clickable play button. Added menu functionality - different levels to be implemented 
+
