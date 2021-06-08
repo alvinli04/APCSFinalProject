@@ -18,7 +18,7 @@ void setup(){
   won = false;
   
   // Images
-  sprites = new PImage[17];
+  sprites = new PImage[23];
   sprites[0] = loadImage("Water.png");
   sprites[1] = loadImage("Sausage1.png");
   sprites[2] = loadImage("BurntSausage1.png");
@@ -36,6 +36,12 @@ void setup(){
   sprites[14] = loadImage("StephenFork4.png");
   sprites[15] = loadImage("CookedSausage1.png");
   sprites[16] = loadImage("CookedSausage2.png");
+  sprites[17] = loadImage("HorizontalSausage1.png");
+  sprites[18] = loadImage("HorizontalSausage2.png");
+  sprites[19] = loadImage("HorizontalCookedSausage1.png");
+  sprites[20] = loadImage("HorizontalCookedSausage2.png");
+  sprites[21] = loadImage("HorizontalBurntSausage1.png");
+  sprites[22] = loadImage("HorizontalBurntSausage2.png");
   
   
   // Initialization of Level 1
@@ -66,23 +72,23 @@ void setup(){
   // Initialization of Level 2
   for(int i=0; i<arr2.length; i++)
     for(int j=0; j<arr2[0].length; j++)
-      if(i<2 || j<2 || i>arr2.length-3 || j>arr2[0].length-3) arr2[i][j] = -1;
-  arr2[2][4]=0;
-  arr2[2][5]=0;
+      if(i<3 || j<2 || i>arr2.length-4 || j>arr2[0].length-4) arr2[i][j] = -1;
   // Barriers 
   //arr1[4][6] = 2;
   // Grills
+  arr2[3][3] = 1;
   arr2[3][4] = 1;
-  arr2[2][5] = 1;
-  arr2[5][3] = 1;
-  arr2[5][7] = 1;
+  arr2[3][5] = 1;
+  arr2[6][5] = 1;
+  arr2[6][3] = 1;
+  arr2[6][4] = 1;
   // Initialization of Stephen
-  stephen2 = new Stephen(4, 2, 2);
+  stephen2 = new Stephen(2, 6, 3);
   // Initialization of Sausages
   sausages2 = new ArrayList<Sausage>();
-  //sausages.add(new Sausage(5,3,5,4));
-  sausages2.add(new Sausage(3,4,3,5));
-  sausages2.add(new Sausage(6,4,6,5));
+  sausages2.add(new Sausage(5,5,6,5));
+  sausages2.add(new Sausage(2,4,3,4));
+  sausages2.add(new Sausage(4,4,4,5));
   //sausages.add(new Sausage(3,5,3,6));
   // Initialization of Map
   mp2 = new Map(arr2, stephen2, sausages2);
