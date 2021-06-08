@@ -60,3 +60,6 @@ Andrew - Added different start page with a clickable play button. Added menu fun
 ### 6/5/2021
 Andrew - Finished implementing different levels with clickable buttons to navigate to them in the menu. 
 
+### 6/7/2021
+Andrew - Fixed the way horizontal sausages were being displayed, implemented level 2/3
+
