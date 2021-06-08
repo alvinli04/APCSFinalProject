@@ -11,7 +11,8 @@ Map mp1, mp2, mp3, test;
 public boolean lost, won, gameStart=false, levelOne=false, levelTwo=false, levelThree=false, testLevel = false;
 PImage sprites[];
 
-public static final int anim_time = 100;
+public static final int move_time = 100;
+public static final int anim_time = 500;
 
 void setup(){
   clear();
@@ -154,7 +155,7 @@ void keyPressed(){
           mp1.forkTouchSausage(stephen,key) && 
           mp1.stephenTouchSausage(stephen,key) && 
           mp1.sausageTouchSausage(stephen,key) &&
-          millis() - last_pressed > 200 &&
+          millis() - last_pressed > move_time &&
           !lost && !won) {
             stephen.move(key);
             int k = mp1.updateSausages();
@@ -167,7 +168,7 @@ void keyPressed(){
           mp2.forkTouchSausage(stephen2,key) && 
           mp2.stephenTouchSausage(stephen2,key) && 
           mp2.sausageTouchSausage(stephen2,key) &&
-          millis() - last_pressed > 200 &&
+          millis() - last_pressed > move_time &&
           !lost && !won) {
             stephen2.move(key);
             int k = mp2.updateSausages();
@@ -180,7 +181,7 @@ void keyPressed(){
           mp3.forkTouchSausage(stephen3,key) && 
           mp3.stephenTouchSausage(stephen3,key) && 
           mp3.sausageTouchSausage(stephen3,key) &&
-          millis() - last_pressed > 200 &&
+          millis() - last_pressed > move_time &&
           !lost && !won) {
             stephen3.move(key);
             int k = mp3.updateSausages();
@@ -193,7 +194,7 @@ void keyPressed(){
           test.forkTouchSausage(stephentest,key) && 
           test.stephenTouchSausage(stephentest,key) && 
           test.sausageTouchSausage(stephentest,key) &&
-          millis() - last_pressed > 200 &&
+          millis() - last_pressed > move_time &&
           !lost && !won) {
             stephentest.move(key);
             last_pressed = millis();
