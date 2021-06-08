@@ -450,7 +450,7 @@ public class Map { //<>// //<>// //<>//
         } 
         //show sausages
         for(Sausage s : sausages) {
-         if (i==s.y1 && j==s.x1 && !s.drowned){
+         if (i==s.y1 && j==s.x1 && !s.drowned && s.x1==s.x2){
            if(s.s12cooked && !s.s11cooked)
                image(sprites[15],x,y,tile_side,tile_side);
              else if (!s.s12cooked && !s.s11cooked)
@@ -460,7 +460,7 @@ public class Map { //<>// //<>// //<>//
              else 
                image(sprites[2],x,y,tile_side,tile_side);
          }
-         if (i==s.y2 && j==s.x2 && !s.drowned) {
+         if (i==s.y2 && j==s.x2 && !s.drowned && s.x1==s.x2) {
            if(s.s22cooked && !s.s21cooked)
                image(sprites[16],x,y,tile_side,tile_side);
              else if (!s.s22cooked && !s.s21cooked)
@@ -469,7 +469,27 @@ public class Map { //<>// //<>// //<>//
                image(sprites[16],x,y,tile_side,tile_side);
              else 
                image(sprites[6],x,y,tile_side,tile_side);
-         } 
+         }
+         if (i==s.y1 && j==s.x1 && !s.drowned && s.y1==s.y2){
+           if(s.s12cooked && !s.s11cooked)
+               image(sprites[19],x,y,tile_side,tile_side);
+             else if (!s.s12cooked && !s.s11cooked)
+               image(sprites[17],x,y,tile_side,tile_side);
+             else if (!s.s12cooked && s.s11cooked) 
+               image(sprites[19],x,y,tile_side,tile_side);
+             else 
+               image(sprites[21],x,y,tile_side,tile_side);
+         }
+         if (i==s.y2 && j==s.x2 && !s.drowned && s.y1==s.y2) {
+           if(s.s22cooked && !s.s21cooked)
+               image(sprites[20],x,y,tile_side,tile_side);
+             else if (!s.s22cooked && !s.s21cooked)
+               image(sprites[18],x,y,tile_side,tile_side);
+             else if (!s.s22cooked && s.s21cooked)
+               image(sprites[20],x,y,tile_side,tile_side);
+             else 
+               image(sprites[22],x,y,tile_side,tile_side);
+         }
         }
       }
     }
