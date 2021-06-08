@@ -5,11 +5,13 @@ int[][] arr3 = new int[10][10];
 public static final int tile_side = 50;
 public static final int map_side = 1000;
 public int last_pressed = 0;
-Stephen stephen, stephen2, stephen3;
+Stephen stephen, stephen2, stephen3, stephentest;
 ArrayList<Sausage> sausages, sausages2, sausages3;
-Map mp1, mp2, mp3;
-public boolean lost, won, gameStart=false, levelOne=false, levelTwo=false, levelThree=false;
+Map mp1, mp2, mp3, test;
+public boolean lost, won, gameStart=false, levelOne=false, levelTwo=false, levelThree=false, testLevel = false;
 PImage sprites[];
+
+public static final int anim_time = 100;
 
 void setup(){
   clear();
@@ -119,6 +121,9 @@ void setup(){
   // Initialization of Map
   mp3 = new Map(arr3, stephen3, sausages3);
   
+  
+  stephentest = new Stephen(2,2,0);
+  test = new Map(new int[20][20], stephentest, new ArrayList<Sausage>());
 }
 
 void draw(){
@@ -131,6 +136,8 @@ void draw(){
     mp2.show();
   } else if (gameStart && levelThree) {
     mp3.show();
+  } else if (gameStart && testLevel){
+   test.show(); 
   }
 
     if (lost)
@@ -181,6 +188,16 @@ void keyPressed(){
             won = (k==1);
             last_pressed = millis();
       }
+    } else if (testLevel) {
+      if (test.noBarriers(stephentest, key) && 
+          test.forkTouchSausage(stephentest,key) && 
+          test.stephenTouchSausage(stephentest,key) && 
+          test.sausageTouchSausage(stephentest,key) &&
+          millis() - last_pressed > 200 &&
+          !lost && !won) {
+            stephentest.move(key);
+            last_pressed = millis();
+      }
     }
     if (key == 'r') {
       setup();
@@ -194,11 +211,19 @@ void keyPressed(){
       lost = false;
       won = false;
     }
+    
   }
-}
-
-void keyHeld(){
   
+  if(key == 'g') {
+      //println("ok");
+     if(!gameStart) {
+       println("ok");
+       gameStart = true;
+       testLevel = true;
+       image(sprites[0],0,0,1000,800);
+       //background(color(50, 150, 200));
+     }
+   }
 }
 
 void mousePressed() {

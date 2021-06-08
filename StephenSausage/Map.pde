@@ -19,6 +19,7 @@ public class Map { //<>// //<>// //<>//
    * Checks if Stephen is able to move in the direction c
    */
   public boolean noBarriers (Stephen stephen, char c) {
+    if (stephen.anim_cnt != 0) return false;
     if (c=='w') {
       return stephen.y > 0 && 
              board[stephen.y-1][stephen.x] != -1 && 
@@ -417,37 +418,72 @@ public class Map { //<>// //<>// //<>//
           image(sprites[4],x,y,tile_side,tile_side);
           rect(x, y, tile_side, tile_side);
         }
+        
+        //show stephen
+        
+        float movey = tile_side * (0.5 + lerp(stephen.prevy, stephen.y, (float)(anim_time - stephen.anim_cnt)/anim_time)) + 120;
+        float movex = tile_side * (0.5 + lerp(stephen.prevx, stephen.x, (float)(anim_time - stephen.anim_cnt)/anim_time)) + 250;
+        float fmovey = tile_side * (0.5 + lerp(stephen.prevforky, stephen.forky, (float)(anim_time - stephen.anim_cnt)/anim_time)) + 120;
+        float fmovex = tile_side * (0.5 + lerp(stephen.prevforkx, stephen.forkx, (float)(anim_time - stephen.anim_cnt)/anim_time)) + 250;
+        
         if (i==stephen.y && j==stephen.x) {
           switch(stephen.orientation) {
             case 0:
-              image(sprites[10],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[10],movex,movey,tile_side,tile_side);
+              }
+              else image(sprites[10],x,y,tile_side,tile_side);
               break;
             case 1:
-              image(sprites[9],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[9],movex,movey,tile_side,tile_side);
+              }
+              else image(sprites[9],x,y,tile_side,tile_side);
                break;
             case 2:
-              image(sprites[8],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[8],movex,movey,tile_side,tile_side);
+              }
+              else image(sprites[8],x,y,tile_side,tile_side);
               break;
             case 3:
-              image(sprites[7],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[7],movex,movey,tile_side,tile_side);
+              }
+              else image(sprites[7],x,y,tile_side,tile_side);
               break;
           }
         } else if (i==stephen.forky && j==stephen.forkx) {
           switch(stephen.orientation) {
             case 0:
-              image(sprites[14],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[14],fmovex,fmovey,tile_side,tile_side);
+              }
+              else image(sprites[14],x,y,tile_side,tile_side);
               break;
             case 1:
-              image(sprites[13],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[13],fmovex,fmovey,tile_side,tile_side);
+              }
+              else image(sprites[13],x,y,tile_side,tile_side);
                break;
             case 2:
-              image(sprites[12],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[12],fmovex,fmovey,tile_side,tile_side);
+              }
+              else image(sprites[12],x,y,tile_side,tile_side);
               break;
             case 3:
-              image(sprites[11],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[11],fmovex,fmovey,tile_side,tile_side);
+              }
+              else image(sprites[11],x,y,tile_side,tile_side);
               break;
           }
         } 
+        
+        if (stephen.anim_cnt > 0) --stephen.anim_cnt;
+        
         //show sausages
         for(Sausage s : sausages) {
          if (i==s.y1 && j==s.x1 && !s.drowned && s.x1==s.x2){

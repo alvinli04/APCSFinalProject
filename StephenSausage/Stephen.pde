@@ -2,6 +2,7 @@ public class Stephen{
   public int x, y, orientation, forkx, forky;
   public boolean burning;
   private int prevx, prevy, prevforkx, prevforky;
+  public int anim_cnt;
 
   private final int[][] orientations = {
    {0,1}, //right
@@ -17,6 +18,7 @@ public class Stephen{
     forky = this.y+orientations[orientation][0];
     forkx = this.x+orientations[orientation][1];
     burning = false;
+    anim_cnt = 0;
   }
   
   public void goback(){
@@ -34,6 +36,7 @@ public class Stephen{
    * QE is counterclockwise and clockwise respectively
    */
   public void move(char c){
+     anim_cnt = anim_time;
      prevx = x;
      prevy = y;
      prevforkx = forkx;
