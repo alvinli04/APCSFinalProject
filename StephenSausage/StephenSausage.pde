@@ -12,7 +12,7 @@ public boolean lost, won, gameStart=false, levelOne=false, levelTwo=false, level
 PImage sprites[];
 
 public static final int move_time = 150;
-public int anim_time = (int)frameRate * move_time / 100 ;
+public int anim_time = 100 ;
 
 void setup(){
   clear();
@@ -129,7 +129,7 @@ void setup(){
 
 void draw(){
   
-  println(anim_time);
+  //println(stephentest.anim_cnt);
   
   if (!gameStart) {
     startScreen();
@@ -142,6 +142,8 @@ void draw(){
     mp3.show();
   } else if (gameStart && testLevel){
    test.show(); 
+   //background(255);
+   text(frameRate, 60, 40);
   }
 
     if (lost)
@@ -219,9 +221,8 @@ void keyPressed(){
   }
   
   if(key == 'g') {
-      //println("ok");
      if(!gameStart) {
-       println("ok");
+       println("testing started");
        gameStart = true;
        testLevel = true;
        image(sprites[0],0,0,1000,800);

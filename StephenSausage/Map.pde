@@ -421,8 +421,8 @@ public class Map { //<>// //<>// //<>//
         
         //show stephen
         
-        float movey = tile_side * (0.5 + lerp(stephen.prevy, stephen.y, (float)(anim_time - stephen.anim_cnt)/anim_time)) + 120;
-        float movex = tile_side * (0.5 + lerp(stephen.prevx, stephen.x, (float)(anim_time - stephen.anim_cnt)/anim_time)) + 250;
+        float movey = tile_side * (0.5 + stephen.prevy + (stephen.y - stephen.prevy) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 120;
+        float movex = tile_side * (0.5 + stephen.prevx + (stephen.x - stephen.prevx) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 250;
         float fmovey = tile_side * (0.5 + lerp(stephen.prevforky, stephen.forky, (float)(anim_time - stephen.anim_cnt)/anim_time)) + 120;
         float fmovex = tile_side * (0.5 + lerp(stephen.prevforkx, stephen.forkx, (float)(anim_time - stephen.anim_cnt)/anim_time)) + 250;
         
