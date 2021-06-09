@@ -11,8 +11,8 @@ Map mp1, mp2, mp3, test;
 public boolean lost, won, gameStart=false, levelOne=false, levelTwo=false, levelThree=false, testLevel = false;
 PImage sprites[];
 
-public static final int move_time = 100;
-public static final int anim_time = 500;
+public static final int move_time = 150;
+public int anim_time = (int)frameRate * move_time / 100 ;
 
 void setup(){
   clear();
@@ -128,6 +128,9 @@ void setup(){
 }
 
 void draw(){
+  
+  println(anim_time);
+  
   if (!gameStart) {
     startScreen();
   } else if (gameStart && levelOne) {
