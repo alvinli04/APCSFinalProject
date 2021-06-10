@@ -415,6 +415,8 @@ public class Map { //<>// //<>// //<>// //<>//
         } else if (board[i][j] == 1) {
           image(sprites[4],x,y,tile_side,tile_side);
           rect(x, y, tile_side, tile_side);
+        } else if (board[i][j] == -1){
+          image(sprites[23],x,y,tile_side,tile_side);
         }
         
         //show stephen
