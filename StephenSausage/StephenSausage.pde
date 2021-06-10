@@ -12,11 +12,12 @@ public boolean lost, won, gameStart=false, levelOne=false, levelTwo=false, level
 PImage sprites[];
 
 public static final int move_time = 150;
-public int anim_time = 100 ;
+public int anim_time = 500 ;
 
 void setup(){
   clear();
   size(1000,800);
+  frameRate(120);
   lost = false;
   won = false;
   
@@ -125,16 +126,14 @@ void setup(){
   
   stephentest = new Stephen(2,2,0);
   test = new Map(new int[20][20], stephentest, new ArrayList<Sausage>());
+  image(sprites[0],0,0,1000,800);
 }
 
 void draw(){
   
-  //println(stephentest.anim_cnt);
-  
   if (!gameStart) {
     startScreen();
   } else if (gameStart && levelOne) {
-    // Display Map
     mp1.show();
   } else if (gameStart && levelTwo) {
     mp2.show();
@@ -143,9 +142,8 @@ void draw(){
   } else if (gameStart && testLevel){
    test.show(); 
    //background(255);
-   text(frameRate, 60, 40);
   }
-
+  println(frameRate);
     if (lost)
       loseText();
     if (won)
@@ -167,6 +165,8 @@ void keyPressed(){
             lost = (k==-1);
             won = (k==1);
             last_pressed = millis();
+            image(sprites[0],0,0,1000,800);
+            mp1.show();
       }
     } else if (levelTwo) {
       if (mp2.noBarriers(stephen2, key) && 
@@ -180,6 +180,8 @@ void keyPressed(){
             lost = (k==-1);
             won = (k==1);
             last_pressed = millis();
+            image(sprites[0],0,0,1000,800);
+            mp2.show();
       }
     } else if (levelThree) {
       if (mp3.noBarriers(stephen3, key) && 
@@ -193,6 +195,8 @@ void keyPressed(){
             lost = (k==-1);
             won = (k==1);
             last_pressed = millis();
+            image(sprites[0],0,0,1000,800);
+            mp3.show();
       }
     } else if (testLevel) {
       if (test.noBarriers(stephentest, key) && 
@@ -203,6 +207,8 @@ void keyPressed(){
           !lost && !won) {
             stephentest.move(key);
             last_pressed = millis();
+            image(sprites[0],0,0,1000,800);
+            test.show();
       }
     }
     if (key == 'r') {

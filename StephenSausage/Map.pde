@@ -396,8 +396,6 @@ public class Map { //<>// //<>// //<>//
    * Display the map and its elements
    */
   public void show() {
-    image(sprites[0],0,0,1000,800);
-    
     if (stephen.burning) stephen.goback();
     if (board[stephen.y][stephen.x] == 1) stephen.burning = true;
     
@@ -423,8 +421,8 @@ public class Map { //<>// //<>// //<>//
         
         float movey = tile_side * (0.5 + stephen.prevy + (stephen.y - stephen.prevy) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 120;
         float movex = tile_side * (0.5 + stephen.prevx + (stephen.x - stephen.prevx) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 250;
-        float fmovey = tile_side * (0.5 + lerp(stephen.prevforky, stephen.forky, (float)(anim_time - stephen.anim_cnt)/anim_time)) + 120;
-        float fmovex = tile_side * (0.5 + lerp(stephen.prevforkx, stephen.forkx, (float)(anim_time - stephen.anim_cnt)/anim_time)) + 250;
+        float fmovey = tile_side * (0.5 + stephen.prevforky + (stephen.forky - stephen.prevforky) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 120;
+        float fmovex = tile_side * (0.5 + stephen.prevforkx + (stephen.forkx - stephen.prevforkx) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 250;
         
         if (i==stephen.y && j==stephen.x) {
           switch(stephen.orientation) {
@@ -458,26 +456,30 @@ public class Map { //<>// //<>// //<>//
             case 0:
               if (stephen.anim_cnt > 0){
                 image(sprites[14],fmovex,fmovey,tile_side,tile_side);
+              } else {
+                image(sprites[14],x,y,tile_side,tile_side);
               }
-              else image(sprites[14],x,y,tile_side,tile_side);
               break;
             case 1:
               if (stephen.anim_cnt > 0){
                 image(sprites[13],fmovex,fmovey,tile_side,tile_side);
+              } else {
+                image(sprites[13],x,y,tile_side,tile_side);
               }
-              else image(sprites[13],x,y,tile_side,tile_side);
                break;
             case 2:
               if (stephen.anim_cnt > 0){
                 image(sprites[12],fmovex,fmovey,tile_side,tile_side);
+              } else { 
+                image(sprites[12],x,y,tile_side,tile_side);
               }
-              else image(sprites[12],x,y,tile_side,tile_side);
               break;
             case 3:
               if (stephen.anim_cnt > 0){
                 image(sprites[11],fmovex,fmovey,tile_side,tile_side);
+              } else { 
+                image(sprites[11],x,y,tile_side,tile_side);
               }
-              else image(sprites[11],x,y,tile_side,tile_side);
               break;
           }
         } 
