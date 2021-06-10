@@ -124,8 +124,14 @@ void setup(){
   mp3 = new Map(arr3, stephen3, sausages3);
   
   
-  stephentest = new Stephen(2,2,0);
+  stephentest = new Stephen(5,5,0);
   test = new Map(new int[20][20], stephentest, new ArrayList<Sausage>());
+  
+  for (int i=0; i<test.board.length; i++)
+    for(int j=0; j<test.board[0].length; j++)
+      if(i < 3 || i > test.board.length - 3 || j < 3 || j > test.board[0].length - 3)
+        test.board[i][j] = -1;
+  
   image(sprites[0],0,0,1000,800);
 }
 
@@ -141,7 +147,7 @@ void draw(){
     mp3.show();
   } else if (gameStart && testLevel){
    test.show(); 
-   //background(255);
+   //text(frameRate, 50, 50);
   }
   //println(frameRate);
     if (lost)
@@ -165,8 +171,6 @@ void keyPressed(){
             lost = (k==-1);
             won = (k==1);
             last_pressed = millis();
-            image(sprites[0],0,0,1000,800);
-            mp1.show();
       }
     } else if (levelTwo) {
       if (mp2.noBarriers(stephen2, key) && 
@@ -180,8 +184,6 @@ void keyPressed(){
             lost = (k==-1);
             won = (k==1);
             last_pressed = millis();
-            image(sprites[0],0,0,1000,800);
-            mp2.show();
       }
     } else if (levelThree) {
       if (mp3.noBarriers(stephen3, key) && 
@@ -195,8 +197,6 @@ void keyPressed(){
             lost = (k==-1);
             won = (k==1);
             last_pressed = millis();
-            image(sprites[0],0,0,1000,800);
-            mp3.show();
       }
     } else if (testLevel) {
       if (test.noBarriers(stephentest, key) && 
@@ -207,8 +207,6 @@ void keyPressed(){
           !lost && !won) {
             stephentest.move(key);
             last_pressed = millis();
-            image(sprites[0],0,0,1000,800);
-            test.show();
       }
     }
     if (key == 'r') {

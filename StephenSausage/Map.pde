@@ -527,16 +527,16 @@ public class Map { //<>// //<>// //<>// //<>//
          
          if (i==s.y1 && j==s.x1 && !s.drowned && s.y1==s.y2){
            if(s.s12cooked && !s.s11cooked) {
-               if (s.anim_cnt > 0) image(sprites[19],smovex2,smovey2,tile_side,tile_side);
+               if (s.anim_cnt > 0) image(sprites[19],smovex1,smovey1,tile_side,tile_side);
                else image(sprites[19],x,y,tile_side,tile_side);
            } else if (!s.s12cooked && !s.s11cooked) {
-               if (s.anim_cnt > 0) image(sprites[17],smovex2,smovey2,tile_side,tile_side);
+               if (s.anim_cnt > 0) image(sprites[17],smovex1,smovey1,tile_side,tile_side);
                else image(sprites[17],x,y,tile_side,tile_side);
            } else if (!s.s12cooked && s.s11cooked) {
-               if (s.anim_cnt > 0) image(sprites[19],smovex2,smovey2,tile_side,tile_side);
+               if (s.anim_cnt > 0) image(sprites[19],smovex1,smovey1,tile_side,tile_side);
                else image(sprites[19],x,y,tile_side,tile_side);
            }  else {
-               if (s.anim_cnt > 0) image(sprites[21],smovex2,smovey2,tile_side,tile_side);
+               if (s.anim_cnt > 0) image(sprites[21],smovex1,smovey1,tile_side,tile_side);
                else image(sprites[21],x,y,tile_side,tile_side);
            }  
          }
