@@ -16,8 +16,8 @@ PImage sprites[];
 public static final int move_time = 150;
 public int anim_time = 300 ;
 
-SoundFile file; 
-String audioName = "data/music.mp3";
+SoundFile file,file2; 
+String audioName1 = "data/win.mp3", audioName2 = "data/splash.mp3";
 String path;
 
 void setup(){
@@ -26,10 +26,12 @@ void setup(){
   frameRate(120);
   lost = false;
   won = false;
-  /*
-  path = sketchPath(audioName);
+  
+  path = sketchPath(audioName1);
   file = new SoundFile(this, path);
-  file.amp(0.25);
+  path = sketchPath(audioName2);
+  file2 = new SoundFile(this, path);
+  /*file.amp(0.25);
   file.loop();*/
     
   // Images
@@ -155,10 +157,12 @@ void draw(){
   }
   println(frameRate);
   
-    if (lost)
-      loseText();
-    if (won)
+  if (lost) {
+    loseText();
+  }
+  if (won) {
       winText();
+  }    
   if (!gameStart) {
     textAlign(CENTER);
   fill(color(0));
@@ -285,7 +289,13 @@ void keyPressed(){
       lost = false;
       won = false;
       frameCount = 0;
+      setup();
     }
+    int k1 = mp1.updateSausages();
+    int k2 = mp2.updateSausages();
+    int k3 = mp3.updateSausages();
+    if(k1==1 || k2==1 || k3==1) file.play();
+    if(k1==-1 || k2==-1 || k3==-1) file2.play();
     
   }
   
