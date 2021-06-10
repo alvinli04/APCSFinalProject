@@ -12,7 +12,7 @@ public boolean lost, won, gameStart=false, levelOne=false, levelTwo=false, level
 PImage sprites[];
 
 public static final int move_time = 150;
-public int anim_time = 1 ;
+public int anim_time = 1;
 
 void setup(){
   clear();
@@ -143,7 +143,7 @@ void draw(){
    test.show(); 
    //background(255);
   }
-  println(frameRate);
+  //println(frameRate);
     if (lost)
       loseText();
     if (won)
