@@ -421,8 +421,8 @@ public class Map { //<>// //<>// //<>//
         
         float movey = tile_side * (0.5 + stephen.prevy + (stephen.y - stephen.prevy) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 120;
         float movex = tile_side * (0.5 + stephen.prevx + (stephen.x - stephen.prevx) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 250;
-        float fmovey = tile_side * (0.5 + stephen.prevforky + (stephen.forky - stephen.prevforky) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 120;
-        float fmovex = tile_side * (0.5 + stephen.prevforkx + (stephen.forkx - stephen.prevforkx) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 250;
+        float fmovey = y;//tile_side * (0.5 + stephen.prevforky + (stephen.forky - stephen.prevforky) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 120;
+        float fmovex = x;//tile_side * (0.5 + stephen.prevforkx + (stephen.forkx - stephen.prevforkx) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 250;
         
         if (i==stephen.y && j==stephen.x) {
           switch(stephen.orientation) {

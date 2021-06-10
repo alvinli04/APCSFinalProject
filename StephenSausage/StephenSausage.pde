@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 int[][] arr1 = new int[10][10];
 int[][] arr2 = new int[10][10];
 int[][] arr3 = new int[10][10];
@@ -12,7 +14,11 @@ public boolean lost, won, gameStart=false, levelOne=false, levelTwo=false, level
 PImage sprites[];
 
 public static final int move_time = 150;
-public int anim_time = 500 ;
+public int anim_time = 300 ;
+
+SoundFile file; 
+String audioName = "data/music.mp3";
+String path;
 
 void setup(){
   clear();
@@ -20,7 +26,12 @@ void setup(){
   frameRate(120);
   lost = false;
   won = false;
-  
+  /*
+  path = sketchPath(audioName);
+  file = new SoundFile(this, path);
+  file.amp(0.25);
+  file.loop();*/
+    
   // Images
   sprites = new PImage[23];
   sprites[0] = loadImage("Water.png");
@@ -126,12 +137,11 @@ void setup(){
   
   stephentest = new Stephen(2,2,0);
   test = new Map(new int[20][20], stephentest, new ArrayList<Sausage>());
-  image(sprites[0],0,0,1000,800);
+  //image(sprites[0],0,0,1000,800);
 }
 
 void draw(){
-  
-  if (!gameStart) {
+  if (!gameStart && (frameCount%60==0||frameCount==1)) {
     startScreen();
   } else if (gameStart && levelOne) {
     mp1.show();
@@ -144,10 +154,60 @@ void draw(){
    //background(255);
   }
   println(frameRate);
+  
     if (lost)
       loseText();
     if (won)
       winText();
+  if (!gameStart) {
+    textAlign(CENTER);
+  fill(color(0));
+  PFont font = loadFont("Serif-48.vlw");
+  textFont(font,32);
+  textSize(40);
+  if(mouseX>430 && mouseY>350 && 
+     mouseX<570 && mouseY<410) {
+     if(!gameStart) {
+       fill(color(117, 46, 35));
+       rect(430, 350, 140, 60, 25);
+       fill(color(0));
+       text("Level 1", 500, 395);
+     }
+   } else {
+     fill(color(165, 42, 42));
+     rect(430, 350, 140, 60, 25);
+     fill(color(0));
+     text("Level 1", 500, 395);
+   }
+   if(mouseX>430 && mouseY>415 && 
+     mouseX<570 && mouseY<475) {
+     if(!gameStart) {
+       fill(color(117, 46, 35));
+       rect(430, 415, 140, 60, 25);
+       fill(color(0));
+       text("Level 2", 500, 460);
+     }
+   } else {
+       fill(color(165, 42, 42));
+       rect(430, 415, 140, 60, 25);
+       fill(color(0));
+       text("Level 2", 500, 460);
+   }
+   if(mouseX>430 && mouseY>480 && 
+     mouseX<570 && mouseY<540) {
+     if(!gameStart) {
+       fill(color(117, 46, 35));
+       rect(430, 480, 140, 60, 25);
+       fill(color(0));
+       text("Level 3", 500, 525);
+     }
+   } else {
+     fill(color(165, 42, 42));
+     rect(430, 480, 140, 60, 25);
+     fill(color(0));
+     text("Level 3", 500, 525);
+   }
+  }
 }
 
 void keyPressed(){
@@ -212,7 +272,9 @@ void keyPressed(){
       }
     }
     if (key == 'r') {
+      //file.pause();
       setup();
+      image(sprites[0],0,0,1000,800);
     }
     if (key == ESC) {
       key=0;
@@ -222,6 +284,7 @@ void keyPressed(){
       levelThree = false;
       lost = false;
       won = false;
+      frameCount = 0;
     }
     
   }
@@ -292,6 +355,8 @@ void winText(){
 
 void startScreen() {
   if (!gameStart) {
+ 
+  
    PImage startScreen = loadImage("startScreen.jpeg");
    image(startScreen, 0, 0, 1000, 800);
    
