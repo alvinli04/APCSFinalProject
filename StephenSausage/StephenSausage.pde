@@ -133,6 +133,8 @@ void setup(){
       if(i < 3 || i > test.board.length - 3 || j < 3 || j > test.board[0].length - 3)
         test.board[i][j] = -1;
   
+  test.sausages.add(new Sausage(8,9,9,9));
+  
   image(sprites[0],0,0,1000,800);
 }
 

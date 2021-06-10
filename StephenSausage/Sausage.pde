@@ -39,6 +39,10 @@ public class Sausage{
  }
  
  public void moveUp() {
+   prevx1 = x1;
+   prevx2 = x2;
+   prevy1 = y1;
+   prevy2 = y2;
    y1--;
    y2--;
    movedUp = true;
@@ -46,13 +50,13 @@ public class Sausage{
      side = !side;
    }
    anim_cnt = 1;
+ }
+ 
+ public void moveDown() {
    prevx1 = x1;
    prevx2 = x2;
    prevy1 = y1;
    prevy2 = y2;
- }
- 
- public void moveDown() {
    y1++;
    y2++;
    movedDown = true;
@@ -60,13 +64,13 @@ public class Sausage{
      side = !side;
    }
    anim_cnt = 1;
+ }
+ 
+ public void moveLeft() {
    prevx1 = x1;
    prevx2 = x2;
    prevy1 = y1;
    prevy2 = y2;
- }
- 
- public void moveLeft() {
    x1--;
    x2--;
    movedLeft = true;
@@ -74,13 +78,13 @@ public class Sausage{
      side = !side;
    }
    anim_cnt = 1;
+ }
+ 
+ public void moveRight() {
    prevx1 = x1;
    prevx2 = x2;
    prevy1 = y1;
    prevy2 = y2;
- }
- 
- public void moveRight() {
    x1++;
    x2++;
    movedRight = true;
@@ -88,10 +92,6 @@ public class Sausage{
      side = !side;
    }
    anim_cnt = 1;
-   prevx1 = x1;
-   prevx2 = x2;
-   prevy1 = y1;
-   prevy2 = y2;
  }
  
  public boolean cooked(){
