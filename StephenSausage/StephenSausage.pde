@@ -23,7 +23,7 @@ void setup(){
   
   // Images
   sprites = new PImage[24];
-  sprites[0] = loadImage("Water.png");
+  sprites[0] = loadImage("Water.PNG");
   sprites[1] = loadImage("Sausage1.png");
   sprites[2] = loadImage("BurntSausage1.png");
   sprites[3] = loadImage("Grass.png");
@@ -46,7 +46,7 @@ void setup(){
   sprites[20] = loadImage("HorizontalCookedSausage2.png");
   sprites[21] = loadImage("HorizontalBurntSausage1.png");
   sprites[22] = loadImage("HorizontalBurntSausage2.png");
-  sprites[23] = loadImage("watertile.PNG");
+  sprites[23] = loadImage("watertile.jpg");
   
   
   // Initialization of Level 1
