@@ -63,6 +63,9 @@ Andrew - Finished implementing different levels with clickable buttons to naviga
 ### 6/7/2021
 Andrew - Fixed the way horizontal sausages were being displayed, implemented level 2/3
 
-## 6/8/2021
+### 6/8/2021
 Alvin - Used lerp to start animating Stephen's movement
+
+### 6/9/2021
+Andrew/Alvin - Fixed low FPS bug, worked to fix background refresh and lerp animation 
 
