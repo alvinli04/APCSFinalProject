@@ -1,4 +1,4 @@
-public class Map { //<>// //<>// //<>//
+public class Map { //<>// //<>// //<>// //<>//
 
   public int[][] board; //-1 is water, 0 is walkable, 1 is grill, 2 is rock
   private Stephen stephen;
@@ -226,10 +226,10 @@ public class Map { //<>// //<>// //<>//
         else if (stephen.forky < s.y1 && stephen.forky < s.y2) {
          if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
             return false;
-          s.moveDown(); //<>// //<>//
+          s.moveDown(); //<>// //<>// //<>//
         }
       }
-    } //<>// //<>//
+    } //<>// //<>// //<>//
     return true;
   }
   
@@ -419,10 +419,10 @@ public class Map { //<>// //<>// //<>//
         
         //show stephen
         
-        float movey = tile_side * (0.5 + stephen.prevy + (stephen.y - stephen.prevy) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 120;
-        float movex = tile_side * (0.5 + stephen.prevx + (stephen.x - stephen.prevx) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 250;
-        float fmovey = tile_side * (0.5 + stephen.prevforky + (stephen.forky - stephen.prevforky) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 120;
-        float fmovex = tile_side * (0.5 + stephen.prevforkx + (stephen.forkx - stephen.prevforkx) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 250;
+        float movey = tile_side * (0.5 + lerp(stephen.prevy, stephen.y, (float)(millis() - last_pressed)/move_time)) + 120;
+        float movex = tile_side * (0.5 + lerp(stephen.prevx, stephen.x, (float)(millis() - last_pressed)/move_time)) + 250;
+        float fmovey = tile_side * (0.5 + lerp(stephen.prevforky, stephen.forky, (float)(millis() - last_pressed)/move_time)) + 120;
+        float fmovex = tile_side * (0.5 + lerp(stephen.prevforkx, stephen.forkx, (float)(millis() - last_pressed)/move_time)) + 250;
         
         if (i==stephen.y && j==stephen.x) {
           switch(stephen.orientation) {
@@ -484,7 +484,7 @@ public class Map { //<>// //<>// //<>//
           }
         } 
         
-        if (stephen.anim_cnt > 0) --stephen.anim_cnt;
+        if (millis() - last_pressed >= move_time) stephen.anim_cnt = 0;
         
         //show sausages
         for(Sausage s : sausages) {
