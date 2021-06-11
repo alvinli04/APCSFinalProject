@@ -157,7 +157,7 @@ void setup(){
 
 void draw(){
   
-  if (!gameStart) {
+  if (!gameStart && (frameCount%60==0||frameCount==1)) {
     startScreen();
   } else if (gameStart && levelOne) {
     mp1.show();
@@ -169,60 +169,60 @@ void draw(){
    test.show(); 
    //text(frameRate, 50, 50);
   }
-  //println(frameRate);
+  println(frameRate);
     if (lost)
       loseText();
     if (won)
       winText();
   if (!gameStart) {
     textAlign(CENTER);
-  fill(color(0));
-  PFont font = loadFont("Serif-48.vlw");
-  textFont(font,32);
-  textSize(40);
-  if(mouseX>430 && mouseY>350 && 
-     mouseX<570 && mouseY<410) {
-     if(!gameStart) {
-       fill(color(117, 46, 35));
+    fill(color(0));
+    PFont font = loadFont("Serif-48.vlw");
+    textFont(font,32);
+    textSize(40);
+    if(mouseX>430 && mouseY>350 && 
+       mouseX<570 && mouseY<410) {
+       if(!gameStart) {
+         fill(color(117, 46, 35));
+         rect(430, 350, 140, 60, 25);
+         fill(color(0));
+         text("Level 1", 500, 395);
+       }
+     } else {
+       fill(color(165, 42, 42));
        rect(430, 350, 140, 60, 25);
        fill(color(0));
        text("Level 1", 500, 395);
      }
-   } else {
-     fill(color(165, 42, 42));
-     rect(430, 350, 140, 60, 25);
-     fill(color(0));
-     text("Level 1", 500, 395);
-   }
-   if(mouseX>430 && mouseY>415 && 
-     mouseX<570 && mouseY<475) {
-     if(!gameStart) {
-       fill(color(117, 46, 35));
-       rect(430, 415, 140, 60, 25);
-       fill(color(0));
-       text("Level 2", 500, 460);
-     }
-   } else {
+     if(mouseX>430 && mouseY>415 && 
+       mouseX<570 && mouseY<475) {
+       if(!gameStart) {
+         fill(color(117, 46, 35));
+         rect(430, 415, 140, 60, 25);
+         fill(color(0));
+         text("Level 2", 500, 460);
+       }
+     } else {
        fill(color(165, 42, 42));
        rect(430, 415, 140, 60, 25);
        fill(color(0));
        text("Level 2", 500, 460);
-   }
-   if(mouseX>430 && mouseY>480 && 
-     mouseX<570 && mouseY<540) {
-     if(!gameStart) {
-       fill(color(117, 46, 35));
+     }
+     if(mouseX>430 && mouseY>480 && 
+       mouseX<570 && mouseY<540) {
+       if(!gameStart) {
+         fill(color(117, 46, 35));
+         rect(430, 480, 140, 60, 25);
+         fill(color(0));
+         text("Level 3", 500, 525);
+       }
+     } else {
+       fill(color(165, 42, 42));
        rect(430, 480, 140, 60, 25);
        fill(color(0));
        text("Level 3", 500, 525);
      }
-   } else {
-     fill(color(165, 42, 42));
-     rect(430, 480, 140, 60, 25);
-     fill(color(0));
-     text("Level 3", 500, 525);
    }
-  }
 }
 
 void keyPressed(){
