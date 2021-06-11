@@ -8,6 +8,13 @@ Project Description:
 We will be implementing a 2D version of the tile-based puzzle game Stephen’s Sausage Roll from a bird’s eye view. It’s an orientation-based puzzle game where the player controlled character pushes sausages with their fork to designated grilling spots for, well, grilling. But if the sausage becomes overcooked or falls off the map, the level must be restarted. There are obstacles on each level, and the player must orient themselves and the sausages correctly to cook the sausages and clear the level.
 
 
+Compile/Run Instructions:
+
+Mac - Run this project on Processing. Make sure to import the Processing Sound Library (Sketch -> Import Library -> Add Library). Install the official Processing Foundation Sound Library titled "Sound | Provides a simple way to work with audio."
+
+Windows - Run this project on Processing. On the top right corner of the processing window, click Java -> Add Mode -> Libraries and download the official Processing Foundation Sound library. 
+
+
 Expanded Proposal:
 https://docs.google.com/document/d/11rjUp0ROTnMHaH1btTx4NzmoW22lxmyqH-2S1eCXvDc/edit?usp=sharing
 
