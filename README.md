@@ -71,4 +71,5 @@ Andrew/Alvin - Fixed low FPS bug, worked to fix background refresh and lerp anim
 
 ### 6/10/2021
 Alvin - Finished movement animations
+
 Andrew - Finished sound effects and fixed flashing bug
