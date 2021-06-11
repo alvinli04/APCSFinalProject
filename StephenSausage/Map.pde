@@ -367,11 +367,13 @@ public class Map { //<>// //<>// //<>// //<>// //<>// //<>//
          if (s.s11cooked)
            return -1;
          s.s11cooked = true;
+         soundfiles.get(2).amp(0.4);
          soundfiles.get(2).play();
        } else {
          if (s.s12cooked)
            return -1;
          s.s12cooked = true;
+         soundfiles.get(2).amp(0.4);
          soundfiles.get(2).play();
        }
       }
@@ -380,11 +382,13 @@ public class Map { //<>// //<>// //<>// //<>// //<>// //<>//
           if (s.s21cooked)
             return -1;
           s.s21cooked = true;
+          soundfiles.get(2).amp(0.4);
           soundfiles.get(2).play();
         } else {
           if (s.s22cooked)
             return -1;
           s.s22cooked = true;
+          soundfiles.get(2).amp(0.4);
           soundfiles.get(2).play();
         }
       }

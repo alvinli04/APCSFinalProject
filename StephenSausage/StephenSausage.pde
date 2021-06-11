@@ -17,8 +17,10 @@ public static final int move_time = 150;
 public int anim_time = 1;
 
 ArrayList<SoundFile> soundfiles=new ArrayList<SoundFile>();
-SoundFile file,file2,file3; 
-String audioName1 = "data/win.mp3", audioName2 = "data/splash.mp3", audioName3 = "data/cookingnoise.mp3";
+SoundFile file,file2,file3,file4,file5; 
+String audioName1 = "data/win.mp3", audioName2 = "data/splash.mp3", 
+       audioName3 = "data/cookingnoise.mp3", audioName4 = "data/footstep.mp3",
+       audioName5 = "data/rotatesound.mp3";
 String path;
 
 void setup(){
@@ -34,9 +36,15 @@ void setup(){
   file2 = new SoundFile(this, path);
   path = sketchPath(audioName3);
   file3 = new SoundFile(this, path);
+  path = sketchPath(audioName4);
+  file4 = new SoundFile(this, path);
+  path = sketchPath(audioName5);
+  file5 = new SoundFile(this, path);
   soundfiles.add(file);
   soundfiles.add(file2);
   soundfiles.add(file3);
+  soundfiles.add(file4);
+  soundfiles.add(file5);
   
   // Images
   sprites = new PImage[24];
@@ -169,7 +177,6 @@ void draw(){
    test.show(); 
    //text(frameRate, 50, 50);
   }
-  println(frameRate);
     if (lost)
       loseText();
     if (won)
@@ -235,6 +242,12 @@ void keyPressed(){
           mp1.sausageTouchSausage(stephen,key) &&
           millis() - last_pressed > move_time &&
           !lost && !won) {
+            if(key=='q'||key=='e'){
+              soundfiles.get(4).play();
+            } else {
+              soundfiles.get(3).amp(0.2);
+              soundfiles.get(3).play();
+            }
             stephen.move(key);
             int k = mp1.updateSausages();
             lost = (k==-1);
@@ -248,6 +261,12 @@ void keyPressed(){
           mp2.sausageTouchSausage(stephen2,key) &&
           millis() - last_pressed > move_time &&
           !lost && !won) {
+            if(key=='q'||key=='e'){
+              soundfiles.get(4).play();
+            } else {
+              soundfiles.get(3).amp(0.2);
+              soundfiles.get(3).play();
+            }
             stephen2.move(key);
             int k = mp2.updateSausages();
             lost = (k==-1);
@@ -261,6 +280,12 @@ void keyPressed(){
           mp3.sausageTouchSausage(stephen3,key) &&
           millis() - last_pressed > move_time &&
           !lost && !won) {
+            if(key=='q'||key=='e'){
+              soundfiles.get(4).play();
+            } else {
+              soundfiles.get(3).amp(0.2);
+              soundfiles.get(3).play();
+            }
             stephen3.move(key);
             int k = mp3.updateSausages();
             lost = (k==-1);
@@ -274,6 +299,12 @@ void keyPressed(){
           test.sausageTouchSausage(stephentest,key) &&
           millis() - last_pressed > move_time &&
           !lost && !won) {
+            if(key=='q'||key=='e'){
+              soundfiles.get(4).play();
+            } else {
+              soundfiles.get(3).amp(0.2);
+              soundfiles.get(3).play();
+            }
             stephentest.move(key);
             last_pressed = millis();
       }
@@ -289,6 +320,8 @@ void keyPressed(){
       levelThree = false;
       lost = false;
       won = false;
+      frameCount = 0;
+      setup();
     }
   }
   
