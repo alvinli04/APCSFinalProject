@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 int[][] arr1 = new int[10][10];
 int[][] arr2 = new int[10][10];
 int[][] arr3 = new int[10][10];
@@ -14,12 +16,23 @@ PImage sprites[];
 public static final int move_time = 150;
 public int anim_time = 1;
 
+SoundFile file,file2; 
+String audioName1 = "data/win.mp3", audioName2 = "data/splash.mp3";
+String path;
+
 void setup(){
   clear();
   size(1000,800);
   frameRate(120);
   lost = false;
   won = false;
+  
+  path = sketchPath(audioName1);
+  file = new SoundFile(this, path);
+  path = sketchPath(audioName2);
+  file2 = new SoundFile(this, path);
+  //file.amp(0.25);
+  //file.loop();
   
   // Images
   sprites = new PImage[24];
@@ -157,6 +170,55 @@ void draw(){
       loseText();
     if (won)
       winText();
+  if (!gameStart) {
+    textAlign(CENTER);
+  fill(color(0));
+  PFont font = loadFont("Serif-48.vlw");
+  textFont(font,32);
+  textSize(40);
+  if(mouseX>430 && mouseY>350 && 
+     mouseX<570 && mouseY<410) {
+     if(!gameStart) {
+       fill(color(117, 46, 35));
+       rect(430, 350, 140, 60, 25);
+       fill(color(0));
+       text("Level 1", 500, 395);
+     }
+   } else {
+     fill(color(165, 42, 42));
+     rect(430, 350, 140, 60, 25);
+     fill(color(0));
+     text("Level 1", 500, 395);
+   }
+   if(mouseX>430 && mouseY>415 && 
+     mouseX<570 && mouseY<475) {
+     if(!gameStart) {
+       fill(color(117, 46, 35));
+       rect(430, 415, 140, 60, 25);
+       fill(color(0));
+       text("Level 2", 500, 460);
+     }
+   } else {
+       fill(color(165, 42, 42));
+       rect(430, 415, 140, 60, 25);
+       fill(color(0));
+       text("Level 2", 500, 460);
+   }
+   if(mouseX>430 && mouseY>480 && 
+     mouseX<570 && mouseY<540) {
+     if(!gameStart) {
+       fill(color(117, 46, 35));
+       rect(430, 480, 140, 60, 25);
+       fill(color(0));
+       text("Level 3", 500, 525);
+     }
+   } else {
+     fill(color(165, 42, 42));
+     rect(430, 480, 140, 60, 25);
+     fill(color(0));
+     text("Level 3", 500, 525);
+   }
+  }
 }
 
 void keyPressed(){
