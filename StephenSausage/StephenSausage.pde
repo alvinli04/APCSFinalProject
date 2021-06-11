@@ -351,6 +351,8 @@ void mousePressed() {
        gameStart = true;
        levelOne = true;
        image(sprites[0],0,0,1000,800);
+       soundfiles.get(2).amp(0.4);
+       soundfiles.get(2).play();
        //background(color(50, 150, 200));
      }
    }
@@ -361,6 +363,8 @@ void mousePressed() {
        gameStart = true;
        levelTwo = true;
        image(sprites[0],0,0,1000,800);
+       soundfiles.get(2).amp(0.4);
+       soundfiles.get(2).play();
        //background(color(50, 150, 200));
      }
    }
@@ -371,6 +375,8 @@ void mousePressed() {
        gameStart = true;
        levelThree = true;
        image(sprites[0],0,0,1000,800);
+       soundfiles.get(2).amp(0.4);
+       soundfiles.get(2).play();
        //background(color(50, 150, 200));
      }
    }
