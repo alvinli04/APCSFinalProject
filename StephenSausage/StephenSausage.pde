@@ -23,7 +23,7 @@ void setup(){
   
   // Images
   sprites = new PImage[24];
-  sprites[0] = loadImage("Water.PNG");
+  sprites[0] = loadImage("Water.png");
   sprites[1] = loadImage("Sausage1.png");
   sprites[2] = loadImage("BurntSausage1.png");
   sprites[3] = loadImage("Grass.png");
