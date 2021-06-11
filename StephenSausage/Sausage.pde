@@ -3,6 +3,9 @@ public class Sausage{
  public int y1; 
  public int x2;
  public int y2;
+ public int prevx1, prevx2, prevy1, prevy2;
+ 
+ public int anim_cnt;
  //corresponding to the piece at x1, y1
  public boolean s11cooked;
  public boolean s12cooked;
@@ -32,46 +35,63 @@ public class Sausage{
   } else {
     orientation=false;
   }
+  anim_cnt = 0;
  }
  
  public void moveUp() {
+   prevx1 = x1;
+   prevx2 = x2;
+   prevy1 = y1;
+   prevy2 = y2;
    y1--;
    y2--;
    movedUp = true;
    if (orientation==false) {
-     //println("r");
      side = !side;
    }
+   anim_cnt = 1;
  }
  
  public void moveDown() {
+   prevx1 = x1;
+   prevx2 = x2;
+   prevy1 = y1;
+   prevy2 = y2;
    y1++;
    y2++;
    movedDown = true;
    if (orientation==false) {  
-     //println("r");
      side = !side;
    }
+   anim_cnt = 1;
  }
  
  public void moveLeft() {
+   prevx1 = x1;
+   prevx2 = x2;
+   prevy1 = y1;
+   prevy2 = y2;
    x1--;
    x2--;
    movedLeft = true;
    if (orientation==true) {
-     //println("r");
      side = !side;
    }
+   anim_cnt = 1;
  }
  
  public void moveRight() {
+   prevx1 = x1;
+   prevx2 = x2;
+   prevy1 = y1;
+   prevy2 = y2;
    x1++;
    x2++;
    movedRight = true;
    if (orientation==true) {  
-     //println("r");
      side = !side;
    }
+   anim_cnt = 1;
  }
  
  public boolean cooked(){

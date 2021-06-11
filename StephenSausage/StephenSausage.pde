@@ -5,21 +5,25 @@ int[][] arr3 = new int[10][10];
 public static final int tile_side = 50;
 public static final int map_side = 1000;
 public int last_pressed = 0;
-Stephen stephen, stephen2, stephen3;
+Stephen stephen, stephen2, stephen3, stephentest;
 ArrayList<Sausage> sausages, sausages2, sausages3;
-Map mp1, mp2, mp3;
-public boolean lost, won, gameStart=false, levelOne=false, levelTwo=false, levelThree=false;
+Map mp1, mp2, mp3, test;
+public boolean lost, won, gameStart=false, levelOne=false, levelTwo=false, levelThree=false, testLevel = false;
 PImage sprites[];
+
+public static final int move_time = 150;
+public int anim_time = 1;
 
 void setup(){
   clear();
   size(1000,800);
+  frameRate(120);
   lost = false;
   won = false;
   
   // Images
-  sprites = new PImage[23];
-  sprites[0] = loadImage("Water.png");
+  sprites = new PImage[24];
+  sprites[0] = loadImage("Water.PNG");
   sprites[1] = loadImage("Sausage1.png");
   sprites[2] = loadImage("BurntSausage1.png");
   sprites[3] = loadImage("Grass.png");
@@ -42,6 +46,7 @@ void setup(){
   sprites[20] = loadImage("HorizontalCookedSausage2.png");
   sprites[21] = loadImage("HorizontalBurntSausage1.png");
   sprites[22] = loadImage("HorizontalBurntSausage2.png");
+  sprites[23] = loadImage("watertile.jpg");
   
   
   // Initialization of Level 1
@@ -119,20 +124,35 @@ void setup(){
   // Initialization of Map
   mp3 = new Map(arr3, stephen3, sausages3);
   
+  
+  stephentest = new Stephen(5,5,0);
+  test = new Map(new int[20][20], stephentest, new ArrayList<Sausage>());
+  
+  for (int i=0; i<test.board.length; i++)
+    for(int j=0; j<test.board[0].length; j++)
+      if(i < 3 || i > test.board.length - 3 || j < 3 || j > test.board[0].length - 3)
+        test.board[i][j] = -1;
+  
+  test.sausages.add(new Sausage(8,9,9,9));
+  
+  image(sprites[0],0,0,1000,800);
 }
 
 void draw(){
+  
   if (!gameStart) {
     startScreen();
   } else if (gameStart && levelOne) {
-    // Display Map
     mp1.show();
   } else if (gameStart && levelTwo) {
     mp2.show();
   } else if (gameStart && levelThree) {
     mp3.show();
+  } else if (gameStart && testLevel){
+   test.show(); 
+   //text(frameRate, 50, 50);
   }
-
+  //println(frameRate);
     if (lost)
       loseText();
     if (won)
@@ -147,7 +167,7 @@ void keyPressed(){
           mp1.forkTouchSausage(stephen,key) && 
           mp1.stephenTouchSausage(stephen,key) && 
           mp1.sausageTouchSausage(stephen,key) &&
-          millis() - last_pressed > 200 &&
+          millis() - last_pressed > move_time &&
           !lost && !won) {
             stephen.move(key);
             int k = mp1.updateSausages();
@@ -160,7 +180,7 @@ void keyPressed(){
           mp2.forkTouchSausage(stephen2,key) && 
           mp2.stephenTouchSausage(stephen2,key) && 
           mp2.sausageTouchSausage(stephen2,key) &&
-          millis() - last_pressed > 200 &&
+          millis() - last_pressed > move_time &&
           !lost && !won) {
             stephen2.move(key);
             int k = mp2.updateSausages();
@@ -173,12 +193,22 @@ void keyPressed(){
           mp3.forkTouchSausage(stephen3,key) && 
           mp3.stephenTouchSausage(stephen3,key) && 
           mp3.sausageTouchSausage(stephen3,key) &&
-          millis() - last_pressed > 200 &&
+          millis() - last_pressed > move_time &&
           !lost && !won) {
             stephen3.move(key);
             int k = mp3.updateSausages();
             lost = (k==-1);
             won = (k==1);
+            last_pressed = millis();
+      }
+    } else if (testLevel) {
+      if (test.noBarriers(stephentest, key) && 
+          test.forkTouchSausage(stephentest,key) && 
+          test.stephenTouchSausage(stephentest,key) && 
+          test.sausageTouchSausage(stephentest,key) &&
+          millis() - last_pressed > move_time &&
+          !lost && !won) {
+            stephentest.move(key);
             last_pressed = millis();
       }
     }
@@ -194,11 +224,18 @@ void keyPressed(){
       lost = false;
       won = false;
     }
+    
   }
-}
-
-void keyHeld(){
   
+  if(key == ']') {
+     if(!gameStart) {
+       println("testing started");
+       gameStart = true;
+       testLevel = true;
+       image(sprites[0],0,0,1000,800);
+       //background(color(50, 150, 200));
+     }
+   }
 }
 
 void mousePressed() {

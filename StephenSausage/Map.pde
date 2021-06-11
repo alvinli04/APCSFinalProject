@@ -1,4 +1,4 @@
-public class Map { //<>// //<>// //<>//
+public class Map { //<>// //<>// //<>// //<>//
 
   public int[][] board; //-1 is water, 0 is walkable, 1 is grill, 2 is rock
   private Stephen stephen;
@@ -19,6 +19,7 @@ public class Map { //<>// //<>// //<>//
    * Checks if Stephen is able to move in the direction c
    */
   public boolean noBarriers (Stephen stephen, char c) {
+    if (stephen.anim_cnt != 0) return false;
     if (c=='w') {
       return stephen.y > 0 && 
              board[stephen.y-1][stephen.x] != -1 && 
@@ -225,10 +226,10 @@ public class Map { //<>// //<>// //<>//
         else if (stephen.forky < s.y1 && stephen.forky < s.y2) {
          if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
             return false;
-          s.moveDown(); //<>// //<>//
+          s.moveDown(); //<>// //<>// //<>//
         }
       }
-    } //<>// //<>//
+    } //<>// //<>// //<>//
     return true;
   }
   
@@ -395,8 +396,6 @@ public class Map { //<>// //<>// //<>//
    * Display the map and its elements
    */
   public void show() {
-    image(sprites[0],0,0,1000,800);
-    
     if (stephen.burning) stephen.goback();
     if (board[stephen.y][stephen.x] == 1) stephen.burning = true;
     
@@ -416,80 +415,152 @@ public class Map { //<>// //<>// //<>//
         } else if (board[i][j] == 1) {
           image(sprites[4],x,y,tile_side,tile_side);
           rect(x, y, tile_side, tile_side);
+        } else if (board[i][j] == -1){
+          image(sprites[23],x,y,tile_side,tile_side);
         }
+        
+        //show stephen
+        
+        float movey = tile_side * (0.5 + lerp(stephen.prevy, stephen.y, (float)(millis() - last_pressed)/move_time)) + 120;
+        float movex = tile_side * (0.5 + lerp(stephen.prevx, stephen.x, (float)(millis() - last_pressed)/move_time)) + 250;
+        float fmovey = tile_side * (0.5 + lerp(stephen.prevforky, stephen.forky, (float)(millis() - last_pressed)/move_time)) + 120;
+        float fmovex = tile_side * (0.5 + lerp(stephen.prevforkx, stephen.forkx, (float)(millis() - last_pressed)/move_time)) + 250;
+        
         if (i==stephen.y && j==stephen.x) {
           switch(stephen.orientation) {
             case 0:
-              image(sprites[10],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[10],movex,movey,tile_side,tile_side);
+              }
+              else image(sprites[10],x,y,tile_side,tile_side);
               break;
             case 1:
-              image(sprites[9],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[9],movex,movey,tile_side,tile_side);
+              }
+              else image(sprites[9],x,y,tile_side,tile_side);
                break;
             case 2:
-              image(sprites[8],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[8],movex,movey,tile_side,tile_side);
+              }
+              else image(sprites[8],x,y,tile_side,tile_side);
               break;
             case 3:
-              image(sprites[7],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[7],movex,movey,tile_side,tile_side);
+              }
+              else image(sprites[7],x,y,tile_side,tile_side);
               break;
           }
         } else if (i==stephen.forky && j==stephen.forkx) {
           switch(stephen.orientation) {
             case 0:
-              image(sprites[14],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[14],fmovex,fmovey,tile_side,tile_side);
+              } else {
+                image(sprites[14],x,y,tile_side,tile_side);
+              }
               break;
             case 1:
-              image(sprites[13],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[13],fmovex,fmovey,tile_side,tile_side);
+              } else {
+                image(sprites[13],x,y,tile_side,tile_side);
+              }
                break;
             case 2:
-              image(sprites[12],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[12],fmovex,fmovey,tile_side,tile_side);
+              } else { 
+                image(sprites[12],x,y,tile_side,tile_side);
+              }
               break;
             case 3:
-              image(sprites[11],x,y,tile_side,tile_side);
+              if (stephen.anim_cnt > 0){
+                image(sprites[11],fmovex,fmovey,tile_side,tile_side);
+              } else { 
+                image(sprites[11],x,y,tile_side,tile_side);
+              }
               break;
           }
         } 
+        
+        if (millis() - last_pressed >= move_time) stephen.anim_cnt = 0;
+        
         //show sausages
         for(Sausage s : sausages) {
+          
+         float smovey1 = tile_side * (0.5 + lerp(s.prevy1, s.y1, (float)(millis() - last_pressed)/move_time)) + 120;
+         float smovex1 = tile_side * (0.5 + lerp(s.prevx1, s.x1, (float)(millis() - last_pressed)/move_time)) + 250;
+         float smovey2 = tile_side * (0.5 + lerp(s.prevy2, s.y2, (float)(millis() - last_pressed)/move_time)) + 120;
+         float smovex2 = tile_side * (0.5 + lerp(s.prevx2, s.x2, (float)(millis() - last_pressed)/move_time)) + 250;
+          
          if (i==s.y1 && j==s.x1 && !s.drowned && s.x1==s.x2){
-           if(s.s12cooked && !s.s11cooked)
-               image(sprites[15],x,y,tile_side,tile_side);
-             else if (!s.s12cooked && !s.s11cooked)
-               image(sprites[1],x,y,tile_side,tile_side);
-             else if (!s.s12cooked && s.s11cooked) 
-               image(sprites[15],x,y,tile_side,tile_side);
-             else 
+           if(s.s12cooked && !s.s11cooked) {
+               if (s.anim_cnt > 0) image(sprites[15],smovex1,smovey1,tile_side,tile_side);
+               else image(sprites[15],x,y,tile_side,tile_side);
+           } else if (!s.s12cooked && !s.s11cooked) {
+               if (s.anim_cnt > 0) image(sprites[1],smovex1,smovey1,tile_side,tile_side);
+               else image(sprites[1],x,y,tile_side,tile_side);
+           } else if (!s.s12cooked && s.s11cooked) {
+             if (s.anim_cnt > 0) image(sprites[15],smovex1,smovey1,tile_side,tile_side);
+             else image(sprites[15],x,y,tile_side,tile_side);
+           } else{ 
+               if (s.anim_cnt > 0) image(sprites[2],smovex1,smovey1,tile_side,tile_side);
                image(sprites[2],x,y,tile_side,tile_side);
+           }
          }
          if (i==s.y2 && j==s.x2 && !s.drowned && s.x1==s.x2) {
-           if(s.s22cooked && !s.s21cooked)
-               image(sprites[16],x,y,tile_side,tile_side);
-             else if (!s.s22cooked && !s.s21cooked)
-               image(sprites[5],x,y,tile_side,tile_side);
-             else if (!s.s22cooked && s.s21cooked)
-               image(sprites[16],x,y,tile_side,tile_side);
-             else 
+           if(s.s22cooked && !s.s21cooked){
+               if (s.anim_cnt > 0) image(sprites[16],smovex2,smovey2,tile_side,tile_side);
+               else image(sprites[16],x,y,tile_side,tile_side);
+           }  else if (!s.s22cooked && !s.s21cooked) {
+               if (s.anim_cnt > 0) image(sprites[5],smovex2,smovey2,tile_side,tile_side);
+               else image(sprites[5],x,y,tile_side,tile_side);
+           } else if (!s.s22cooked && s.s21cooked) {
+               if (s.anim_cnt > 0) image(sprites[16],smovex2,smovey2,tile_side,tile_side);
+               else image(sprites[16],x,y,tile_side,tile_side);
+           }  else {
+               if (s.anim_cnt > 0) image(sprites[6],smovex2,smovey2,tile_side,tile_side);
                image(sprites[6],x,y,tile_side,tile_side);
+           }
          }
+         
          if (i==s.y1 && j==s.x1 && !s.drowned && s.y1==s.y2){
-           if(s.s12cooked && !s.s11cooked)
-               image(sprites[19],x,y,tile_side,tile_side);
-             else if (!s.s12cooked && !s.s11cooked)
-               image(sprites[17],x,y,tile_side,tile_side);
-             else if (!s.s12cooked && s.s11cooked) 
-               image(sprites[19],x,y,tile_side,tile_side);
-             else 
-               image(sprites[21],x,y,tile_side,tile_side);
+           if(s.s12cooked && !s.s11cooked) {
+               if (s.anim_cnt > 0) image(sprites[19],smovex1,smovey1,tile_side,tile_side);
+               else image(sprites[19],x,y,tile_side,tile_side);
+           } else if (!s.s12cooked && !s.s11cooked) {
+               if (s.anim_cnt > 0) image(sprites[17],smovex1,smovey1,tile_side,tile_side);
+               else image(sprites[17],x,y,tile_side,tile_side);
+           } else if (!s.s12cooked && s.s11cooked) {
+               if (s.anim_cnt > 0) image(sprites[19],smovex1,smovey1,tile_side,tile_side);
+               else image(sprites[19],x,y,tile_side,tile_side);
+           }  else {
+               if (s.anim_cnt > 0) image(sprites[21],smovex1,smovey1,tile_side,tile_side);
+               else image(sprites[21],x,y,tile_side,tile_side);
+           }  
          }
+         
          if (i==s.y2 && j==s.x2 && !s.drowned && s.y1==s.y2) {
-           if(s.s22cooked && !s.s21cooked)
-               image(sprites[20],x,y,tile_side,tile_side);
-             else if (!s.s22cooked && !s.s21cooked)
-               image(sprites[18],x,y,tile_side,tile_side);
-             else if (!s.s22cooked && s.s21cooked)
-               image(sprites[20],x,y,tile_side,tile_side);
-             else 
-               image(sprites[22],x,y,tile_side,tile_side);
+           if(s.s22cooked && !s.s21cooked) {
+               if (s.anim_cnt > 0) image(sprites[20],smovex2,smovey2,tile_side,tile_side);
+               else image(sprites[20],x,y,tile_side,tile_side);
+           } else if (!s.s22cooked && !s.s21cooked) {
+               if (s.anim_cnt > 0) image(sprites[18],smovex2,smovey2,tile_side,tile_side);
+               else image(sprites[18],x,y,tile_side,tile_side);
+           } else if (!s.s22cooked && s.s21cooked) {
+               if (s.anim_cnt > 0) image(sprites[20],smovex2,smovey2,tile_side,tile_side);
+               else image(sprites[20],x,y,tile_side,tile_side);
+           } else {
+               if (s.anim_cnt > 0) image(sprites[22],smovex2,smovey2,tile_side,tile_side);
+               else image(sprites[22],x,y,tile_side,tile_side);
+           }  
          }
+         
+         if (millis() - last_pressed >= move_time) s.anim_cnt = 0;
+         
         }
       }
     }
