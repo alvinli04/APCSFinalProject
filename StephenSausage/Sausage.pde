@@ -16,9 +16,9 @@ public class Sausage{
  public boolean orientation;
  public boolean drowned = false;
  public boolean movedLeft = false;
-  public boolean movedRight = false;
-   public boolean movedUp = false;
-    public boolean movedDown = false;
+ public boolean movedRight = false;
+ public boolean movedUp = false;
+ public boolean movedDown = false;
  
  public Sausage(int x1, int y1, int x2, int y2){ //must be next to each other
   this.x1 = x1;

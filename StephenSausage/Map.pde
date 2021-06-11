@@ -1,18 +1,19 @@
-public class Map { //<>// //<>// //<>// //<>// //<>//
+public class Map { //<>// //<>// //<>// //<>// //<>// //<>//
 
   public int[][] board; //-1 is water, 0 is walkable, 1 is grill, 2 is rock
   private Stephen stephen;
   public ArrayList<Sausage> sausages;
+  public ArrayList<SoundFile> soundfiles;
   private PImage img;
-  
   /**
    * Constructor for the Map class 
    * Has access to Stephen and the sausages 
    */
-  public Map(int[][] board, Stephen stephen, ArrayList<Sausage> sausages) {
+  public Map(int[][] board, Stephen stephen, ArrayList<Sausage> sausages, ArrayList<SoundFile> soundfiles) {
     this.board = board;
     this.stephen = stephen;
     this.sausages = sausages;
+    this.soundfiles = soundfiles;
   }
   
   /**
@@ -225,10 +226,10 @@ public class Map { //<>// //<>// //<>// //<>// //<>//
         // Fork is up
         else if (stephen.forky < s.y1 && stephen.forky < s.y2) {
          if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
-            return false;
+            return false; //<>//
           s.moveDown(); //<>// //<>// //<>// //<>//
         }
-      }
+      } //<>//
     } //<>// //<>// //<>// //<>//
     return true;
   }
@@ -357,18 +358,23 @@ public class Map { //<>// //<>// //<>// //<>// //<>//
     for(Sausage s : sausages){
       //check if in the water
       if (board[s.y1][s.x1] == -1 && board[s.y2][s.x2] == -1){
-         s.drowned = true; 
-        return -1;
+         s.drowned = true;
+         soundfiles.get(1).play();
+         return -1;
       }
       if (board[s.y1][s.x1] == 1 && (s.movedLeft||s.movedRight||s.movedUp||s.movedDown)){
        if(s.side){
          if (s.s11cooked)
            return -1;
          s.s11cooked = true;
+         soundfiles.get(2).amp(0.4);
+         soundfiles.get(2).play();
        } else {
          if (s.s12cooked)
            return -1;
          s.s12cooked = true;
+         soundfiles.get(2).amp(0.4);
+         soundfiles.get(2).play();
        }
       }
       if(board[s.y2][s.x2] == 1 && (s.movedLeft||s.movedRight||s.movedUp||s.movedDown)){
@@ -376,10 +382,14 @@ public class Map { //<>// //<>// //<>// //<>// //<>//
           if (s.s21cooked)
             return -1;
           s.s21cooked = true;
+          soundfiles.get(2).amp(0.4);
+          soundfiles.get(2).play();
         } else {
           if (s.s22cooked)
             return -1;
           s.s22cooked = true;
+          soundfiles.get(2).amp(0.4);
+          soundfiles.get(2).play();
         }
       }
       if(!s.cooked()) allcooked = false;
@@ -418,7 +428,12 @@ public class Map { //<>// //<>// //<>// //<>// //<>//
         } else if (board[i][j] == -1){
           image(sprites[23],x,y,tile_side,tile_side);
         }
-        
+      }
+    }
+    for (int i=0; i<board.length; i++) {
+      for (int j=0; j<board[0].length; j++) {
+        float y = tile_side*(i+0.5) + 120;
+        float x = tile_side*(j+0.5) + 250;
         //show stephen
         
         float movey = tile_side * (0.5 + lerp(stephen.prevy, stephen.y, (float)(millis() - last_pressed)/move_time)) + 120;
