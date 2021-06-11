@@ -428,7 +428,12 @@ public class Map { //<>// //<>// //<>// //<>// //<>// //<>//
         } else if (board[i][j] == -1){
           image(sprites[23],x,y,tile_side,tile_side);
         }
-        
+      }
+    }
+    for (int i=0; i<board.length; i++) {
+      for (int j=0; j<board[0].length; j++) {
+        float y = tile_side*(i+0.5) + 120;
+        float x = tile_side*(j+0.5) + 250;
         //show stephen
         
         float movey = tile_side * (0.5 + lerp(stephen.prevy, stephen.y, (float)(millis() - last_pressed)/move_time)) + 120;
