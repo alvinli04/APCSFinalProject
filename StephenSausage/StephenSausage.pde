@@ -16,8 +16,9 @@ PImage sprites[];
 public static final int move_time = 150;
 public int anim_time = 1;
 
-SoundFile file,file2; 
-String audioName1 = "data/win.mp3", audioName2 = "data/splash.mp3";
+ArrayList<SoundFile> soundfiles=new ArrayList<SoundFile>();
+SoundFile file,file2,file3; 
+String audioName1 = "data/win.mp3", audioName2 = "data/splash.mp3", audioName3 = "data/cookingnoise.mp3";
 String path;
 
 void setup(){
@@ -31,8 +32,11 @@ void setup(){
   file = new SoundFile(this, path);
   path = sketchPath(audioName2);
   file2 = new SoundFile(this, path);
-  //file.amp(0.25);
-  //file.loop();
+  path = sketchPath(audioName3);
+  file3 = new SoundFile(this, path);
+  soundfiles.add(file);
+  soundfiles.add(file2);
+  soundfiles.add(file3);
   
   // Images
   sprites = new PImage[24];
@@ -84,7 +88,7 @@ void setup(){
   sausages.add(new Sausage(6,4,6,5));
   //sausages.add(new Sausage(3,5,3,6));
   // Initialization of Map
-  mp1 = new Map(arr1, stephen, sausages);
+  mp1 = new Map(arr1, stephen, sausages,soundfiles);
   
   
   // Initialization of Level 2
@@ -109,7 +113,7 @@ void setup(){
   sausages2.add(new Sausage(4,4,4,5));
   //sausages.add(new Sausage(3,5,3,6));
   // Initialization of Map
-  mp2 = new Map(arr2, stephen2, sausages2);
+  mp2 = new Map(arr2, stephen2, sausages2,soundfiles);
   
   
   // Initialization of Level 3
@@ -135,11 +139,11 @@ void setup(){
   sausages3.add(new Sausage(5,4,5,5));
   //sausages.add(new Sausage(3,5,3,6));
   // Initialization of Map
-  mp3 = new Map(arr3, stephen3, sausages3);
+  mp3 = new Map(arr3, stephen3, sausages3,soundfiles);
   
   
   stephentest = new Stephen(5,5,0);
-  test = new Map(new int[20][20], stephentest, new ArrayList<Sausage>());
+  test = new Map(new int[20][20], stephentest, new ArrayList<Sausage>(),soundfiles);
   
   for (int i=0; i<test.board.length; i++)
     for(int j=0; j<test.board[0].length; j++)
@@ -286,7 +290,6 @@ void keyPressed(){
       lost = false;
       won = false;
     }
-    
   }
   
   if(key == ']') {
