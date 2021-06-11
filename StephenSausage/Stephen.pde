@@ -2,7 +2,7 @@ public class Stephen{
   public int x, y, orientation, forkx, forky;
   public boolean burning;
   private int prevx, prevy, prevforkx, prevforky;
-  public int anim_cnt;
+  public float anim_cnt;
 
   private final int[][] orientations = {
    {0,1}, //right

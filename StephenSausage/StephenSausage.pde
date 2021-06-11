@@ -14,7 +14,7 @@ public boolean lost, won, gameStart=false, levelOne=false, levelTwo=false, level
 PImage sprites[];
 
 public static final int move_time = 150;
-public int anim_time = 300 ;
+public float anim_time = 0.01;
 
 SoundFile file,file2; 
 String audioName1 = "data/win.mp3", audioName2 = "data/splash.mp3";
@@ -31,11 +31,11 @@ void setup(){
   file = new SoundFile(this, path);
   path = sketchPath(audioName2);
   file2 = new SoundFile(this, path);
-  /*file.amp(0.25);
-  file.loop();*/
-    
+  //file.amp(0.25);
+  //file.loop();
+  
   // Images
-  sprites = new PImage[23];
+  sprites = new PImage[24];
   sprites[0] = loadImage("Water.png");
   sprites[1] = loadImage("Sausage1.png");
   sprites[2] = loadImage("BurntSausage1.png");
@@ -59,6 +59,7 @@ void setup(){
   sprites[20] = loadImage("HorizontalCookedSausage2.png");
   sprites[21] = loadImage("HorizontalBurntSausage1.png");
   sprites[22] = loadImage("HorizontalBurntSausage2.png");
+  sprites[23] = loadImage("watertile.jpg");
   
   
   // Initialization of Level 1
@@ -137,13 +138,21 @@ void setup(){
   mp3 = new Map(arr3, stephen3, sausages3);
   
   
-  stephentest = new Stephen(2,2,0);
+  stephentest = new Stephen(5,5,0);
   test = new Map(new int[20][20], stephentest, new ArrayList<Sausage>());
-  //image(sprites[0],0,0,1000,800);
+  
+  for (int i=0; i<test.board.length; i++)
+    for(int j=0; j<test.board[0].length; j++)
+      if(i < 3 || i > test.board.length - 3 || j < 3 || j > test.board[0].length - 3)
+        test.board[i][j] = 0;
+  
+  test.sausages.add(new Sausage(8,9,9,9));
+  
+  image(sprites[0],0,0,1000,800);
 }
 
 void draw(){
-  if (!gameStart && (frameCount%60==0||frameCount==1)) {
+  if (!gameStart) {
     startScreen();
   } else if (gameStart && levelOne) {
     mp1.show();
@@ -153,16 +162,14 @@ void draw(){
     mp3.show();
   } else if (gameStart && testLevel){
    test.show(); 
-   //background(255);
+   //text(frameRate, 50, 50);
   }
   println(frameRate);
-  
-  if (lost) {
-    loseText();
-  }
-  if (won) {
+    if (lost)
+      loseText();
+    if (won)
       winText();
-  }    
+  
   if (!gameStart) {
     textAlign(CENTER);
   fill(color(0));
@@ -229,8 +236,6 @@ void keyPressed(){
             lost = (k==-1);
             won = (k==1);
             last_pressed = millis();
-            image(sprites[0],0,0,1000,800);
-            mp1.show();
       }
     } else if (levelTwo) {
       if (mp2.noBarriers(stephen2, key) && 
@@ -244,8 +249,6 @@ void keyPressed(){
             lost = (k==-1);
             won = (k==1);
             last_pressed = millis();
-            image(sprites[0],0,0,1000,800);
-            mp2.show();
       }
     } else if (levelThree) {
       if (mp3.noBarriers(stephen3, key) && 
@@ -259,8 +262,6 @@ void keyPressed(){
             lost = (k==-1);
             won = (k==1);
             last_pressed = millis();
-            image(sprites[0],0,0,1000,800);
-            mp3.show();
       }
     } else if (testLevel) {
       if (test.noBarriers(stephentest, key) && 
@@ -271,14 +272,10 @@ void keyPressed(){
           !lost && !won) {
             stephentest.move(key);
             last_pressed = millis();
-            image(sprites[0],0,0,1000,800);
-            test.show();
       }
     }
     if (key == 'r') {
-      //file.pause();
       setup();
-      image(sprites[0],0,0,1000,800);
     }
     if (key == ESC) {
       key=0;
@@ -288,18 +285,11 @@ void keyPressed(){
       levelThree = false;
       lost = false;
       won = false;
-      frameCount = 0;
-      setup();
     }
-    int k1 = mp1.updateSausages();
-    int k2 = mp2.updateSausages();
-    int k3 = mp3.updateSausages();
-    if(k1==1 || k2==1 || k3==1) file.play();
-    if(k1==-1 || k2==-1 || k3==-1) file2.play();
     
   }
   
-  if(key == 'g') {
+  if(key == ']') {
      if(!gameStart) {
        println("testing started");
        gameStart = true;
@@ -365,8 +355,6 @@ void winText(){
 
 void startScreen() {
   if (!gameStart) {
- 
-  
    PImage startScreen = loadImage("startScreen.jpeg");
    image(startScreen, 0, 0, 1000, 800);
    

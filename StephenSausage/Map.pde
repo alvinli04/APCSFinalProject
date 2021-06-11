@@ -1,4 +1,4 @@
-public class Map { //<>// //<>// //<>//
+public class Map { //<>// //<>// //<>// //<>// //<>//
 
   public int[][] board; //-1 is water, 0 is walkable, 1 is grill, 2 is rock
   private Stephen stephen;
@@ -226,10 +226,10 @@ public class Map { //<>// //<>// //<>//
         else if (stephen.forky < s.y1 && stephen.forky < s.y2) {
          if (board[s.y1+1][s.x1] == 2 || board[s.y2+1][s.x2] == 2)
             return false;
-          s.moveDown(); //<>// //<>//
+          s.moveDown(); //<>// //<>// //<>// //<>//
         }
       }
-    } //<>// //<>//
+    } //<>// //<>// //<>// //<>//
     return true;
   }
   
@@ -415,14 +415,16 @@ public class Map { //<>// //<>// //<>//
         } else if (board[i][j] == 1) {
           image(sprites[4],x,y,tile_side,tile_side);
           rect(x, y, tile_side, tile_side);
+        } else if (board[i][j] == -1){
+          image(sprites[23],x,y,tile_side,tile_side);
         }
         
         //show stephen
         
-        float movey = tile_side * (0.5 + stephen.prevy + (stephen.y - stephen.prevy) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 120;
-        float movex = tile_side * (0.5 + stephen.prevx + (stephen.x - stephen.prevx) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 250;
-        float fmovey = y;//tile_side * (0.5 + stephen.prevforky + (stephen.forky - stephen.prevforky) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 120;
-        float fmovex = x;//tile_side * (0.5 + stephen.prevforkx + (stephen.forkx - stephen.prevforkx) * (float)(anim_time - stephen.anim_cnt)/anim_time) + 250;
+        float movey = tile_side * (0.5 + lerp(stephen.prevy, stephen.y, (float)(millis() - last_pressed)/move_time)) + 120;
+        float movex = tile_side * (0.5 + lerp(stephen.prevx, stephen.x, (float)(millis() - last_pressed)/move_time)) + 250;
+        float fmovey = tile_side * (0.5 + lerp(stephen.prevforky, stephen.forky, (float)(millis() - last_pressed)/move_time)) + 120;
+        float fmovex = tile_side * (0.5 + lerp(stephen.prevforkx, stephen.forkx, (float)(millis() - last_pressed)/move_time)) + 250;
         
         if (i==stephen.y && j==stephen.x) {
           switch(stephen.orientation) {
@@ -484,50 +486,81 @@ public class Map { //<>// //<>// //<>//
           }
         } 
         
-        if (stephen.anim_cnt > 0) --stephen.anim_cnt;
+        if (millis() - last_pressed >= move_time) stephen.anim_cnt = 0;
         
         //show sausages
         for(Sausage s : sausages) {
+          
+         float smovey1 = tile_side * (0.5 + lerp(s.prevy1, s.y1, (float)(millis() - last_pressed)/move_time)) + 120;
+         float smovex1 = tile_side * (0.5 + lerp(s.prevx1, s.x1, (float)(millis() - last_pressed)/move_time)) + 250;
+         float smovey2 = tile_side * (0.5 + lerp(s.prevy2, s.y2, (float)(millis() - last_pressed)/move_time)) + 120;
+         float smovex2 = tile_side * (0.5 + lerp(s.prevx2, s.x2, (float)(millis() - last_pressed)/move_time)) + 250;
+          
          if (i==s.y1 && j==s.x1 && !s.drowned && s.x1==s.x2){
-           if(s.s12cooked && !s.s11cooked)
-               image(sprites[15],x,y,tile_side,tile_side);
-             else if (!s.s12cooked && !s.s11cooked)
-               image(sprites[1],x,y,tile_side,tile_side);
-             else if (!s.s12cooked && s.s11cooked) 
-               image(sprites[15],x,y,tile_side,tile_side);
-             else 
+           if(s.s12cooked && !s.s11cooked) {
+               if (s.anim_cnt > 0) image(sprites[15],smovex1,smovey1,tile_side,tile_side);
+               else image(sprites[15],x,y,tile_side,tile_side);
+           } else if (!s.s12cooked && !s.s11cooked) {
+               if (s.anim_cnt > 0) image(sprites[1],smovex1,smovey1,tile_side,tile_side);
+               else image(sprites[1],x,y,tile_side,tile_side);
+           } else if (!s.s12cooked && s.s11cooked) {
+             if (s.anim_cnt > 0) image(sprites[15],smovex1,smovey1,tile_side,tile_side);
+             else image(sprites[15],x,y,tile_side,tile_side);
+           } else{ 
+               if (s.anim_cnt > 0) image(sprites[2],smovex1,smovey1,tile_side,tile_side);
                image(sprites[2],x,y,tile_side,tile_side);
+           }
          }
          if (i==s.y2 && j==s.x2 && !s.drowned && s.x1==s.x2) {
-           if(s.s22cooked && !s.s21cooked)
-               image(sprites[16],x,y,tile_side,tile_side);
-             else if (!s.s22cooked && !s.s21cooked)
-               image(sprites[5],x,y,tile_side,tile_side);
-             else if (!s.s22cooked && s.s21cooked)
-               image(sprites[16],x,y,tile_side,tile_side);
-             else 
+           if(s.s22cooked && !s.s21cooked){
+               if (s.anim_cnt > 0) image(sprites[16],smovex2,smovey2,tile_side,tile_side);
+               else image(sprites[16],x,y,tile_side,tile_side);
+           }  else if (!s.s22cooked && !s.s21cooked) {
+               if (s.anim_cnt > 0) image(sprites[5],smovex2,smovey2,tile_side,tile_side);
+               else image(sprites[5],x,y,tile_side,tile_side);
+           } else if (!s.s22cooked && s.s21cooked) {
+               if (s.anim_cnt > 0) image(sprites[16],smovex2,smovey2,tile_side,tile_side);
+               else image(sprites[16],x,y,tile_side,tile_side);
+           }  else {
+               if (s.anim_cnt > 0) image(sprites[6],smovex2,smovey2,tile_side,tile_side);
                image(sprites[6],x,y,tile_side,tile_side);
+           }
          }
+         
          if (i==s.y1 && j==s.x1 && !s.drowned && s.y1==s.y2){
-           if(s.s12cooked && !s.s11cooked)
-               image(sprites[19],x,y,tile_side,tile_side);
-             else if (!s.s12cooked && !s.s11cooked)
-               image(sprites[17],x,y,tile_side,tile_side);
-             else if (!s.s12cooked && s.s11cooked) 
-               image(sprites[19],x,y,tile_side,tile_side);
-             else 
-               image(sprites[21],x,y,tile_side,tile_side);
+           if(s.s12cooked && !s.s11cooked) {
+               if (s.anim_cnt > 0) image(sprites[19],smovex1,smovey1,tile_side,tile_side);
+               else image(sprites[19],x,y,tile_side,tile_side);
+           } else if (!s.s12cooked && !s.s11cooked) {
+               if (s.anim_cnt > 0) image(sprites[17],smovex1,smovey1,tile_side,tile_side);
+               else image(sprites[17],x,y,tile_side,tile_side);
+           } else if (!s.s12cooked && s.s11cooked) {
+               if (s.anim_cnt > 0) image(sprites[19],smovex1,smovey1,tile_side,tile_side);
+               else image(sprites[19],x,y,tile_side,tile_side);
+           }  else {
+               if (s.anim_cnt > 0) image(sprites[21],smovex1,smovey1,tile_side,tile_side);
+               else image(sprites[21],x,y,tile_side,tile_side);
+           }  
          }
+         
          if (i==s.y2 && j==s.x2 && !s.drowned && s.y1==s.y2) {
-           if(s.s22cooked && !s.s21cooked)
-               image(sprites[20],x,y,tile_side,tile_side);
-             else if (!s.s22cooked && !s.s21cooked)
-               image(sprites[18],x,y,tile_side,tile_side);
-             else if (!s.s22cooked && s.s21cooked)
-               image(sprites[20],x,y,tile_side,tile_side);
-             else 
-               image(sprites[22],x,y,tile_side,tile_side);
+           if(s.s22cooked && !s.s21cooked) {
+               if (s.anim_cnt > 0) image(sprites[20],smovex2,smovey2,tile_side,tile_side);
+               else image(sprites[20],x,y,tile_side,tile_side);
+           } else if (!s.s22cooked && !s.s21cooked) {
+               if (s.anim_cnt > 0) image(sprites[18],smovex2,smovey2,tile_side,tile_side);
+               else image(sprites[18],x,y,tile_side,tile_side);
+           } else if (!s.s22cooked && s.s21cooked) {
+               if (s.anim_cnt > 0) image(sprites[20],smovex2,smovey2,tile_side,tile_side);
+               else image(sprites[20],x,y,tile_side,tile_side);
+           } else {
+               if (s.anim_cnt > 0) image(sprites[22],smovex2,smovey2,tile_side,tile_side);
+               else image(sprites[22],x,y,tile_side,tile_side);
+           }  
          }
+         
+         if (millis() - last_pressed >= move_time) s.anim_cnt = 0;
+         
         }
       }
     }
