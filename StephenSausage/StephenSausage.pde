@@ -227,7 +227,7 @@ void keyPressed(){
     
   }
   
-  if(key == 'g') {
+  if(key == ']') {
      if(!gameStart) {
        println("testing started");
        gameStart = true;
