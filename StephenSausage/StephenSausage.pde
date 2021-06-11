@@ -17,10 +17,10 @@ public static final int move_time = 150;
 public int anim_time = 1;
 
 ArrayList<SoundFile> soundfiles=new ArrayList<SoundFile>();
-SoundFile file,file2,file3,file4,file5; 
+SoundFile file,file2,file3,file4,file5,file6; 
 String audioName1 = "data/win.mp3", audioName2 = "data/splash.mp3", 
        audioName3 = "data/cookingnoise.mp3", audioName4 = "data/footstep.mp3",
-       audioName5 = "data/rotatesound.mp3";
+       audioName5 = "data/rotatesound.mp3", audioName6 = "data/completion.mp3";
 String path;
 
 void setup(){
@@ -40,12 +40,14 @@ void setup(){
   file4 = new SoundFile(this, path);
   path = sketchPath(audioName5);
   file5 = new SoundFile(this, path);
+  path = sketchPath(audioName6);
+  file6 = new SoundFile(this, path);
   soundfiles.add(file);
   soundfiles.add(file2);
   soundfiles.add(file3);
   soundfiles.add(file4);
   soundfiles.add(file5);
-  
+  soundfiles.add(file6);
   // Images
   sprites = new PImage[24];
   sprites[0] = loadImage("Water.png");
@@ -333,7 +335,12 @@ void keyPressed(){
        image(sprites[0],0,0,1000,800);
        //background(color(50, 150, 200));
      }
-   }
+  }
+  int k1 = mp1.updateSausages();
+  int k2 = mp2.updateSausages();
+  int k3 = mp3.updateSausages();
+  if(k1==1 || k2==1 || k3==1) soundfiles.get(5).play(1.5,0.5);
+
 }
 
 void mousePressed() {
