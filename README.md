@@ -8,11 +8,14 @@ Project Description:
 We will be implementing a 2D version of the tile-based puzzle game Stephen’s Sausage Roll from a bird’s eye view. It’s an orientation-based puzzle game where the player controlled character pushes sausages with their fork to designated grilling spots for, well, grilling. But if the sausage becomes overcooked or falls off the map, the level must be restarted. There are obstacles on each level, and the player must orient themselves and the sausages correctly to cook the sausages and clear the level.
 
 
-Compile/Run Instructions:
+## Compile/Run Instructions:
 
 Mac - Run this project on Processing. Make sure to import the Processing Sound Library (Sketch -> Import Library -> Add Library). Install the official Processing Foundation Sound Library titled "Sound | Provides a simple way to work with audio."
 
 Windows - Run this project on Processing. On the top right corner of the processing window, click Java -> Add Mode -> Libraries and download the official Processing Foundation Sound library. 
+
+## How to Play
+The goal of the game is to push all the sausages onto the grills such that each side of the sausage is grilled once and exactly once. You lose if the sausage is pushed into the water or any side of the sausage is overcooked. Use WASD to move up, left, down and right, but keep in mind that the character can only move in a direction parallel to the direction that the fork is pointing. Use Q and E to rotate the fork counter clockwise and clockwise, respectively. Keep in mind that both the character and the fork are able to push the sausages. Press R to restart a level at any time, and Esc to exit back to the menu.
 
 
 Expanded Proposal:
